@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{0A65243C-F60A-44AF-9ECE-560F893CE348}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>exampleB1</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\Geant_simulation\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">exampleB1.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">exampleB1</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:\Geant_simulation\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">exampleB1.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">exampleB1</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">F:\Geant_simulation\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">exampleB1.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">exampleB1</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">F:\Geant_simulation\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">exampleB1.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">exampleB1</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>F:\Geant_simulation;F:\Geant_simulation\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions> -Zm200 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Program Files\Geant4\include\Geant4;C:\Program Files\Geant4\share\Geant4-10.0.2\examples\basic\B1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>_CONSOLE;_WIN32;WIN32;OS;XPNET;_CRT_SECURE_NO_DEPRECATE;G4_STORE_TRAJECTORY;G4VERBOSE;G4LIB_BUILD_DLL;G4UI_USE;G4VIS_USE;G4INTY_USE_WIN32;G4UI_USE_WIN32;G4VIS_USE_OPENGLWIN32;G4VIS_USE_OPENGL;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_CONSOLE;_WIN32;WIN32;OS;XPNET;_CRT_SECURE_NO_DEPRECATE;G4_STORE_TRAJECTORY;G4VERBOSE;G4LIB_BUILD_DLL;G4UI_USE;G4VIS_USE;G4INTY_USE_WIN32;G4UI_USE_WIN32;G4VIS_USE_OPENGLWIN32;G4VIS_USE_OPENGL;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Program Files\Geant4\include\Geant4;C:\Program Files\Geant4\share\Geant4-10.0.2\examples\basic\B1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Program Files\Geant4\include\Geant4;C:\Program Files\Geant4\share\Geant4-10.0.2\examples\basic\B1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;C:\Program Files\Geant4\lib\G4Tree.lib;C:\Program Files\Geant4\lib\G4FR.lib;C:\Program Files\Geant4\lib\G4GMocren.lib;C:\Program Files\Geant4\lib\G4visHepRep.lib;C:\Program Files\Geant4\lib\G4RayTracer.lib;C:\Program Files\Geant4\lib\G4VRML.lib;C:\Program Files\Geant4\lib\G4OpenGL.lib;C:\Program Files\Geant4\lib\G4gl2ps.lib;C:\Program Files\Geant4\lib\G4vis_management.lib;C:\Program Files\Geant4\lib\G4modeling.lib;C:\Program Files\Geant4\lib\G4interfaces.lib;C:\Program Files\Geant4\lib\G4persistency.lib;C:\Program Files\Geant4\lib\G4analysis.lib;C:\Program Files\Geant4\lib\G4error_propagation.lib;C:\Program Files\Geant4\lib\G4readout.lib;C:\Program Files\Geant4\lib\G4physicslists.lib;C:\Program Files\Geant4\lib\G4run.lib;C:\Program Files\Geant4\lib\G4event.lib;C:\Program Files\Geant4\lib\G4tracking.lib;C:\Program Files\Geant4\lib\G4parmodels.lib;C:\Program Files\Geant4\lib\G4processes.lib;C:\Program Files\Geant4\lib\G4digits_hits.lib;C:\Program Files\Geant4\lib\G4track.lib;C:\Program Files\Geant4\lib\G4particles.lib;C:\Program Files\Geant4\lib\G4geometry.lib;C:\Program Files\Geant4\lib\G4materials.lib;C:\Program Files\Geant4\lib\G4graphics_reps.lib;C:\Program Files\Geant4\lib\G4intercoms.lib;C:\Program Files\Geant4\lib\G4global.lib;C:\Program Files\Geant4\lib\G4clhep.lib;C:\Program Files\Geant4\lib\G4expat.lib;C:\Program Files\Geant4\lib\G4zlib.lib;C:\Program Files\Geant4\lib\G4FR.lib;C:\Program Files\Geant4\lib\G4vis_management.lib;C:\Program Files\Geant4\lib\G4modeling.lib;glu32.lib;opengl32.lib;C:\Program Files\Geant4\lib\G4run.lib;C:\Program Files\Geant4\lib\G4event.lib;C:\Program Files\Geant4\lib\G4tracking.lib;C:\Program Files\Geant4\lib\G4processes.lib;C:\Program Files\Geant4\lib\G4expat.lib;C:\Program Files\Geant4\lib\G4zlib.lib;C:\Program Files\Geant4\lib\G4digits_hits.lib;C:\Program Files\Geant4\lib\G4track.lib;C:\Program Files\Geant4\lib\G4particles.lib;C:\Program Files\Geant4\lib\G4geometry.lib;C:\Program Files\Geant4\lib\G4materials.lib;C:\Program Files\Geant4\lib\G4graphics_reps.lib;C:\Program Files\Geant4\lib\G4intercoms.lib;C:\Program Files\Geant4\lib\G4global.lib;C:\Program Files\Geant4\lib\G4clhep.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>F:/Geant_simulation/Debug/exampleB1.lib</ImportLibrary>
+      <ProgramDataBaseFile>F:/Geant_simulation/Debug/exampleB1.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions> -Zm200 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Program Files\Geant4\include\Geant4;C:\Program Files\Geant4\share\Geant4-10.0.2\examples\basic\B1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <PreprocessorDefinitions>_CONSOLE;_WIN32;WIN32;OS;XPNET;_CRT_SECURE_NO_DEPRECATE;NDEBUG;G4_STORE_TRAJECTORY;G4VERBOSE;G4LIB_BUILD_DLL;G4UI_USE;G4VIS_USE;G4INTY_USE_WIN32;G4UI_USE_WIN32;G4VIS_USE_OPENGLWIN32;G4VIS_USE_OPENGL;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_CONSOLE;_WIN32;WIN32;OS;XPNET;_CRT_SECURE_NO_DEPRECATE;NDEBUG;G4_STORE_TRAJECTORY;G4VERBOSE;G4LIB_BUILD_DLL;G4UI_USE;G4VIS_USE;G4INTY_USE_WIN32;G4UI_USE_WIN32;G4VIS_USE_OPENGLWIN32;G4VIS_USE_OPENGL;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Program Files\Geant4\include\Geant4;C:\Program Files\Geant4\share\Geant4-10.0.2\examples\basic\B1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Program Files\Geant4\include\Geant4;C:\Program Files\Geant4\share\Geant4-10.0.2\examples\basic\B1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;C:\Program Files\Geant4\lib\G4Tree.lib;C:\Program Files\Geant4\lib\G4FR.lib;C:\Program Files\Geant4\lib\G4GMocren.lib;C:\Program Files\Geant4\lib\G4visHepRep.lib;C:\Program Files\Geant4\lib\G4RayTracer.lib;C:\Program Files\Geant4\lib\G4VRML.lib;C:\Program Files\Geant4\lib\G4OpenGL.lib;C:\Program Files\Geant4\lib\G4gl2ps.lib;C:\Program Files\Geant4\lib\G4vis_management.lib;C:\Program Files\Geant4\lib\G4modeling.lib;C:\Program Files\Geant4\lib\G4interfaces.lib;C:\Program Files\Geant4\lib\G4persistency.lib;C:\Program Files\Geant4\lib\G4analysis.lib;C:\Program Files\Geant4\lib\G4error_propagation.lib;C:\Program Files\Geant4\lib\G4readout.lib;C:\Program Files\Geant4\lib\G4physicslists.lib;C:\Program Files\Geant4\lib\G4run.lib;C:\Program Files\Geant4\lib\G4event.lib;C:\Program Files\Geant4\lib\G4tracking.lib;C:\Program Files\Geant4\lib\G4parmodels.lib;C:\Program Files\Geant4\lib\G4processes.lib;C:\Program Files\Geant4\lib\G4digits_hits.lib;C:\Program Files\Geant4\lib\G4track.lib;C:\Program Files\Geant4\lib\G4particles.lib;C:\Program Files\Geant4\lib\G4geometry.lib;C:\Program Files\Geant4\lib\G4materials.lib;C:\Program Files\Geant4\lib\G4graphics_reps.lib;C:\Program Files\Geant4\lib\G4intercoms.lib;C:\Program Files\Geant4\lib\G4global.lib;C:\Program Files\Geant4\lib\G4clhep.lib;C:\Program Files\Geant4\lib\G4expat.lib;C:\Program Files\Geant4\lib\G4zlib.lib;C:\Program Files\Geant4\lib\G4FR.lib;C:\Program Files\Geant4\lib\G4vis_management.lib;C:\Program Files\Geant4\lib\G4modeling.lib;glu32.lib;opengl32.lib;C:\Program Files\Geant4\lib\G4run.lib;C:\Program Files\Geant4\lib\G4event.lib;C:\Program Files\Geant4\lib\G4tracking.lib;C:\Program Files\Geant4\lib\G4processes.lib;C:\Program Files\Geant4\lib\G4expat.lib;C:\Program Files\Geant4\lib\G4zlib.lib;C:\Program Files\Geant4\lib\G4digits_hits.lib;C:\Program Files\Geant4\lib\G4track.lib;C:\Program Files\Geant4\lib\G4particles.lib;C:\Program Files\Geant4\lib\G4geometry.lib;C:\Program Files\Geant4\lib\G4materials.lib;C:\Program Files\Geant4\lib\G4graphics_reps.lib;C:\Program Files\Geant4\lib\G4intercoms.lib;C:\Program Files\Geant4\lib\G4global.lib;C:\Program Files\Geant4\lib\G4clhep.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <ImportLibrary>F:/Geant_simulation/Release/exampleB1.lib</ImportLibrary>
+      <ProgramDataBaseFile>F:/Geant_simulation/Release/exampleB1.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <ClCompile>
+      <AdditionalOptions> -Zm200 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Program Files\Geant4\include\Geant4;C:\Program Files\Geant4\share\Geant4-10.0.2\examples\basic\B1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <PreprocessorDefinitions>_CONSOLE;_WIN32;WIN32;OS;XPNET;_CRT_SECURE_NO_DEPRECATE;NDEBUG;G4_STORE_TRAJECTORY;G4VERBOSE;G4LIB_BUILD_DLL;G4UI_USE;G4VIS_USE;G4INTY_USE_WIN32;G4UI_USE_WIN32;G4VIS_USE_OPENGLWIN32;G4VIS_USE_OPENGL;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_CONSOLE;_WIN32;WIN32;OS;XPNET;_CRT_SECURE_NO_DEPRECATE;NDEBUG;G4_STORE_TRAJECTORY;G4VERBOSE;G4LIB_BUILD_DLL;G4UI_USE;G4VIS_USE;G4INTY_USE_WIN32;G4UI_USE_WIN32;G4VIS_USE_OPENGLWIN32;G4VIS_USE_OPENGL;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Program Files\Geant4\include\Geant4;C:\Program Files\Geant4\share\Geant4-10.0.2\examples\basic\B1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Program Files\Geant4\include\Geant4;C:\Program Files\Geant4\share\Geant4-10.0.2\examples\basic\B1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;C:\Program Files\Geant4\lib\G4Tree.lib;C:\Program Files\Geant4\lib\G4FR.lib;C:\Program Files\Geant4\lib\G4GMocren.lib;C:\Program Files\Geant4\lib\G4visHepRep.lib;C:\Program Files\Geant4\lib\G4RayTracer.lib;C:\Program Files\Geant4\lib\G4VRML.lib;C:\Program Files\Geant4\lib\G4OpenGL.lib;C:\Program Files\Geant4\lib\G4gl2ps.lib;C:\Program Files\Geant4\lib\G4vis_management.lib;C:\Program Files\Geant4\lib\G4modeling.lib;C:\Program Files\Geant4\lib\G4interfaces.lib;C:\Program Files\Geant4\lib\G4persistency.lib;C:\Program Files\Geant4\lib\G4analysis.lib;C:\Program Files\Geant4\lib\G4error_propagation.lib;C:\Program Files\Geant4\lib\G4readout.lib;C:\Program Files\Geant4\lib\G4physicslists.lib;C:\Program Files\Geant4\lib\G4run.lib;C:\Program Files\Geant4\lib\G4event.lib;C:\Program Files\Geant4\lib\G4tracking.lib;C:\Program Files\Geant4\lib\G4parmodels.lib;C:\Program Files\Geant4\lib\G4processes.lib;C:\Program Files\Geant4\lib\G4digits_hits.lib;C:\Program Files\Geant4\lib\G4track.lib;C:\Program Files\Geant4\lib\G4particles.lib;C:\Program Files\Geant4\lib\G4geometry.lib;C:\Program Files\Geant4\lib\G4materials.lib;C:\Program Files\Geant4\lib\G4graphics_reps.lib;C:\Program Files\Geant4\lib\G4intercoms.lib;C:\Program Files\Geant4\lib\G4global.lib;C:\Program Files\Geant4\lib\G4clhep.lib;C:\Program Files\Geant4\lib\G4expat.lib;C:\Program Files\Geant4\lib\G4zlib.lib;C:\Program Files\Geant4\lib\G4FR.lib;C:\Program Files\Geant4\lib\G4vis_management.lib;C:\Program Files\Geant4\lib\G4modeling.lib;glu32.lib;opengl32.lib;C:\Program Files\Geant4\lib\G4run.lib;C:\Program Files\Geant4\lib\G4event.lib;C:\Program Files\Geant4\lib\G4tracking.lib;C:\Program Files\Geant4\lib\G4processes.lib;C:\Program Files\Geant4\lib\G4expat.lib;C:\Program Files\Geant4\lib\G4zlib.lib;C:\Program Files\Geant4\lib\G4digits_hits.lib;C:\Program Files\Geant4\lib\G4track.lib;C:\Program Files\Geant4\lib\G4particles.lib;C:\Program Files\Geant4\lib\G4geometry.lib;C:\Program Files\Geant4\lib\G4materials.lib;C:\Program Files\Geant4\lib\G4graphics_reps.lib;C:\Program Files\Geant4\lib\G4intercoms.lib;C:\Program Files\Geant4\lib\G4global.lib;C:\Program Files\Geant4\lib\G4clhep.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <ImportLibrary>F:/Geant_simulation/MinSizeRel/exampleB1.lib</ImportLibrary>
+      <ProgramDataBaseFile>F:/Geant_simulation/MinSizeRel/exampleB1.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <ClCompile>
+      <AdditionalOptions> -Zm200 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Program Files\Geant4\include\Geant4;C:\Program Files\Geant4\share\Geant4-10.0.2\examples\basic\B1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>_CONSOLE;_WIN32;WIN32;OS;XPNET;_CRT_SECURE_NO_DEPRECATE;G4_STORE_TRAJECTORY;G4VERBOSE;G4LIB_BUILD_DLL;G4UI_USE;G4VIS_USE;G4INTY_USE_WIN32;G4UI_USE_WIN32;G4VIS_USE_OPENGLWIN32;G4VIS_USE_OPENGL;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_CONSOLE;_WIN32;WIN32;OS;XPNET;_CRT_SECURE_NO_DEPRECATE;G4_STORE_TRAJECTORY;G4VERBOSE;G4LIB_BUILD_DLL;G4UI_USE;G4VIS_USE;G4INTY_USE_WIN32;G4UI_USE_WIN32;G4VIS_USE_OPENGLWIN32;G4VIS_USE_OPENGL;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Program Files\Geant4\include\Geant4;C:\Program Files\Geant4\share\Geant4-10.0.2\examples\basic\B1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Program Files\Geant4\include\Geant4;C:\Program Files\Geant4\share\Geant4-10.0.2\examples\basic\B1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;C:\Program Files\Geant4\lib\G4Tree.lib;C:\Program Files\Geant4\lib\G4FR.lib;C:\Program Files\Geant4\lib\G4GMocren.lib;C:\Program Files\Geant4\lib\G4visHepRep.lib;C:\Program Files\Geant4\lib\G4RayTracer.lib;C:\Program Files\Geant4\lib\G4VRML.lib;C:\Program Files\Geant4\lib\G4OpenGL.lib;C:\Program Files\Geant4\lib\G4gl2ps.lib;C:\Program Files\Geant4\lib\G4vis_management.lib;C:\Program Files\Geant4\lib\G4modeling.lib;C:\Program Files\Geant4\lib\G4interfaces.lib;C:\Program Files\Geant4\lib\G4persistency.lib;C:\Program Files\Geant4\lib\G4analysis.lib;C:\Program Files\Geant4\lib\G4error_propagation.lib;C:\Program Files\Geant4\lib\G4readout.lib;C:\Program Files\Geant4\lib\G4physicslists.lib;C:\Program Files\Geant4\lib\G4run.lib;C:\Program Files\Geant4\lib\G4event.lib;C:\Program Files\Geant4\lib\G4tracking.lib;C:\Program Files\Geant4\lib\G4parmodels.lib;C:\Program Files\Geant4\lib\G4processes.lib;C:\Program Files\Geant4\lib\G4digits_hits.lib;C:\Program Files\Geant4\lib\G4track.lib;C:\Program Files\Geant4\lib\G4particles.lib;C:\Program Files\Geant4\lib\G4geometry.lib;C:\Program Files\Geant4\lib\G4materials.lib;C:\Program Files\Geant4\lib\G4graphics_reps.lib;C:\Program Files\Geant4\lib\G4intercoms.lib;C:\Program Files\Geant4\lib\G4global.lib;C:\Program Files\Geant4\lib\G4clhep.lib;C:\Program Files\Geant4\lib\G4expat.lib;C:\Program Files\Geant4\lib\G4zlib.lib;C:\Program Files\Geant4\lib\G4FR.lib;C:\Program Files\Geant4\lib\G4vis_management.lib;C:\Program Files\Geant4\lib\G4modeling.lib;glu32.lib;opengl32.lib;C:\Program Files\Geant4\lib\G4run.lib;C:\Program Files\Geant4\lib\G4event.lib;C:\Program Files\Geant4\lib\G4tracking.lib;C:\Program Files\Geant4\lib\G4processes.lib;C:\Program Files\Geant4\lib\G4expat.lib;C:\Program Files\Geant4\lib\G4zlib.lib;C:\Program Files\Geant4\lib\G4digits_hits.lib;C:\Program Files\Geant4\lib\G4track.lib;C:\Program Files\Geant4\lib\G4particles.lib;C:\Program Files\Geant4\lib\G4geometry.lib;C:\Program Files\Geant4\lib\G4materials.lib;C:\Program Files\Geant4\lib\G4graphics_reps.lib;C:\Program Files\Geant4\lib\G4intercoms.lib;C:\Program Files\Geant4\lib\G4global.lib;C:\Program Files\Geant4\lib\G4clhep.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>F:/Geant_simulation/RelWithDebInfo/exampleB1.lib</ImportLibrary>
+      <ProgramDataBaseFile>F:/Geant_simulation/RelWithDebInfo/exampleB1.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\CathodeSD.cc" />
+    <ClCompile Include="src\DetectorConstruction.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\EventAction.cc" />
+    <ClCompile Include="src\main.cc" />
+    <ClCompile Include="src\materials_property.cpp" />
+    <ClCompile Include="src\Messenger.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\PhysicsList.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\PhysListEmLivermore.cc" />
+    <ClCompile Include="src\PhysListEmPenelope.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\PhysListEmStandard.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\PrimaryGeneratorAction.cc" />
+    <ClCompile Include="src\ReadConstants.cpp" />
+    <ClCompile Include="src\RunAction.cc" />
+    <ClCompile Include="src\Scintillation.cc" />
+    <ClCompile Include="src\Singleton.cpp" />
+    <ClCompile Include="src\StepMax.cc" />
+    <ClCompile Include="src\SteppingAction.cc" />
+    <ClCompile Include="src\Surface.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\CathodeSD.hh" />
+    <None Include="include\DetectorConstruction.hh" />
+    <None Include="include\EventAction.hh" />
+    <None Include="include\Messenger.hh" />
+    <None Include="include\PhysicsList.hh" />
+    <None Include="include\PhysListEmLivermore.hh" />
+    <None Include="include\PhysListEmPenelope.hh" />
+    <None Include="include\PhysListEmStandard.hh" />
+    <None Include="include\PrimaryGeneratorAction.hh" />
+    <None Include="include\RunAction.hh" />
+    <None Include="include\Scintillation.hh" />
+    <None Include="include\StepMax.hh" />
+    <None Include="include\SteppingAction.hh" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\ReadConstants.h" />
+    <ClInclude Include="include\Singleton.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,11 @@
+/run/verbose 0
+/event/verbose 0
+/tracking/verbose 0
+
+#/control/execute vis.mac
+
+#Run simulation
+/run/beamOn 100
+
+#Redrawing of the scene can be done as follows: 
+#vis/viewer/update

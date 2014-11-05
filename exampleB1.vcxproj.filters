@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{32CDACBB-84CC-4359-B171-E2B435D30604}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{6333DA6C-FD5A-44C3-AC68-00D81B9FF0CA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DetectorConstruction">
+      <UniqueIdentifier>{db07b6e7-2549-4854-8e92-e49291e99107}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DetectorConstruction">
+      <UniqueIdentifier>{2a6b618b-c804-44d7-830f-0fcbc5cb1d9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PhysicsList">
+      <UniqueIdentifier>{efd5700a-8034-4826-baa6-b955f0de88d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PhysicsList">
+      <UniqueIdentifier>{35e78983-6517-4c9c-b49e-c0c3f8d19ff4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Messenger.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StepMax.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scintillation.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PrimaryGeneratorAction.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DetectorConstruction.cpp">
+      <Filter>Source Files\DetectorConstruction</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysicsList.cc">
+      <Filter>Source Files\PhysicsList</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysListEmLivermore.cc">
+      <Filter>Source Files\PhysicsList</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysListEmPenelope.cc">
+      <Filter>Source Files\PhysicsList</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysListEmStandard.cc">
+      <Filter>Source Files\PhysicsList</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SteppingAction.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RunAction.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CathodeSD.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Surface.cpp">
+      <Filter>Source Files\DetectorConstruction</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Singleton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ReadConstants.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EventAction.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\materials_property.cpp">
+      <Filter>Source Files\DetectorConstruction</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\Messenger.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="include\CathodeSD.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="include\PrimaryGeneratorAction.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="include\StepMax.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="include\Scintillation.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="include\RunAction.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="include\EventAction.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="include\SteppingAction.hh">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="include\DetectorConstruction.hh">
+      <Filter>Header Files\DetectorConstruction</Filter>
+    </None>
+    <None Include="include\PhysicsList.hh">
+      <Filter>Header Files\PhysicsList</Filter>
+    </None>
+    <None Include="include\PhysListEmLivermore.hh">
+      <Filter>Header Files\PhysicsList</Filter>
+    </None>
+    <None Include="include\PhysListEmPenelope.hh">
+      <Filter>Header Files\PhysicsList</Filter>
+    </None>
+    <None Include="include\PhysListEmStandard.hh">
+      <Filter>Header Files\PhysicsList</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Singleton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ReadConstants.h">
+      <Filter>Header Files\DetectorConstruction</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
