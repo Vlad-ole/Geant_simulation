@@ -1,0 +1,47 @@
+/vis/verbose 0
+
+
+
+# Create a scene
+/vis/scene/create
+
+# Invoke a visualization driver
+#
+/vis/sceneHandler/create VRML2FILE
+
+/vis/viewer/set/viewpointThetaPhi 70 20
+/vis/viewer/zoom 1.5
+
+#
+# Disable auto refresh and quieten vis messages whilst scene and
+# trajectories are established:
+/vis/viewer/set/autoRefresh false
+/vis/verbose errors
+#
+/vis/viewer/create
+/vis/viewer/set/culling global false
+#
+# Specify style (surface or wireframe):
+/vis/viewer/set/style wireframe
+#
+# Add the detector components to the scene
+/vis/scene/add/volume 
+
+
+
+# Specify zoom value: (vlad add)
+#/vis/viewer/zoom 1.5
+
+#
+# Draw coordinate axes:
+/vis/scene/add/axes 0 0 0 50 mm
+
+# Store generated trajectories
+/tracking/storeTrajectory 1
+/vis/scene/add/trajectories smooth
+/vis/scene/endOfEventAction accumulate
+/vis/scene/notifyHandlers
+
+
+
+
