@@ -75,31 +75,37 @@ void DetectorConstruction::defineMaterials()
 	//--------------------------------------------------------------------------------------
 
 
-	////---------------------------------------------------------------------------------------
-	////создание материала LuYAG:Pr
-	//G4Material* LuYAG_Pr = new G4Material("LuYAG_Pr", 1*g/cm3, 5, kStateSolid);
-	//LuYAG_Pr->AddElement(Lu, 1*perCent);
-	//LuYAG_Pr->AddElement(Y, 1*perCent);
-	//LuYAG_Pr->AddElement(Al, 1*perCent);
-	//LuYAG_Pr->AddElement(O, 1*perCent);
-	//LuYAG_Pr->AddElement(Pr, 1*perCent); 
-	//
+	//---------------------------------------------------------------------------------------
+	//создание материала LuYAG:Pr
+	G4Material* LuYAG_Pr = new G4Material("LuYAG_Pr", 6.2*g/cm3, 5, kStateSolid);
+	LuYAG_Pr->AddElement(Lu, 49.96*perCent); // Winicjusz Drozdowski33000 photons per MeV from mixed  (Lu0.75Y0.25)3Al5O12:Pr scintillator crystals 
+	LuYAG_Pr->AddElement(Y, 8.43*perCent); 
+	LuYAG_Pr->AddElement(Al, 17.10*perCent);
+	LuYAG_Pr->AddElement(O, 24.35*perCent);
+	LuYAG_Pr->AddElement(Pr, 0.16*perCent); 
+	
+	//Lu[part] = ( N(Lu)*m(Lu) ) / (  N(Lu)*m(Lu) + ... + N(O)*m(O) )
 
-	//ReadConstants *LuYAG_Pr_FASTCOMPONENT = new ReadConstants(g()->string_LuYAG_Pr_energies, 1*eV, 1);
-	//ReadConstants *LuYAG_Pr_RINDEX = new ReadConstants(g()->string_LuYAG_Pr_rindex, 1*eV, 1);
-	//ReadConstants *LuYAG_Pr_ABSLENGTH = new ReadConstants(g()->string_LuYAG_Pr_absorption_length, 1*eV, 1*mm);
+	//from porosev vysheclav (porosev@gmail.com)
+	ReadConstants *LuYAG_Pr_FASTCOMPONENT = new ReadConstants(g()->string_LuYAG_Pr_energies, 1*eV, 1);
+	
+	//Performance of thin long scintillator strips of GSO:Ce, LGSO:Ce and LuAG:Pr for low energy g-rays
+	//Single crystalline LuAG fibers for homogeneous dual-readout calorimeters
+	ReadConstants *LuYAG_Pr_RINDEX = new ReadConstants(g()->string_LuYAG_Pr_rindex, 1*eV, 1); 	
+	
+	ReadConstants *LuYAG_Pr_ABSLENGTH = new ReadConstants(g()->string_LuYAG_Pr_absorption_length, 1*eV, 1*mm);
 
 
-	//G4MaterialPropertiesTable* luyag_pr = new G4MaterialPropertiesTable();
-	//luyag_pr->AddProperty("FASTCOMPONENT", LuYAG_Pr_FASTCOMPONENT->get_x_array(), LuYAG_Pr_FASTCOMPONENT->get_y_array(), LuYAG_Pr_FASTCOMPONENT->get_array_size());
-	//luyag_pr->AddProperty("RINDEX",        LuYAG_Pr_RINDEX->get_x_array(), LuYAG_Pr_RINDEX->get_y_array(), LuYAG_Pr_RINDEX->get_array_size());
-	//luyag_pr->AddProperty("ABSLENGTH",     LuYAG_Pr_ABSLENGTH->get_x_array(), LuYAG_Pr_ABSLENGTH->get_y_array(),  LuYAG_Pr_ABSLENGTH->get_array_size());
-	//luyag_pr->AddConstProperty("SCINTILLATIONYIELD", 32.0/keV);
-	//luyag_pr->AddConstProperty("RESOLUTIONSCALE",1.0);
-	//luyag_pr->AddConstProperty("FASTTIMECONSTANT",41.0*ns);
-	//luyag_pr->AddConstProperty("YIELDRATIO",1.0);
-	//LuYAG_Pr->SetMaterialPropertiesTable(luyag_pr);
-	////--------------------------------------------------------------------------------------
+	G4MaterialPropertiesTable* luyag_pr = new G4MaterialPropertiesTable();
+	luyag_pr->AddProperty("FASTCOMPONENT", LuYAG_Pr_FASTCOMPONENT->get_x_array(), LuYAG_Pr_FASTCOMPONENT->get_y_array(), LuYAG_Pr_FASTCOMPONENT->get_array_size());
+	luyag_pr->AddProperty("RINDEX",        LuYAG_Pr_RINDEX->get_x_array(), LuYAG_Pr_RINDEX->get_y_array(), LuYAG_Pr_RINDEX->get_array_size());
+	luyag_pr->AddProperty("ABSLENGTH",     LuYAG_Pr_ABSLENGTH->get_x_array(), LuYAG_Pr_ABSLENGTH->get_y_array(),  LuYAG_Pr_ABSLENGTH->get_array_size());
+	luyag_pr->AddConstProperty("SCINTILLATIONYIELD", 32.0/keV);
+	luyag_pr->AddConstProperty("RESOLUTIONSCALE",1.0);
+	luyag_pr->AddConstProperty("FASTTIMECONSTANT",41.0*ns);
+	luyag_pr->AddConstProperty("YIELDRATIO",1.0);
+	LuYAG_Pr->SetMaterialPropertiesTable(luyag_pr);
+	//--------------------------------------------------------------------------------------
 
 
 
