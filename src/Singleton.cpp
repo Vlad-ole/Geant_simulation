@@ -26,7 +26,7 @@ Singleton::Singleton()
 
 	string_LuYAG_Pr_energies = path_read + "energy_spectrum\\luyag_pr_energies_eV_1.dat";
 	string_LuYAG_Pr_rindex = path_read + "refractive_index\\luyag_pr_RINDEX_eV_1.dat";
-	string_LuYAG_Pr_absorption_length + "absorption_length\\luyag_pr_absorption_length_eV_mm.dat";
+	string_LuYAG_Pr_absorption_length = path_read  + "absorption_length\\luyag_pr_absorption_length_eV_mm.dat";
 	
 	string_polydimethylsiloxane_RINDEX =  path_read + "refractive_index\\polydimethylsiloxane_RINDEX_eV_1.dat";
 	string_polydimethylsiloxane_absorption_length = path_read + "absorption_length\\polydimethylsiloxane_absorption_length_eV_mm.dat";

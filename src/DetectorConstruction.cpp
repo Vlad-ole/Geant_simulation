@@ -69,9 +69,9 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	//выставление размеров объектов
 	G4double HalfWorldLength = 10*cm;
 
-	double scintillator_length_x = 3*mm;
-	double scintillator_length_y = 3*mm;
-	double scintillator_height = 10*mm;
+	double scintillator_length_x = 5*mm;
+	double scintillator_length_y = 5*mm;
+	double scintillator_height = 3*mm;
 
 	double grease_diameter = 1.5*max(scintillator_length_x, scintillator_length_y);
 	double grease_height = 0.1*mm;
@@ -127,7 +127,7 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	//--------------------------------------------------------------------------------
 	// создание кристалла
 	solid_scintillator = new G4Box("sscintillator", scintillator_length_x/2.0, scintillator_length_y/2.0, scintillator_height/2.0);
-	logicScint = new G4LogicalVolume(solid_scintillator, G4Material::GetMaterial("LYSO_Ce"), "lScintillator",0,0,0);
+	logicScint = new G4LogicalVolume(solid_scintillator, G4Material::GetMaterial("LuYAG_Pr"), "lScintillator",0,0,0);
 	physiScint = new G4PVPlacement(0,               // no rotation
 		scintillator_position,  // at (x,y,z)
 		logicScint,     // its logical volume
@@ -193,7 +193,8 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 
 	//---------------------------------------------------------------------------
 	//установка поверхностей
-	G4LogicalBorderSurface* world_scintillator_logical = new G4LogicalBorderSurface("world_scintillator", physiScint, physiWorld, world_scintillator);
+	G4LogicalBorderSurface* scintillator_world_logical = new G4LogicalBorderSurface("world_scintillator", physiScint, physiWorld, world_scintillator); // true
+	//G4LogicalBorderSurface* world_scintillator_logical = new G4LogicalBorderSurface("scintillator_world", physiWorld, physiScint, world_scintillator); // wrong
 	G4LogicalBorderSurface* envelope2CathodeSurface = new G4LogicalBorderSurface("envelope2CathodeSurface", physi_glass, physiCathode, silicaCathodeMaterial);
 	//---------------------------------------------------------------------------
 
