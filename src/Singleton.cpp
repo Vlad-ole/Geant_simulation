@@ -27,6 +27,18 @@ Singleton::Singleton()
 	string_LuYAG_Pr_energies = path_read + "energy_spectrum\\luyag_pr_energies_eV_1.dat";
 	string_LuYAG_Pr_rindex = path_read + "refractive_index\\luyag_pr_RINDEX_eV_1.dat";
 	string_LuYAG_Pr_absorption_length = path_read  + "absorption_length\\luyag_pr_absorption_length_eV_mm.dat";
+
+	string_LGSO_ce_energies = path_read + "energy_spectrum\\lgso_ce_energies_eV_1.dat";
+	string_LGSO_ce_rindex = path_read + "refractive_index\\lgso_ce_rindex_eV_1.dat";	
+	string_LGSO_ce_absorption_length = path_read + "absorption_length\\lgso_ce_absorption_length_eV_mm.dat";
+
+	string_LFS_3_energies = path_read + "energy_spectrum\\LFS_3_energies_eV_1.dat";
+	string_LFS_3_rindex = path_read + "refractive_index\\LFS_3_rindex_eV_1.dat";	
+	string_LFS_3_absorption_length = path_read + "absorption_length\\LFS_3_absorption_length_eV_mm.dat";
+
+	string_YAP_Ce_energies = path_read + "energy_spectrum\\YAP_Ce_energies_eV_1.dat";
+	string_YAP_Ce_rindex = path_read + "refractive_index\\YAP_Ce_rindex_eV_1.dat";	
+	string_YAP_Ce_absorption_length = path_read + "absorption_length\\YAP_Ce_absorption_length_eV_mm.dat";
 	
 	string_polydimethylsiloxane_RINDEX =  path_read + "refractive_index\\polydimethylsiloxane_RINDEX_eV_1.dat";
 	string_polydimethylsiloxane_absorption_length = path_read + "absorption_length\\polydimethylsiloxane_absorption_length_eV_mm.dat";

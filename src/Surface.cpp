@@ -40,7 +40,7 @@ void DetectorConstruction::defineSurfaces()
 	polishedAir->SetType(dielectric_dielectric);
 	polishedAir->SetModel(unified);
 	polishedAir->SetFinish(polished/*ground*/); // necessary even for polished surfaces to enable UNIFIED code
-	polishedAir->SetSigmaAlpha(0 * degree); // Janecek2010
+	polishedAir->SetSigmaAlpha(20 * degree); // Janecek2010
 	//-------------------------------------------------------------------------------
 	
 	

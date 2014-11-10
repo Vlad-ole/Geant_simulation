@@ -32,6 +32,22 @@ public:
 	string string_LuYAG_Pr_rindex;
 	string string_LuYAG_Pr_absorption_length;
 
+	//LGSO:Ce
+	string string_LGSO_ce_energies;
+	string string_LGSO_ce_rindex;
+	string string_LGSO_ce_absorption_length;
+
+	//YAP:Ce
+	string string_YAP_Ce_energies;
+	string string_YAP_Ce_rindex;
+	string string_YAP_Ce_absorption_length;
+
+	//LFS-3
+	string string_LFS_3_energies;
+	string string_LFS_3_rindex;
+	string string_LFS_3_absorption_length;
+	
+
 	//grease
 	string string_polydimethylsiloxane_RINDEX;
 	string string_polydimethylsiloxane_absorption_length;

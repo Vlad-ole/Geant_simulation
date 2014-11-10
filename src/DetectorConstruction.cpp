@@ -86,7 +86,7 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 
 	//--------------------------------------------------------------------------------
 	//выбор поверхностей
-	world_scintillator = polishedAir;
+	world_scintillator = teflon_unified;
 	glass_cathode = silicaCathodeMaterial;
 	//--------------------------------------------------------------------------------
 

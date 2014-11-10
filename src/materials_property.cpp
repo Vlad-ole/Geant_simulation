@@ -108,6 +108,86 @@ void DetectorConstruction::defineMaterials()
 	//--------------------------------------------------------------------------------------
 
 
+	//---------------------------------------------------------------------------------------
+	//создание материала LGSO:Ce
+	G4Material* LGSO = new G4Material("LGSO_Ce", 7.3*g/cm3, 5, kStateSolid);
+	LGSO->AddElement(Lu, 16.28*perCent);
+	LGSO->AddElement(Y, 58.47*perCent);
+	LGSO->AddElement(Si, 6.53*perCent);
+	LGSO->AddElement(O, 18.51*perCent);
+	LGSO->AddElement(Ce, 0.2*perCent); // cooke2000
+
+	ReadConstants *LGSO_ce_FASTCOMPONENT = new ReadConstants(g()->string_LGSO_ce_energies, 1*eV, 1);// тут стоит заглушка
+	ReadConstants *LGSO_ce_RINDEX = new ReadConstants(g()->string_LGSO_ce_rindex, 1*eV, 1);// тут стоит заглушка
+	ReadConstants *LGSO_ce_ABSLENGTH = new ReadConstants(g()->string_LGSO_ce_absorption_length, 1*eV, 1*mm);// тут стоит заглушка
+
+
+	G4MaterialPropertiesTable* LGSO_ce = new G4MaterialPropertiesTable();
+	LGSO_ce->AddProperty("FASTCOMPONENT", LGSO_ce_FASTCOMPONENT->get_x_array(), LGSO_ce_FASTCOMPONENT->get_y_array(), LGSO_ce_FASTCOMPONENT->get_array_size());
+	LGSO_ce->AddProperty("RINDEX",        LGSO_ce_RINDEX->get_x_array(), LGSO_ce_RINDEX->get_y_array(), LGSO_ce_RINDEX->get_array_size());
+	LGSO_ce->AddProperty("ABSLENGTH",     LGSO_ce_ABSLENGTH->get_x_array(), LGSO_ce_ABSLENGTH->get_y_array(),  LGSO_ce_ABSLENGTH->get_array_size());
+	LGSO_ce->AddConstProperty("SCINTILLATIONYIELD", 32.0/keV);
+	LGSO_ce->AddConstProperty("RESOLUTIONSCALE",1.0);
+	LGSO_ce->AddConstProperty("FASTTIMECONSTANT",41.0*ns);
+	LGSO_ce->AddConstProperty("YIELDRATIO",1.0);
+	LGSO->SetMaterialPropertiesTable(LGSO_ce);
+	//--------------------------------------------------------------------------------------
+
+
+
+
+	//---------------------------------------------------------------------------------------
+	//создание материала LFS-3
+	G4Material* LFS_3 = new G4Material("LFS-3", 7.35*g/cm3, 5, kStateSolid);
+	LFS_3->AddElement(Lu, 16.28*perCent);// LYSO:Ce model is used
+	LFS_3->AddElement(Y, 58.47*perCent);
+	LFS_3->AddElement(Si, 6.53*perCent);
+	LFS_3->AddElement(O, 18.51*perCent);
+	LFS_3->AddElement(Ce, 0.2*perCent); 
+
+	ReadConstants *LFS_3_FASTCOMPONENT = new ReadConstants(g()->string_LFS_3_energies, 1*eV, 1);// тут стоит заглушка
+	ReadConstants *LFS_3_RINDEX = new ReadConstants(g()->string_LFS_3_rindex, 1*eV, 1);// тут стоит заглушка
+	ReadConstants *LFS_3_ABSLENGTH = new ReadConstants(g()->string_LFS_3_absorption_length, 1*eV, 1*mm);// тут стоит заглушка
+
+
+	G4MaterialPropertiesTable* LFS_3_prop = new G4MaterialPropertiesTable();
+	LFS_3_prop->AddProperty("FASTCOMPONENT", LFS_3_FASTCOMPONENT->get_x_array(), LFS_3_FASTCOMPONENT->get_y_array(), LFS_3_FASTCOMPONENT->get_array_size());
+	LFS_3_prop->AddProperty("RINDEX",        LFS_3_RINDEX->get_x_array(), LFS_3_RINDEX->get_y_array(), LFS_3_RINDEX->get_array_size());
+	LFS_3_prop->AddProperty("ABSLENGTH",     LFS_3_ABSLENGTH->get_x_array(), LFS_3_ABSLENGTH->get_y_array(),  LFS_3_ABSLENGTH->get_array_size());
+	LFS_3_prop->AddConstProperty("SCINTILLATIONYIELD", 32.0/keV);
+	LFS_3_prop->AddConstProperty("RESOLUTIONSCALE",1.0);
+	LFS_3_prop->AddConstProperty("FASTTIMECONSTANT",41.0*ns);
+	LFS_3_prop->AddConstProperty("YIELDRATIO",1.0);
+	LFS_3->SetMaterialPropertiesTable(LFS_3_prop);
+	//--------------------------------------------------------------------------------------
+
+
+	//---------------------------------------------------------------------------------------
+	//создание материала YAP:Ce
+	G4Material* YAP_Ce = new G4Material("LFS-3", 7.35*g/cm3, 5, kStateSolid);
+	YAP_Ce->AddElement(Lu, 16.28*perCent);// LYSO:Ce model is used
+	YAP_Ce->AddElement(Y, 58.47*perCent);
+	YAP_Ce->AddElement(Si, 6.53*perCent);
+	YAP_Ce->AddElement(O, 18.51*perCent);
+	YAP_Ce->AddElement(Ce, 0.2*perCent); 
+
+	ReadConstants *YAP_Ce_FASTCOMPONENT = new ReadConstants(g()->string_YAP_Ce_energies, 1*eV, 1);// тут стоит заглушка
+	ReadConstants *YAP_Ce_RINDEX = new ReadConstants(g()->string_YAP_Ce_rindex, 1*eV, 1);// тут стоит заглушка
+	ReadConstants *YAP_Ce_ABSLENGTH = new ReadConstants(g()->string_YAP_Ce_absorption_length, 1*eV, 1*mm);// тут стоит заглушка
+
+
+	G4MaterialPropertiesTable* YAP_Ce_prop = new G4MaterialPropertiesTable();
+	YAP_Ce_prop->AddProperty("FASTCOMPONENT", YAP_Ce_FASTCOMPONENT->get_x_array(), YAP_Ce_FASTCOMPONENT->get_y_array(), YAP_Ce_FASTCOMPONENT->get_array_size());
+	YAP_Ce_prop->AddProperty("RINDEX",        YAP_Ce_RINDEX->get_x_array(), YAP_Ce_RINDEX->get_y_array(), YAP_Ce_RINDEX->get_array_size());
+	YAP_Ce_prop->AddProperty("ABSLENGTH",     YAP_Ce_ABSLENGTH->get_x_array(), YAP_Ce_ABSLENGTH->get_y_array(),  YAP_Ce_ABSLENGTH->get_array_size());
+	YAP_Ce_prop->AddConstProperty("SCINTILLATIONYIELD", 32.0/keV);
+	YAP_Ce_prop->AddConstProperty("RESOLUTIONSCALE",1.0);
+	YAP_Ce_prop->AddConstProperty("FASTTIMECONSTANT",41.0*ns);
+	YAP_Ce_prop->AddConstProperty("YIELDRATIO",1.0);
+	YAP_Ce->SetMaterialPropertiesTable(YAP_Ce_prop);
+	//--------------------------------------------------------------------------------------
+
+
 
 	//--------------------------------------------------------------------------------------
 	//оптическая мазка (Grease BC-630)
