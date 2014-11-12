@@ -16,3 +16,4 @@ set MY_G4PROJECTS=%~dp0
 set > sets.txt
 
 start B1.sln
+

@@ -6,6 +6,7 @@
 *.user
 *.sln.docstates
 *.wrl
+sets.txt
 Debug/
 exampleB1.dir/
 
