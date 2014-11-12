@@ -93,6 +93,7 @@ void DetectorConstruction::defineMaterials()
 	//Single crystalline LuAG fibers for homogeneous dual-readout calorimeters
 	ReadConstants *LuYAG_Pr_RINDEX = new ReadConstants(g()->string_LuYAG_Pr_rindex, 1*eV, 1); 	
 	
+	//YAP:Ce property is used
 	ReadConstants *LuYAG_Pr_ABSLENGTH = new ReadConstants(g()->string_LuYAG_Pr_absorption_length, 1*eV, 1*mm);
 
 
@@ -117,9 +118,10 @@ void DetectorConstruction::defineMaterials()
 	LGSO->AddElement(O, 18.51*perCent);
 	LGSO->AddElement(Ce, 0.2*perCent); // cooke2000
 
-	ReadConstants *LGSO_ce_FASTCOMPONENT = new ReadConstants(g()->string_LGSO_ce_energies, 1*eV, 1);// тут стоит заглушка
-	ReadConstants *LGSO_ce_RINDEX = new ReadConstants(g()->string_LGSO_ce_rindex, 1*eV, 1);// тут стоит заглушка
-	ReadConstants *LGSO_ce_ABSLENGTH = new ReadConstants(g()->string_LGSO_ce_absorption_length, 1*eV, 1*mm);// тут стоит заглушка
+	// LYSO:Ce properties is used
+	ReadConstants *LGSO_ce_FASTCOMPONENT = new ReadConstants(g()->string_LGSO_ce_energies, 1*eV, 1);
+	ReadConstants *LGSO_ce_RINDEX = new ReadConstants(g()->string_LGSO_ce_rindex, 1*eV, 1);
+	ReadConstants *LGSO_ce_ABSLENGTH = new ReadConstants(g()->string_LGSO_ce_absorption_length, 1*eV, 1*mm);
 
 
 	G4MaterialPropertiesTable* LGSO_ce = new G4MaterialPropertiesTable();
@@ -145,9 +147,10 @@ void DetectorConstruction::defineMaterials()
 	LFS_3->AddElement(O, 18.51*perCent);
 	LFS_3->AddElement(Ce, 0.2*perCent); 
 
-	ReadConstants *LFS_3_FASTCOMPONENT = new ReadConstants(g()->string_LFS_3_energies, 1*eV, 1);// тут стоит заглушка
-	ReadConstants *LFS_3_RINDEX = new ReadConstants(g()->string_LFS_3_rindex, 1*eV, 1);// тут стоит заглушка
-	ReadConstants *LFS_3_ABSLENGTH = new ReadConstants(g()->string_LFS_3_absorption_length, 1*eV, 1*mm);// тут стоит заглушка
+	// LYSO:Ce properties is used
+	ReadConstants *LFS_3_FASTCOMPONENT = new ReadConstants(g()->string_LFS_3_energies, 1*eV, 1);
+	ReadConstants *LFS_3_RINDEX = new ReadConstants(g()->string_LFS_3_rindex, 1*eV, 1);
+	ReadConstants *LFS_3_ABSLENGTH = new ReadConstants(g()->string_LFS_3_absorption_length, 1*eV, 1*mm);
 
 
 	G4MaterialPropertiesTable* LFS_3_prop = new G4MaterialPropertiesTable();
@@ -164,16 +167,15 @@ void DetectorConstruction::defineMaterials()
 
 	//---------------------------------------------------------------------------------------
 	//создание материала YAP:Ce
-	G4Material* YAP_Ce = new G4Material("YAP_Ce", 7.35*g/cm3, 5, kStateSolid);
-	YAP_Ce->AddElement(Lu, 16.28*perCent);// LYSO:Ce model is used
-	YAP_Ce->AddElement(Y, 58.47*perCent);
-	YAP_Ce->AddElement(Si, 6.53*perCent);
-	YAP_Ce->AddElement(O, 18.51*perCent);
-	YAP_Ce->AddElement(Ce, 0.2*perCent); 
+	G4Material* YAP_Ce = new G4Material("YAP_Ce", 5.35*g/cm3, 3, kStateSolid);
+	YAP_Ce->AddElement(Y, 54.25*perCent);
+	YAP_Ce->AddElement(Al, 16.46*perCent);
+	YAP_Ce->AddElement(O, 29.29*perCent);
+	
 
-	ReadConstants *YAP_Ce_FASTCOMPONENT = new ReadConstants(g()->string_YAP_Ce_energies, 1*eV, 1);// тут стоит заглушка
-	ReadConstants *YAP_Ce_RINDEX = new ReadConstants(g()->string_YAP_Ce_rindex, 1*eV, 1);// тут стоит заглушка
-	ReadConstants *YAP_Ce_ABSLENGTH = new ReadConstants(g()->string_YAP_Ce_absorption_length, 1*eV, 1*mm);// тут стоит заглушка
+	ReadConstants *YAP_Ce_FASTCOMPONENT = new ReadConstants(g()->string_YAP_Ce_energies, 1*eV, 1);
+	ReadConstants *YAP_Ce_RINDEX = new ReadConstants(g()->string_YAP_Ce_rindex, 1*eV, 1);
+	ReadConstants *YAP_Ce_ABSLENGTH = new ReadConstants(g()->string_YAP_Ce_absorption_length, 1*eV, 1*mm);
 
 
 	G4MaterialPropertiesTable* YAP_Ce_prop = new G4MaterialPropertiesTable();
