@@ -164,7 +164,7 @@ void DetectorConstruction::defineMaterials()
 
 	//---------------------------------------------------------------------------------------
 	//создание материала YAP:Ce
-	G4Material* YAP_Ce = new G4Material("LFS-3", 7.35*g/cm3, 5, kStateSolid);
+	G4Material* YAP_Ce = new G4Material("YAP_Ce", 7.35*g/cm3, 5, kStateSolid);
 	YAP_Ce->AddElement(Lu, 16.28*perCent);// LYSO:Ce model is used
 	YAP_Ce->AddElement(Y, 58.47*perCent);
 	YAP_Ce->AddElement(Si, 6.53*perCent);

@@ -36,11 +36,11 @@ void DetectorConstruction::defineSurfaces()
 	
 	//-------------------------------------------------------------------------------
 	//polishedAir
-	polishedAir = new G4OpticalSurface("polishedAir", unified);
-	polishedAir->SetType(dielectric_dielectric);
-	polishedAir->SetModel(unified);
-	polishedAir->SetFinish(polished/*ground*/); // necessary even for polished surfaces to enable UNIFIED code
-	polishedAir->SetSigmaAlpha(20 * degree); // Janecek2010
+	polishedAir = new G4OpticalSurface("polishedAir");
+	polishedAir->SetModel(glisur);
+	polishedAir->SetType(dielectric_dielectric);	
+	polishedAir->SetFinish(ground); // ground necessary even for polished surfaces to enable UNIFIED code
+	//polishedAir->SetSigmaAlpha(10 * degree); // Janecek2010
 	//-------------------------------------------------------------------------------
 	
 	

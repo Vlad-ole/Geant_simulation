@@ -63,8 +63,8 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 	particleGun->SetParticleEnergy(r1*keV);
 
 	//-------------------------------------
-	x = 5.0*(G4UniformRand() - 0.5)*mm; 
-	y = 5.0*(G4UniformRand() - 0.5)*mm; 
+	x = 3.0*(G4UniformRand() - 0.5)*mm; 
+	y = 10.0*(G4UniformRand() - 0.5)*mm; 
 
 	particleGun->SetParticlePosition(G4ThreeVector(x, y, -3*mm));
 	particleGun->GeneratePrimaryVertex(anEvent);
