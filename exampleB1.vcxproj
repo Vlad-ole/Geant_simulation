@@ -58,9 +58,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\Geant_simulation\Debug\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">exampleB1.dir\Debug\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">exampleB1</TargetName>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
@@ -84,7 +84,8 @@
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>F:\Geant_simulation;F:\Geant_simulation\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(G4_INCLUDE);$(MY_G4PROJECTS)/include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(G4_LIB);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -116,11 +117,12 @@
     </Midl>
     <Link>
       <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;C:\Program Files\Geant4\lib\G4Tree.lib;C:\Program Files\Geant4\lib\G4FR.lib;C:\Program Files\Geant4\lib\G4GMocren.lib;C:\Program Files\Geant4\lib\G4visHepRep.lib;C:\Program Files\Geant4\lib\G4RayTracer.lib;C:\Program Files\Geant4\lib\G4VRML.lib;C:\Program Files\Geant4\lib\G4OpenGL.lib;C:\Program Files\Geant4\lib\G4gl2ps.lib;C:\Program Files\Geant4\lib\G4vis_management.lib;C:\Program Files\Geant4\lib\G4modeling.lib;C:\Program Files\Geant4\lib\G4interfaces.lib;C:\Program Files\Geant4\lib\G4persistency.lib;C:\Program Files\Geant4\lib\G4analysis.lib;C:\Program Files\Geant4\lib\G4error_propagation.lib;C:\Program Files\Geant4\lib\G4readout.lib;C:\Program Files\Geant4\lib\G4physicslists.lib;C:\Program Files\Geant4\lib\G4run.lib;C:\Program Files\Geant4\lib\G4event.lib;C:\Program Files\Geant4\lib\G4tracking.lib;C:\Program Files\Geant4\lib\G4parmodels.lib;C:\Program Files\Geant4\lib\G4processes.lib;C:\Program Files\Geant4\lib\G4digits_hits.lib;C:\Program Files\Geant4\lib\G4track.lib;C:\Program Files\Geant4\lib\G4particles.lib;C:\Program Files\Geant4\lib\G4geometry.lib;C:\Program Files\Geant4\lib\G4materials.lib;C:\Program Files\Geant4\lib\G4graphics_reps.lib;C:\Program Files\Geant4\lib\G4intercoms.lib;C:\Program Files\Geant4\lib\G4global.lib;C:\Program Files\Geant4\lib\G4clhep.lib;C:\Program Files\Geant4\lib\G4expat.lib;C:\Program Files\Geant4\lib\G4zlib.lib;C:\Program Files\Geant4\lib\G4FR.lib;C:\Program Files\Geant4\lib\G4vis_management.lib;C:\Program Files\Geant4\lib\G4modeling.lib;glu32.lib;opengl32.lib;C:\Program Files\Geant4\lib\G4run.lib;C:\Program Files\Geant4\lib\G4event.lib;C:\Program Files\Geant4\lib\G4tracking.lib;C:\Program Files\Geant4\lib\G4processes.lib;C:\Program Files\Geant4\lib\G4expat.lib;C:\Program Files\Geant4\lib\G4zlib.lib;C:\Program Files\Geant4\lib\G4digits_hits.lib;C:\Program Files\Geant4\lib\G4track.lib;C:\Program Files\Geant4\lib\G4particles.lib;C:\Program Files\Geant4\lib\G4geometry.lib;C:\Program Files\Geant4\lib\G4materials.lib;C:\Program Files\Geant4\lib\G4graphics_reps.lib;C:\Program Files\Geant4\lib\G4intercoms.lib;C:\Program Files\Geant4\lib\G4global.lib;C:\Program Files\Geant4\lib\G4clhep.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;G4Tree.lib;G4FR.lib;G4GMocren.lib;G4visHepRep.lib;G4RayTracer.lib;G4VRML.lib;G4OpenGL.lib;G4gl2ps.lib;G4vis_management.lib;G4modeling.lib;G4interfaces.lib;G4persistency.lib;G4analysis.lib;G4error_propagation.lib;G4readout.lib;G4physicslists.lib;G4run.lib;G4event.lib;G4tracking.lib;G4parmodels.lib;G4processes.lib;G4digits_hits.lib;G4track.lib;G4particles.lib;G4geometry.lib;G4materials.lib;G4graphics_reps.lib;G4intercoms.lib;G4global.lib;G4clhep.lib;G4expat.lib;G4zlib.lib;glu32.lib;opengl32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ImportLibrary>F:/Geant_simulation/Debug/exampleB1.lib</ImportLibrary>
-      <ProgramDataBaseFile>F:/Geant_simulation/Debug/exampleB1.pdb</ProgramDataBaseFile>
+      <ImportLibrary>
+      </ImportLibrary>
+      <ProgramDataBaseFile>$(OutDir)$(ProjectName).pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
       <Version>
       </Version>
