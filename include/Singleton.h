@@ -21,6 +21,7 @@ public:
 	ofstream file_num_of_reg_photons;
 	ofstream file_ph_coll;
 	ofstream file_xy;
+	ofstream file_energy;
 		
 	//LYSO:Ce
 	string string_lyso_ce_energies;

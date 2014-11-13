@@ -10,14 +10,15 @@ Singleton::Singleton()
 	summ_number_of_photons = 0;
 
 	//определение пути файлов
-	string path_out = "F:\\Geant_simulation\\experiment\\";
-	string path_read = "F:\\Geant_simulation\\data\\";
+	string path_out = "C:\\diplom\\Geant_simulation\\experiment\\";
+	string path_read = "C:\\diplom\\Geant_simulation\\data\\";
 
 	// файлы на запись
 	file_num_of_photons.open(path_out + "num_of_photons.dat");
 	file_num_of_reg_photons.open(path_out + "num_of_reg_photons.dat");
 	file_ph_coll.open(path_out + "ph_coll.dat");
 	file_xy.open(path_out + "xy.dat");
+	file_energy.open(path_out + "energy.dat");
 
 	// файлы на чтение
 	string_lyso_ce_energies = path_read + "energy_spectrum\\lyso_ce_energies_eV_1.dat";

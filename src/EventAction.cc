@@ -40,7 +40,6 @@ void EventAction::BeginOfEventAction(const G4Event* event)
 
 void EventAction::EndOfEventAction(const G4Event* evt)
 {
-	g()->file_num_of_photons << g()->summ_number_of_photons << G4endl;
 	g()->summ_number_of_photons=0;
 }
 

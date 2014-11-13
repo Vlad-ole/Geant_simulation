@@ -33,7 +33,7 @@ void CathodeSD::Initialize(G4HCofThisEvent* HCE)
 
 G4bool CathodeSD::ProcessHits(G4Step*, G4TouchableHistory*)
 {
-  return true;
+	return true;
 }
 
 //Generates a hit and uses the postStepPoint's mother volume replica number
@@ -43,22 +43,35 @@ G4bool CathodeSD::ProcessHits(G4Step*, G4TouchableHistory*)
 G4bool CathodeSD::ProcessHits_Optical(const G4Step* aStep, G4TouchableHistory* )
 {
 
-  //need to know if this is an optical photon
-  if(aStep->GetTrack()->GetDefinition()!= G4OpticalPhoton::OpticalPhotonDefinition()) return false;
+	//need to know if this is an optical photon
+	if(aStep->GetTrack()->GetDefinition()!= G4OpticalPhoton::OpticalPhotonDefinition()) return false;
 
-  //add information about hit to collection
-  _nHits++;
- 
-  return true;
+	//add information about hit to collection
+	_nHits++;
+
+	G4StepPoint * thePrePoint  = aStep->GetPostStepPoint();
+	G4ThreeVector pos    = thePrePoint->GetPosition();
+	G4double energy = thePrePoint->GetTotalEnergy();
+	g()->file_energy << energy << endl;
+
+	return true;
 }
 
 void CathodeSD::EndOfEvent(G4HCofThisEvent*)
 {
 	//.. print info about collection of hits
 	
+	g()->file_num_of_photons << g()->summ_number_of_photons << G4endl;
+	cout << "num_of_photons =\t" << g()->summ_number_of_photons <<  endl;
+
 	g()->file_num_of_reg_photons << _nHits << G4endl;
+	cout << "num_of_reg_photons =\t" << _nHits << endl;
+
 	if (_nHits!=0)
+	{
 		g()->file_ph_coll << _nHits/g()->summ_number_of_photons << G4endl;
+		cout << "ph_coll =\t" << _nHits/g()->summ_number_of_photons << endl;
+	}
 
 }
 
