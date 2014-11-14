@@ -89,21 +89,6 @@ void PhysicsList::AddPhysicsList(const G4String& name)
 #include "G4Electron.hh"
 #include "G4Positron.hh"
 
-#include "G4MuonPlus.hh"
-#include "G4MuonMinus.hh"
-
-// Mesons
-#include "G4PionPlus.hh"
-#include "G4PionMinus.hh"
-
-#include "G4KaonPlus.hh"
-#include "G4KaonMinus.hh"
-
-// Baryons
-#include "G4Proton.hh"
-#include "G4AntiProton.hh"
-#include "G4Neutron.hh"
-#include "G4AntiNeutron.hh"
 
 // Nuclei
 #include "G4Deuteron.hh"
@@ -126,20 +111,6 @@ void PhysicsList::ConstructParticle()
 	// leptons
 	G4Electron::ElectronDefinition();
 	G4Positron::PositronDefinition();
-	//G4MuonPlus::MuonPlusDefinition();
-	//G4MuonMinus::MuonMinusDefinition();
-
-	// mesons
-	//G4PionPlus::PionPlusDefinition();
-	//G4PionMinus::PionMinusDefinition();
-	//G4KaonPlus::KaonPlusDefinition();
-	//G4KaonMinus::KaonMinusDefinition();
-
-	// baryons
-	G4Proton::ProtonDefinition();
-	//G4AntiProton::AntiProtonDefinition();
-	G4Neutron::NeutronDefinition();
-	//G4AntiNeutron::AntiNeutronDefinition();
 
 	// ions
 	G4Deuteron::DeuteronDefinition();
@@ -173,8 +144,7 @@ void PhysicsList::ConstructOptical()
   /*G4OpRayleigh* theRayleighScattering=new G4OpRayleigh();*/
 
   G4OpBoundaryProcess* theBoundaryProcess = new G4OpBoundaryProcess();
- // //theBoundaryProcess->SetModel(unified); // moved to G4OpticalSurface since geant4.9.6
-
+ 
   G4ProcessManager * pManager = G4OpticalPhoton::OpticalPhoton()->GetProcessManager();
 
   pManager->AddDiscreteProcess(theAbsorptionProcess);
