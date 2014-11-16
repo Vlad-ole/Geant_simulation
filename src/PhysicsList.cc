@@ -21,10 +21,9 @@ PhysicsList::PhysicsList() : G4VModularPhysicsList()
 	G4LossTableManager::Instance();
 
 	//// EM physics
-	emName = G4String("livermore");
-	emPhysicsList = new PhysListEmLivermore(emName);
-
-	defaultCutValue = 0.1*mm;
+	emPhysicsList = new PhysListEmLivermore();
+	//emPhysicsList = new PhysListEmStandard();
+	defaultCutValue = 0.01*mm;
 	cutForGamma     = defaultCutValue;
 	cutForElectron  = defaultCutValue;
 

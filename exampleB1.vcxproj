@@ -300,7 +300,9 @@
     <None Include="include\PhysicsList.hh" />
     <None Include="include\PhysListEmLivermore.hh" />
     <None Include="include\PhysListEmPenelope.hh" />
-    <None Include="include\PhysListEmStandard.hh" />
+    <None Include="include\PhysListEmStandard.hh">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </None>
     <None Include="include\PrimaryGeneratorAction.hh" />
     <None Include="include\RunAction.hh" />
     <None Include="include\Scintillation.hh" />

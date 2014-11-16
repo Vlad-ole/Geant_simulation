@@ -57,6 +57,9 @@ public:
 	string string_fusedsilica_RINDEX;
 	string string_fusedsilica_ABSLENGTH;
 
+	//cathode
+	string string_silicaCathodeMaterial_EFFICIENCY;
+
 	//MgO
 	string string_MgO_REFLECTIVITY;
 	string string_MgO_RINDEX;

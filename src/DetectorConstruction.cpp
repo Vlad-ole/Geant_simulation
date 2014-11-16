@@ -69,8 +69,8 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	//выставление размеров объектов
 	G4double HalfWorldLength = 10*cm;
 
-	double scintillator_length_x = 3*mm;
-	double scintillator_length_y = 10*mm;
+	double scintillator_length_x = 5*mm;
+	double scintillator_length_y = 5*mm;
 	double scintillator_height = 3*mm;
 
 	double grease_diameter = 1.5*max(scintillator_length_x, scintillator_length_y);
@@ -127,7 +127,7 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	//--------------------------------------------------------------------------------
 	// создание кристалла
 	solid_scintillator = new G4Box("sscintillator", scintillator_length_x/2.0, scintillator_length_y/2.0, scintillator_height/2.0);
-	logicScint = new G4LogicalVolume(solid_scintillator, G4Material::GetMaterial("LYSO_Ce"), "lScintillator",0,0,0);
+	logicScint = new G4LogicalVolume(solid_scintillator, G4Material::GetMaterial("LuYAG_Pr"), "lScintillator",0,0,0);
 	physiScint = new G4PVPlacement(0,               // no rotation
 		scintillator_position,  // at (x,y,z)
 		logicScint,     // its logical volume

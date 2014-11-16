@@ -37,10 +37,10 @@ void DetectorConstruction::defineSurfaces()
 	//-------------------------------------------------------------------------------
 	//polishedAir
 	polishedAir = new G4OpticalSurface("polishedAir");
-	polishedAir->SetModel(glisur);
+	polishedAir->SetModel(unified);
 	polishedAir->SetType(dielectric_dielectric);	
-	polishedAir->SetFinish(ground); // ground necessary even for polished surfaces to enable UNIFIED code
-	//polishedAir->SetSigmaAlpha(10 * degree); // Janecek2010
+	polishedAir->SetFinish(polished); // ground necessary even for polished surfaces to enable UNIFIED code
+	polishedAir->SetSigmaAlpha(0 * degree); // Janecek2010
 	//-------------------------------------------------------------------------------
 	
 	
@@ -124,9 +124,13 @@ void DetectorConstruction::defineSurfaces()
 
 	G4MaterialPropertiesTable *silicaCathodeMaterialProperty = new G4MaterialPropertiesTable();
 	G4double cathoderefl[2] = {0., 0.};
-	G4double cathodeeff[2] = {1., 1.};
+	//G4double cathodeeff[2] = {1, 1};
+
+	ReadConstants *silicaCathodeMaterial_EFFICIENCY = new ReadConstants(g()->string_silicaCathodeMaterial_EFFICIENCY, 1*eV, 1);
+
 	silicaCathodeMaterialProperty->AddProperty("REFLECTIVITY", ener, cathoderefl, 2);
-	silicaCathodeMaterialProperty->AddProperty("EFFICIENCY", ener, cathodeeff, 2);
+	silicaCathodeMaterialProperty->AddProperty("EFFICIENCY", silicaCathodeMaterial_EFFICIENCY->get_x_array(), silicaCathodeMaterial_EFFICIENCY->get_y_array(), silicaCathodeMaterial_EFFICIENCY->get_array_size());
+	//silicaCathodeMaterialProperty->AddProperty("EFFICIENCY", ener, cathodeeff, 2);
 	silicaCathodeMaterial->SetMaterialPropertiesTable(silicaCathodeMaterialProperty);
 	//--------------------------------------------------------------------------------
 

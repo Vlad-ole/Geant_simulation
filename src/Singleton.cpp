@@ -47,6 +47,8 @@ Singleton::Singleton()
 	string_fusedsilica_RINDEX = path_read + "refractive_index\\fusedsilica_RINDEX_eV_1.dat";
 	string_fusedsilica_ABSLENGTH = path_read + "absorption_length\\fusedsilica_absorption_length_eV_mm.dat";
 
+	string_silicaCathodeMaterial_EFFICIENCY = path_read + "detector_efficiency\\pmt_r10233(big).dat";
+
 	string_MgO_REFLECTIVITY = path_read + "reflectivity\\MgO_REFLECTIVITY_eV_1.dat";
 	string_MgO_RINDEX = path_read + "refractive_index\\MgO_RINDEX_eV_1.dat";
 

@@ -49,10 +49,10 @@ G4bool CathodeSD::ProcessHits_Optical(const G4Step* aStep, G4TouchableHistory* )
 	//add information about hit to collection
 	_nHits++;
 
-	G4StepPoint * thePrePoint  = aStep->GetPostStepPoint();
+	/*G4StepPoint * thePrePoint  = aStep->GetPostStepPoint();
 	G4ThreeVector pos    = thePrePoint->GetPosition();
 	G4double energy = thePrePoint->GetTotalEnergy();
-	g()->file_energy << energy << endl;
+	g()->file_energy << energy << endl;*/
 
 	return true;
 }
@@ -60,6 +60,7 @@ G4bool CathodeSD::ProcessHits_Optical(const G4Step* aStep, G4TouchableHistory* )
 void CathodeSD::EndOfEvent(G4HCofThisEvent*)
 {
 	//.. print info about collection of hits
+	
 	
 	g()->file_num_of_photons << g()->summ_number_of_photons << G4endl;
 	cout << "num_of_photons =\t" << g()->summ_number_of_photons <<  endl;

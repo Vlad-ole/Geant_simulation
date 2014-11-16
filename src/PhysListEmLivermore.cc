@@ -61,19 +61,10 @@
 #include "G4eBremsstrahlung.hh"
 #include "G4LivermoreBremsstrahlungModel.hh"
 
-// e+
-
-#include "G4eplusAnnihilation.hh"
-
-// mu
-
-#include "G4MuIonisation.hh"
-#include "G4MuBremsstrahlung.hh"
-#include "G4MuPairProduction.hh"
+#include "G4MollerBhabhaModel.hh"
 
 // hadrons, ions
 
-#include "G4hIonisation.hh"
 #include "G4ionIonisation.hh"
 
 #include "G4EmProcessOptions.hh"
@@ -110,7 +101,7 @@ void PhysListEmLivermore::ConstructProcess()
 
     //Applicability range for Livermore models
     //for higher energies, the Standard models are used   
-    G4double highEnergyLimit = 1*GeV;
+	G4double highEnergyLimit = 150*keV;
          
     if (particleName == "gamma") {
       // gamma         
@@ -127,60 +118,36 @@ void PhysListEmLivermore::ConstructProcess()
       compt->AddEmModel(0, comptModel);
       pmanager->AddDiscreteProcess(compt);
 
-      G4GammaConversion* conv = new G4GammaConversion();
-      G4LivermoreGammaConversionModel* convModel = new G4LivermoreGammaConversionModel();
-      convModel->SetHighEnergyLimit(highEnergyLimit);
-      conv->AddEmModel(0, convModel);
-      pmanager->AddDiscreteProcess(conv);
 
-      G4RayleighScattering* rayl = new G4RayleighScattering();
+ /*     G4RayleighScattering* rayl = new G4RayleighScattering();
       G4LivermoreRayleighModel* raylModel = new G4LivermoreRayleighModel();
       raylModel->SetHighEnergyLimit(highEnergyLimit);
       rayl->AddEmModel(0, raylModel);
-      pmanager->AddDiscreteProcess(rayl);
+      pmanager->AddDiscreteProcess(rayl);*/
       
-    } else if (particleName == "e-") {
+    } else if (particleName == "e-")  {
       //electron
-      G4eMultipleScattering* msc = new G4eMultipleScattering();
-      msc->SetStepLimitType(fUseDistanceToBoundary);
-      //msc->AddEmModel(1, new G4GoudsmitSaundersonMscModel);  //There is possibility to change models...
-	  //msc->AddEmModel(1, new G4WentzelVIModel()); 
-      pmanager->AddProcess(msc, -1, 1, 1);
+   //   G4eMultipleScattering* msc = new G4eMultipleScattering();
+   //   msc->SetStepLimitType(fUseDistanceToBoundary);
+   //   //msc->AddEmModel(1, new G4GoudsmitSaundersonMscModel);  //There is possibility to change models...
+	  ////msc->AddEmModel(1, new G4WentzelVIModel()); 
+   //   pmanager->AddProcess(msc, -1, 1, 1);
 
       G4eIonisation* eIoni = new G4eIonisation();
-      G4LivermoreIonisationModel* eIoniModel = new G4LivermoreIonisationModel();
-      eIoniModel->SetHighEnergyLimit(highEnergyLimit); 
+      //G4LivermoreIonisationModel* eIoniModel = new G4LivermoreIonisationModel();
+	  G4MollerBhabhaModel* eIoniModel = new G4MollerBhabhaModel();
+	  eIoniModel->SetHighEnergyLimit(highEnergyLimit); 
       eIoni->AddEmModel(0, eIoniModel, new G4UniversalFluctuation() );
       pmanager->AddProcess(eIoni, -1, 2, 2);
       
-      G4eBremsstrahlung* eBrem = new G4eBremsstrahlung();
-      G4LivermoreBremsstrahlungModel* eBremModel = new G4LivermoreBremsstrahlungModel();
-      eBremModel->SetHighEnergyLimit(highEnergyLimit);
-      eBrem->AddEmModel(0, eBremModel);
-      pmanager->AddProcess(eBrem,                   -1, -3, 3);
+      //G4eBremsstrahlung* eBrem = new G4eBremsstrahlung();
+      //G4LivermoreBremsstrahlungModel* eBremModel = new G4LivermoreBremsstrahlungModel();
+      //eBremModel->SetHighEnergyLimit(highEnergyLimit);
+      //eBrem->AddEmModel(0, eBremModel);
+      //pmanager->AddProcess(eBrem,                   -1, -3, 3);
       	    
-    } else if (particleName == "e+") {
-      //positron
-      pmanager->AddProcess(new G4eIonisation,       -1, 1, 1);
-      pmanager->AddProcess(new G4eBremsstrahlung,   -1, 2, 2);
-      pmanager->AddProcess(new G4eplusAnnihilation,  0,-1, 3);
-      
-    } else if( particleName == "mu+" || 
-               particleName == "mu-"    ) {
-      //muon  
-      pmanager->AddProcess(new G4MuIonisation,      -1, 1, 1);
-      pmanager->AddProcess(new G4MuBremsstrahlung,  -1, 2, 2);
-      pmanager->AddProcess(new G4MuPairProduction,  -1, 3, 3);       
-     
-    } else if( particleName == "alpha" || particleName == "GenericIon" ) { 
-      pmanager->AddProcess(new G4ionIonisation,     -1, 1, 1);
+    } 
 
-    } else if ((!particle->IsShortLived()) &&
-	       (particle->GetPDGCharge() != 0.0) && 
-	       (particle->GetParticleName() != "chargedgeantino")) {
-      //all others charged particles except geantino
-      pmanager->AddProcess(new G4hIonisation,       -1, 1, 1);
-    }
   }
 
 
@@ -194,7 +161,7 @@ void PhysListEmLivermore::ConstructProcess()
   //physics tables
   //
   emOptions.SetMinEnergy(10*eV);	//default 100 eV   
-  emOptions.SetMaxEnergy(10*TeV);	//default 100 TeV 
+  emOptions.SetMaxEnergy(150*keV);	//default 100 TeV 
   emOptions.SetDEDXBinning(12*10);	//default=12*7
   emOptions.SetLambdaBinning(12*10);	//default=12*7
   
