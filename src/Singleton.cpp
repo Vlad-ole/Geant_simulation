@@ -9,9 +9,11 @@ Singleton::Singleton()
 {
 	summ_number_of_photons = 0;
 
+	string solution_path = "F:\\Geant_simulation\\";
+
 	//определение пути файлов
-	string path_out = "C:\\diplom\\Geant_simulation\\experiment\\";
-	string path_read = "C:\\diplom\\Geant_simulation\\data\\";
+	string path_out = solution_path + "experiment\\";
+	string path_read = solution_path + "data\\";
 
 	// файлы на запись
 	file_num_of_photons.open(path_out + "num_of_photons.dat");
