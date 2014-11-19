@@ -119,32 +119,32 @@ void PhysListEmLivermore::ConstructProcess()
       pmanager->AddDiscreteProcess(compt);
 
 
- /*     G4RayleighScattering* rayl = new G4RayleighScattering();
+      G4RayleighScattering* rayl = new G4RayleighScattering();
       G4LivermoreRayleighModel* raylModel = new G4LivermoreRayleighModel();
       raylModel->SetHighEnergyLimit(highEnergyLimit);
       rayl->AddEmModel(0, raylModel);
-      pmanager->AddDiscreteProcess(rayl);*/
+      pmanager->AddDiscreteProcess(rayl);
       
     } else if (particleName == "e-")  {
       //electron
-   //   G4eMultipleScattering* msc = new G4eMultipleScattering();
-   //   msc->SetStepLimitType(fUseDistanceToBoundary);
-   //   //msc->AddEmModel(1, new G4GoudsmitSaundersonMscModel);  //There is possibility to change models...
-	  ////msc->AddEmModel(1, new G4WentzelVIModel()); 
-   //   pmanager->AddProcess(msc, -1, 1, 1);
+      G4eMultipleScattering* msc = new G4eMultipleScattering();
+      msc->SetStepLimitType(fUseDistanceToBoundary);
+      //msc->AddEmModel(1, new G4GoudsmitSaundersonMscModel);  //There is possibility to change models...
+	  //msc->AddEmModel(1, new G4WentzelVIModel()); 
+      pmanager->AddProcess(msc, -1, 1, 1);
 
       G4eIonisation* eIoni = new G4eIonisation();
-      //G4LivermoreIonisationModel* eIoniModel = new G4LivermoreIonisationModel();
-	  G4MollerBhabhaModel* eIoniModel = new G4MollerBhabhaModel();
+      G4LivermoreIonisationModel* eIoniModel = new G4LivermoreIonisationModel();
+	  //G4MollerBhabhaModel* eIoniModel = new G4MollerBhabhaModel();
 	  eIoniModel->SetHighEnergyLimit(highEnergyLimit); 
       eIoni->AddEmModel(0, eIoniModel, new G4UniversalFluctuation() );
       pmanager->AddProcess(eIoni, -1, 2, 2);
       
-      //G4eBremsstrahlung* eBrem = new G4eBremsstrahlung();
-      //G4LivermoreBremsstrahlungModel* eBremModel = new G4LivermoreBremsstrahlungModel();
-      //eBremModel->SetHighEnergyLimit(highEnergyLimit);
-      //eBrem->AddEmModel(0, eBremModel);
-      //pmanager->AddProcess(eBrem,                   -1, -3, 3);
+      G4eBremsstrahlung* eBrem = new G4eBremsstrahlung();
+      G4LivermoreBremsstrahlungModel* eBremModel = new G4LivermoreBremsstrahlungModel();
+      eBremModel->SetHighEnergyLimit(highEnergyLimit);
+      eBrem->AddEmModel(0, eBremModel);
+      pmanager->AddProcess(eBrem,                   -1, -3, 3);
       	    
     } 
 

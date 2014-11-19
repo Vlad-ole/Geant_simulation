@@ -52,7 +52,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 	switch(xrType)
 	{
 	case MONO:
-		r1=59.5; //original value
+		r1=70; //original value
 		//r1=1; //trst value
 		break;
 
@@ -63,8 +63,12 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 	particleGun->SetParticleEnergy(r1*keV);
 
 	//-------------------------------------
-	x = 5.0*(G4UniformRand() - 0.5)*mm; 
-	y = 5.0*(G4UniformRand() - 0.5)*mm; 
+	//do
+	//{
+		x = 2.0*(G4UniformRand() - 0.5)*mm; 
+		y = 2.0*(G4UniformRand() - 0.5)*mm;
+	//}
+	//while(x*x + y*y > 16*mm2);
 
 	particleGun->SetParticlePosition(G4ThreeVector(x, y, -3*mm));
 	particleGun->GeneratePrimaryVertex(anEvent);
