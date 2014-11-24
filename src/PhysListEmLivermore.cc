@@ -127,6 +127,7 @@ void PhysListEmLivermore::ConstructProcess()
       
     } else if (particleName == "e-")  {
       //electron
+
       G4eMultipleScattering* msc = new G4eMultipleScattering();
       msc->SetStepLimitType(fUseDistanceToBoundary);
       //msc->AddEmModel(1, new G4GoudsmitSaundersonMscModel);  //There is possibility to change models...

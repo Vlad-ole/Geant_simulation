@@ -183,7 +183,7 @@ void DetectorConstruction::defineMaterials()
 	YAP_Ce_prop->AddProperty("RINDEX",        YAP_Ce_RINDEX->get_x_array(), YAP_Ce_RINDEX->get_y_array(), YAP_Ce_RINDEX->get_array_size());
 	YAP_Ce_prop->AddProperty("ABSLENGTH",     YAP_Ce_ABSLENGTH->get_x_array(), YAP_Ce_ABSLENGTH->get_y_array(),  YAP_Ce_ABSLENGTH->get_array_size());
 	YAP_Ce_prop->AddConstProperty("SCINTILLATIONYIELD", 32.0/keV);
-	YAP_Ce_prop->AddConstProperty("RESOLUTIONSCALE",1.0);
+	YAP_Ce_prop->AddConstProperty("RESOLUTIONSCALE", 1.0);
 	YAP_Ce_prop->AddConstProperty("FASTTIMECONSTANT",41.0*ns);
 	YAP_Ce_prop->AddConstProperty("YIELDRATIO",1.0);
 	YAP_Ce->SetMaterialPropertiesTable(YAP_Ce_prop);

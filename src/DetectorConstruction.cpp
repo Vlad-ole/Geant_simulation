@@ -70,9 +70,10 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	//выставление размеров объектов
 	G4double HalfWorldLength = 10*cm;
 
-	double scintillator_length_x = 10*mm;
-	double scintillator_length_y = 3*mm;
-	double scintillator_height = 2*mm;
+	double scintillator_length_x = 3*mm; // full length
+	double scintillator_length_y = 3*mm; // full length
+	double scintillator_height = 10*mm; // full length
+	//double scintillator_height = 2*mm + 0.5*mm; // for YAP:Ce 2x10 only
 
 	double grease_diameter = 1.5*max(scintillator_length_x, scintillator_length_y);
 	double grease_height = 0.1*mm;
@@ -129,34 +130,49 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	// создание кристалла
 
 	//// for any crystall
-	//solid_scintillator = new G4Box("sscintillator", scintillator_length_x/2.0, scintillator_length_y/2.0, scintillator_height/2.0); 
-	//
-	//logicScint = new G4LogicalVolume(solid_scintillator, G4Material::GetMaterial("YAP_Ce"), "lScintillator",0,0,0);
-	//
-	//physiScint = new G4PVPlacement(0,               // no rotation
-	//	scintillator_position,  // at (x,y,z)
-	//	logicScint,     // its logical volume
-	//	"pScintillator",        // its name
-	//	logicWorld,      // its mother  volume
-	//	false,           // no boolean operations
-	//	0); 
-
-
-	//for YAP:Ce only
-	solidTrapScint = new G4Trap("sTrapscintillator", scintillator_height, scintillator_length_x, scintillator_length_y, 2*mm); // for YAP:Ce only
+	solid_scintillator = new G4Box("sscintillator", scintillator_length_x/2.0, scintillator_length_y/2.0, scintillator_height/2.0); 
 	
-	logicScint = new G4LogicalVolume(solidTrapScint, G4Material::GetMaterial("YAP_Ce"), "lScintillator",0,0,0);
+	logicScint = new G4LogicalVolume(solid_scintillator, G4Material::GetMaterial("LYSO_Ce"), "lScintillator",0,0,0);
 	
-	G4RotationMatrix* yRot90deg= new G4RotationMatrix;
-	yRot90deg->rotateX(90*degree);
-
-	physiScint = new G4PVPlacement(0/*yRot90deg*/,
+	physiScint = new G4PVPlacement(0,               // no rotation
 		scintillator_position,  // at (x,y,z)
 		logicScint,     // its logical volume
 		"pScintillator",        // its name
 		logicWorld,      // its mother  volume
 		false,           // no boolean operations
-		0);              // copy number
+		0); 
+
+	//_______________________________________________________________________________
+	////for YAP:Ce only
+	//solidTrapScint = new G4Trap("sTrapscintillator", 2*mm, 10*mm, 3*mm, 2*mm);
+	//
+	//logicScint = new G4LogicalVolume(solidTrapScint, G4Material::GetMaterial("YAP_Ce"), "lScintillator",0,0,0);
+	//
+	//G4RotationMatrix* yRot90deg= new G4RotationMatrix;
+	//
+	////2x3x10
+	////no rotation
+
+	////2x3
+	///*yRot90deg->rotateX(90*degree);*/
+	//
+	////2x2
+	///*yRot90deg->rotateX(270*degree);*/
+
+	////2x10
+	///*yRot90deg->rotateX(270*degree);
+	//yRot90deg->rotateZ(90*degree);*/
+	//
+
+	//physiScint = new G4PVPlacement(/*0*/ yRot90deg,
+	//	scintillator_position,  // at (x,y,z)
+	//	logicScint,     // its logical volume
+	//	"pScintillator",        // its name
+	//	logicWorld,      // its mother  volume
+	//	false,           // no boolean operations
+	//	0);              // copy number
+	//_______________________________________________________________________________
+
 	//-------------------------------------------------------------------------------
 
 

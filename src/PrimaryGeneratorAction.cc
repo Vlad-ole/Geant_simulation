@@ -24,17 +24,54 @@ void PrimaryGeneratorAction::CommonPart()
 	G4ParticleDefinition* particle = particleTable->FindParticle(particleName="gamma");
 
 	particleGun->SetParticleDefinition(particle);
-
-
-	particleGun->SetParticleMomentumDirection(G4ThreeVector(0., 0., 1.));
-	//particleGun->SetParticlePosition(G4ThreeVector(0.*mm, 0.*mm, -3.*mm));
-
+	
 }
 
 PrimaryGeneratorAction::PrimaryGeneratorAction()
 {
 	CommonPart();
 	xrType = MONO;
+}
+
+PrimaryGeneratorAction::PrimaryGeneratorAction(char* fname)
+{
+	CommonPart();
+	xrType = SPECTER;
+
+	char   buffer[256];
+	char   seps[]=" \t;";	  //separatoren
+
+	nMaxDataLines=0;
+	dMaxWeight  = 1;
+
+
+	cout << "Read Specter: " << fname << endl;
+	FILE* in =  fopen(fname,"r");
+	if(in==NULL)
+	{
+		cout << "Specter of X-Tube not loaded!!! " << fname << endl;
+		return;
+	}
+	while (!feof(in) && nMaxDataLines<MAX_SPECTER_DATALINES)
+	{
+		fgets(buffer,sizeof(buffer)-1,in);
+		cout << "Read of " << nMaxDataLines << " line: " << buffer <<endl;
+		
+		if (strlen(buffer)>2)
+		{
+			if (!strstr(buffer,"//"))
+			{
+				dEnergy[nMaxDataLines] = atoi (strtok(buffer,seps));
+				dWeight[nMaxDataLines] = atof (strtok(NULL,  seps));
+				if(dWeight[nMaxDataLines]>dMaxWeight)dMaxWeight = dWeight[nMaxDataLines];
+				nMaxDataLines++;
+			}
+		}
+	}
+	cout << "Specter " << fname << "loaded! There are " << nMaxDataLines << " datalines." <<endl;
+
+	fclose(in);
+
 }
 
 PrimaryGeneratorAction::~PrimaryGeneratorAction()
@@ -44,39 +81,38 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction()
 
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
-	double r1;
-	double r2;
-	double x=0, z=0, y=0;
+	
+	double energy = 59.5*keV;
+
+	particleGun->SetParticleEnergy(energy);
 
 	//-------------------------------------
-	switch(xrType)
+	//set particle direction
+	const double pi = 3.1416;
+	double phi = 2*pi*G4UniformRand();
+	double theta = pi/2*G4UniformRand();
+	particleGun->SetParticleMomentumDirection(G4ThreeVector(sin(theta)*cos(phi), sin(theta)*sin(phi), cos(theta)));
+	//------------------------------------
+	
+	
+	//-------------------------------------
+	//set particle position
+	double x, y;
+	do
 	{
-	case MONO:
-		r1=70; //original value
-		//r1=1; //trst value
-		break;
-
-	case SPECTER:
-		break;
-	}
-
-	particleGun->SetParticleEnergy(r1*keV);
-
-	//-------------------------------------
-	//do
-	//{
-		x = 2.0*(G4UniformRand() - 0.5)*mm; 
-		y = 2.0*(G4UniformRand() - 0.5)*mm;
-	//}
-	//while(x*x + y*y > 16*mm2);
-
-	particleGun->SetParticlePosition(G4ThreeVector(x, y, -3*mm));
+		x = 4.0*(G4UniformRand() - 0.5)*mm; 
+		y = 4.0*(G4UniformRand() - 0.5)*mm; 
+	} while (x*x + y*y > 16*mm2);
+	particleGun->SetParticlePosition(G4ThreeVector(x, y, -1*mm));
+	//------------------------------------
+	
+	
 	particleGun->GeneratePrimaryVertex(anEvent);
 	
 	G4int  n_event = anEvent->GetEventID();
 	if((n_event%1000)==0)
 	{
-		cout << "New event started! " << anEvent->GetEventID() << " Particle energy: "  << r1 << " keV. "<< endl; 
+		cout << "New event started! " << anEvent->GetEventID() << " Particle energy: "  << energy << " keV. "<< endl; 
 	} 
 
 }
