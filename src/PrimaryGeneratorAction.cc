@@ -112,7 +112,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 	G4int  n_event = anEvent->GetEventID();
 	if((n_event%1000)==0)
 	{
-		cout << "New event started! " << anEvent->GetEventID() << " Particle energy: "  << energy << " keV. "<< endl; 
+		cout << "New event started! " << anEvent->GetEventID() << " Particle energy: "  << energy/keV << " keV. "<< endl; 
 	} 
 
 }
