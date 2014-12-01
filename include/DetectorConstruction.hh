@@ -36,7 +36,7 @@ public:
 public:
 
 	G4VPhysicalVolume* Construct();
-
+	void ChangeGeometry(double parametr);
 
 
 private:

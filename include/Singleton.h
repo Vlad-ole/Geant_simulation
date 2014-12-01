@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 using namespace std;
 #define g() (Singleton::get())
 
@@ -22,7 +23,8 @@ public:
 	ofstream file_ph_coll;
 	ofstream file_xy;
 	ofstream file_energy;
-		
+	ofstream file_run_lc;
+	
 	//LYSO:Ce
 	string string_lyso_ce_energies;
 	string string_lyso_ce_rindex;
@@ -68,6 +70,9 @@ public:
 	string string_TiO2_REFLECTIVITY;
 	string string_TiO2_RINDEX;
 
+	
+	//
 	double summ_number_of_photons;
+	vector<double> LightCollection;
 
 };

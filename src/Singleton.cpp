@@ -9,7 +9,7 @@ Singleton::Singleton()
 {
 	summ_number_of_photons = 0;
 
-	string solution_path = "C:\\diplom\\Geant_simulation\\";
+	string solution_path = "F:\\Geant_simulation\\";
 
 	//определение пути файлов
 	string path_out = solution_path + "experiment\\";
@@ -21,6 +21,7 @@ Singleton::Singleton()
 	file_ph_coll.open(path_out + "ph_coll.dat");
 	file_xy.open(path_out + "xy.dat");
 	file_energy.open(path_out + "energy.dat");
+	file_run_lc.open(path_out + "run_lc.dat");
 
 	// файлы на чтение
 	string_lyso_ce_energies = path_read + "energy_spectrum\\lyso_ce_energies_eV_1.dat";
@@ -56,6 +57,9 @@ Singleton::Singleton()
 
 	string_TiO2_REFLECTIVITY = path_read + "reflectivity\\TiO2_REFLECTIVITY_eV_1.dat";
 	string_TiO2_RINDEX = path_read + "refractive_index\\TiO2_RINDEX_eV_1.dat";
+
+	//
+	
 
 }
 

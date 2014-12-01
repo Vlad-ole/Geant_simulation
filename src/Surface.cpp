@@ -162,3 +162,8 @@ void DetectorConstruction::defineSurfaces()
 
 	//*********************************************************************************
 }
+
+void DetectorConstruction::ChangeGeometry(double parametr)
+{
+	polishedAir->SetSigmaAlpha(parametr * degree);
+}

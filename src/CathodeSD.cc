@@ -72,6 +72,7 @@ void CathodeSD::EndOfEvent(G4HCofThisEvent*)
 	{
 		g()->file_ph_coll << _nHits/g()->summ_number_of_photons << G4endl;
 		//cout << "ph_coll =\t" << _nHits/g()->summ_number_of_photons << endl;
+		(g()->LightCollection).push_back(_nHits/g()->summ_number_of_photons);
 	}
 
 }
