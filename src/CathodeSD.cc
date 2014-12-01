@@ -63,15 +63,15 @@ void CathodeSD::EndOfEvent(G4HCofThisEvent*)
 	
 	
 	g()->file_num_of_photons << g()->summ_number_of_photons << G4endl;
-	cout << "num_of_photons =\t" << g()->summ_number_of_photons <<  endl;
+	//cout << "num_of_photons =\t" << g()->summ_number_of_photons <<  endl;
 
 	g()->file_num_of_reg_photons << _nHits << G4endl;
-	cout << "num_of_reg_photons =\t" << _nHits << endl;
+	//cout << "num_of_reg_photons =\t" << _nHits << endl;
 
 	if (_nHits!=0)
 	{
 		g()->file_ph_coll << _nHits/g()->summ_number_of_photons << G4endl;
-		cout << "ph_coll =\t" << _nHits/g()->summ_number_of_photons << endl;
+		//cout << "ph_coll =\t" << _nHits/g()->summ_number_of_photons << endl;
 	}
 
 }

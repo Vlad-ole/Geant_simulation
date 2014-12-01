@@ -132,6 +132,8 @@ private:
 	G4OpticalSurface *MgO_unified;
 	G4OpticalSurface *TiO2_unified;
 
+	G4OpticalSurface *Glass_surface;
+
 
 	void defineMaterials();
 	void defineSurfaces();

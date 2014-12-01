@@ -44,7 +44,7 @@ void DetectorConstruction::defineSurfaces()
 	polishedAir->SetModel(unified);
 	polishedAir->SetType(dielectric_dielectric);	
 	polishedAir->SetFinish(ground); // ground necessary even for polished surfaces to enable UNIFIED code
-	polishedAir->SetSigmaAlpha(1 * degree); // Janecek2010
+	polishedAir->SetSigmaAlpha(4.0 * degree); // Janecek2010
 
 	G4MaterialPropertiesTable* polishedAir_property = new G4MaterialPropertiesTable();
 	//polishedAir_property->AddProperty("RINDEX", ener, teflon_rindex, 2);
@@ -122,6 +122,23 @@ void DetectorConstruction::defineSurfaces()
 	TiO2_unified->SetMaterialPropertiesTable(TiO2_unified_property);
 	//------------------------------------------------------------------------------
 	
+	//-------------------------------------------------------------------------------
+	//описание поверхности стекла ФЭУ
+	Glass_surface = new G4OpticalSurface("Glass_surface");
+	Glass_surface->SetModel(unified);
+	Glass_surface->SetType(dielectric_dielectric);	
+	Glass_surface->SetFinish(ground); // ground necessary even for polished surfaces to enable UNIFIED code
+	Glass_surface->SetSigmaAlpha(2.0 * degree); // Janecek2010
+
+	G4MaterialPropertiesTable* Glass_surface_property = new G4MaterialPropertiesTable();
+	//polishedAir_property->AddProperty("RINDEX", ener, teflon_rindex, 2);
+	Glass_surface_property->AddProperty("SPECULARLOBECONSTANT", ener, specular_lobe,2);
+	Glass_surface_property->AddProperty("SPECULARSPIKECONSTANT", ener, specular_spike,2);
+	Glass_surface_property->AddProperty("BACKSCATTERCONSTANT", ener, back_scatter,2);
+	//polishedAir_property->AddProperty("REFLECTIVITY", ener, teflon_refl, 2);
+	Glass_surface->SetMaterialPropertiesTable(Glass_surface_property);
+	//-------------------------------------------------------------------------------
+
 	
 	//-----------------------------------------------------------------------------
 	// описание поверхности фотокатода

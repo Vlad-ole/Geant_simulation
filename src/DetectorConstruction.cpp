@@ -86,11 +86,6 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	//--------------------------------------------------------------------------------
 
 
-	//--------------------------------------------------------------------------------
-	//выбор поверхностей
-	world_scintillator = polishedAir;
-	glass_cathode = silicaCathodeMaterial;
-	//--------------------------------------------------------------------------------
 
 	//--------------------------------------------------------------------------------
 	//определение взаимного расположения объектов
@@ -231,8 +226,15 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 
 	//---------------------------------------------------------------------------
 	//установка поверхностей
-	G4LogicalBorderSurface* scintillator_world_logical = new G4LogicalBorderSurface("world_scintillator", physiScint, physiWorld, world_scintillator); // from physiScint to physiWorld
-	G4LogicalBorderSurface* world_scintillator_logical = new G4LogicalBorderSurface("scintillator_world", physiWorld, physiScint, world_scintillator); // from physiWorld to physiScint
+	G4LogicalBorderSurface* scintillator_world_logical = new G4LogicalBorderSurface("world_scintillator", physiScint, physiWorld, polishedAir); // from physiScint to physiWorld
+	G4LogicalBorderSurface* world_scintillator_logical = new G4LogicalBorderSurface("scintillator_world", physiWorld, physiScint, polishedAir); // from physiWorld to physiScint
+
+	//G4LogicalBorderSurface* scintillator_grease_logical = new G4LogicalBorderSurface("scintillator_world", physiScint, physi_grease, polishedAir);
+	//G4LogicalBorderSurface* grease_scintillator_logical = new G4LogicalBorderSurface("scintillator_world", physi_grease, physiScint, polishedAir);
+
+	G4LogicalBorderSurface* grease_glass_logical = new G4LogicalBorderSurface("grease_glass_logical", physi_grease, physi_glass, Glass_surface);
+	G4LogicalBorderSurface* glass_grease_logical = new G4LogicalBorderSurface("glass_grease_logical", physi_glass, physi_grease, Glass_surface);
+
 	G4LogicalBorderSurface* envelope2CathodeSurface = new G4LogicalBorderSurface("envelope2CathodeSurface", physi_glass, physiCathode, silicaCathodeMaterial);
 	//---------------------------------------------------------------------------
 

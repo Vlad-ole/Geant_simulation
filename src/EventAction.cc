@@ -34,7 +34,16 @@ void EventAction::AddtotDetector(G4ThreeVector pos, G4double val)
 void EventAction::BeginOfEventAction(const G4Event* event)
 {
 	G4int eventNb = event->GetEventID();
-	G4cout << "\n---> Begin of event: " << eventNb << G4endl;
+
+	if(eventNb < 10)
+	{		
+		G4cout << "\n---> Begin of event: " << eventNb << G4endl;
+	}
+	else
+	{
+		if(eventNb % 10 == 0)
+			G4cout << "\n---> Begin of event: " << eventNb << G4endl;
+	}
 }
 
 
