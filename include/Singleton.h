@@ -74,5 +74,7 @@ public:
 	//
 	double summ_number_of_photons;
 	vector<double> LightCollection;
+	int abs_index;
+	double SigmaAlpha_index;
 
 };

@@ -70,9 +70,9 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	//выставление размеров объектов
 	G4double HalfWorldLength = 10*cm;
 
-	double scintillator_length_x = 3*mm; // full length
-	double scintillator_length_y = 3*mm; // full length
-	double scintillator_height = 10*mm; // full length
+	double scintillator_length_x = 5.0*mm; // full length
+	double scintillator_length_y = 5.0*mm; // full length
+	double scintillator_height = 3.0*mm; // full length
 	//double scintillator_height = 2*mm + 0.5*mm; // for YAP:Ce 2x10 only
 
 	double grease_diameter = 1.5*max(scintillator_length_x, scintillator_length_y);
@@ -124,10 +124,10 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	//--------------------------------------------------------------------------------
 	// создание кристалла
 
-	//// for any crystall
+	////// for any crystall
 	solid_scintillator = new G4Box("sscintillator", scintillator_length_x/2.0, scintillator_length_y/2.0, scintillator_height/2.0); 
 	
-	logicScint = new G4LogicalVolume(solid_scintillator, G4Material::GetMaterial("LYSO_Ce"), "lScintillator",0,0,0);
+	logicScint = new G4LogicalVolume(solid_scintillator, G4Material::GetMaterial("LuYAG_Pr"), "lScintillator",0,0,0);
 	
 	physiScint = new G4PVPlacement(0,               // no rotation
 		scintillator_position,  // at (x,y,z)
@@ -139,25 +139,25 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 
 	//_______________________________________________________________________________
 	////for YAP:Ce only
-	//solidTrapScint = new G4Trap("sTrapscintillator", 2*mm, 10*mm, 3*mm, 2*mm);
-	//
-	//logicScint = new G4LogicalVolume(solidTrapScint, G4Material::GetMaterial("YAP_Ce"), "lScintillator",0,0,0);
-	//
-	//G4RotationMatrix* yRot90deg= new G4RotationMatrix;
-	//
+	/*solidTrapScint = new G4Trap("sTrapscintillator", 2*mm, 10*mm, 3*mm, 2*mm);
+	
+	logicScint = new G4LogicalVolume(solidTrapScint, G4Material::GetMaterial("YAP_Ce"), "lScintillator",0,0,0);
+	
+	G4RotationMatrix* yRot90deg= new G4RotationMatrix;*/
+	
 	////2x3x10
 	////no rotation
 
 	////2x3
-	///*yRot90deg->rotateX(90*degree);*/
-	//
+	/*yRot90deg->rotateX(90*degree);*/
+	
 	////2x2
-	///*yRot90deg->rotateX(270*degree);*/
+	/*yRot90deg->rotateX(270*degree);*/
 
 	////2x10
-	///*yRot90deg->rotateX(270*degree);
-	//yRot90deg->rotateZ(90*degree);*/
-	//
+	/*yRot90deg->rotateX(270*degree);
+	yRot90deg->rotateZ(90*degree);*/
+	
 
 	//physiScint = new G4PVPlacement(/*0*/ yRot90deg,
 	//	scintillator_position,  // at (x,y,z)
@@ -229,8 +229,8 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	G4LogicalBorderSurface* scintillator_world_logical = new G4LogicalBorderSurface("world_scintillator", physiScint, physiWorld, polishedAir); // from physiScint to physiWorld
 	G4LogicalBorderSurface* world_scintillator_logical = new G4LogicalBorderSurface("scintillator_world", physiWorld, physiScint, polishedAir); // from physiWorld to physiScint
 
-	//G4LogicalBorderSurface* scintillator_grease_logical = new G4LogicalBorderSurface("scintillator_world", physiScint, physi_grease, polishedAir);
-	//G4LogicalBorderSurface* grease_scintillator_logical = new G4LogicalBorderSurface("scintillator_world", physi_grease, physiScint, polishedAir);
+	G4LogicalBorderSurface* scintillator_grease_logical = new G4LogicalBorderSurface("scintillator_world", physiScint, physi_grease, polishedAir);
+	G4LogicalBorderSurface* grease_scintillator_logical = new G4LogicalBorderSurface("scintillator_world", physi_grease, physiScint, polishedAir);
 
 	G4LogicalBorderSurface* grease_glass_logical = new G4LogicalBorderSurface("grease_glass_logical", physi_grease, physi_glass, Glass_surface);
 	G4LogicalBorderSurface* glass_grease_logical = new G4LogicalBorderSurface("glass_grease_logical", physi_glass, physi_grease, Glass_surface);
@@ -258,5 +258,9 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 }
 
 
-
+void DetectorConstruction::ChangeDetectorConstruction(double parametr)
+{
+	ChangeSurface(parametr);
+	ChangeMaterials();	
+}
 

@@ -42,7 +42,7 @@ void RunAction::EndOfRunAction(const G4Run* aRun)
 	}
 
 	cout << sum_lc / (g()->LightCollection).size() << endl;
-	g()->file_run_lc << aRun->GetRunID() << "\t" << sum_lc / (g()->LightCollection).size() << endl;
+	g()->file_run_lc << g()->abs_index << "\t" << g()->SigmaAlpha_index << "\t" << sum_lc / (g()->LightCollection).size() << endl;
 	
 	cout << " " << *timer << endl;
 }

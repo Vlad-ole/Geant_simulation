@@ -44,7 +44,7 @@ void DetectorConstruction::defineSurfaces()
 	polishedAir->SetModel(unified);
 	polishedAir->SetType(dielectric_dielectric);	
 	polishedAir->SetFinish(ground); // ground necessary even for polished surfaces to enable UNIFIED code
-	polishedAir->SetSigmaAlpha(4.0 * degree); // Janecek2010
+	polishedAir->SetSigmaAlpha(0.0 * degree); // Janecek2010
 
 	G4MaterialPropertiesTable* polishedAir_property = new G4MaterialPropertiesTable();
 	//polishedAir_property->AddProperty("RINDEX", ener, teflon_rindex, 2);
@@ -128,7 +128,7 @@ void DetectorConstruction::defineSurfaces()
 	Glass_surface->SetModel(unified);
 	Glass_surface->SetType(dielectric_dielectric);	
 	Glass_surface->SetFinish(ground); // ground necessary even for polished surfaces to enable UNIFIED code
-	Glass_surface->SetSigmaAlpha(2.0 * degree); // Janecek2010
+	Glass_surface->SetSigmaAlpha(0.0 * degree); // Janecek2010
 
 	G4MaterialPropertiesTable* Glass_surface_property = new G4MaterialPropertiesTable();
 	//polishedAir_property->AddProperty("RINDEX", ener, teflon_rindex, 2);
@@ -163,7 +163,7 @@ void DetectorConstruction::defineSurfaces()
 	//*********************************************************************************
 }
 
-void DetectorConstruction::ChangeGeometry(double parametr)
+void DetectorConstruction::ChangeSurface(double parametr)
 {
 	polishedAir->SetSigmaAlpha(parametr * degree);
 }

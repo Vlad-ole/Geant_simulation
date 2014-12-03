@@ -73,20 +73,23 @@ int main(int argc,char** argv)
 	// get the pointer to the User Interface manager 
 	G4UImanager* UI = G4UImanager::GetUIpointer();  
 
-	for (int i = 0 ; i < 3; i++)
+	for(g()->abs_index = 200; g()->abs_index > 1; g()->abs_index -= 5)
 	{
-		detector->ChangeGeometry(i);
-		
-		if(argc==1)
+		for (g()->SigmaAlpha_index = 0; g()->SigmaAlpha_index < 50; g()->SigmaAlpha_index += 1)
 		{
-			UI->ApplyCommand("/control/execute slava.mac");  
-		}
-		else
-		{ 
-			// Batch mode
-			G4String command = "/control/execute ";
-			G4String fileName = argv[1];
-			UI->ApplyCommand(command+fileName);
+			detector->ChangeDetectorConstruction(g()->SigmaAlpha_index);
+
+			if(argc==1)
+			{
+				UI->ApplyCommand("/control/execute slava.mac");  
+			}
+			else
+			{ 
+				// Batch mode
+				G4String command = "/control/execute ";
+				G4String fileName = argv[1];
+				UI->ApplyCommand(command+fileName);
+			}
 		}
 	}
 

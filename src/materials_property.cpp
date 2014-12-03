@@ -97,7 +97,7 @@ void DetectorConstruction::defineMaterials()
 	ReadConstants *LuYAG_Pr_ABSLENGTH = new ReadConstants(g()->string_LuYAG_Pr_absorption_length, 1*eV, 1*mm);
 
 
-	G4MaterialPropertiesTable* luyag_pr = new G4MaterialPropertiesTable();
+	luyag_pr = new G4MaterialPropertiesTable();
 	luyag_pr->AddProperty("FASTCOMPONENT", LuYAG_Pr_FASTCOMPONENT->get_x_array(), LuYAG_Pr_FASTCOMPONENT->get_y_array(), LuYAG_Pr_FASTCOMPONENT->get_array_size());
 	luyag_pr->AddProperty("RINDEX",        LuYAG_Pr_RINDEX->get_x_array(), LuYAG_Pr_RINDEX->get_y_array(), LuYAG_Pr_RINDEX->get_array_size());
 	luyag_pr->AddProperty("ABSLENGTH",     LuYAG_Pr_ABSLENGTH->get_x_array(), LuYAG_Pr_ABSLENGTH->get_y_array(),  LuYAG_Pr_ABSLENGTH->get_array_size());
@@ -238,5 +238,12 @@ void DetectorConstruction::defineMaterials()
 
 }
 
+void DetectorConstruction::ChangeMaterials()
+{
+	
+	G4double energies[2] = { 0.1*eV, 10.0*eV };
+	G4double abs_len[2] = { (g()->abs_index)*mm, (g()->abs_index)*mm };
 
+	luyag_pr->AddProperty("ABSLENGTH", energies, abs_len,  2);
+}
 

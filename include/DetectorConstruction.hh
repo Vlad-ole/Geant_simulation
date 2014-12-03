@@ -36,8 +36,9 @@ public:
 public:
 
 	G4VPhysicalVolume* Construct();
-	void ChangeGeometry(double parametr);
-
+	void ChangeDetectorConstruction(double parametr);
+	void ChangeSurface(double parametr);
+	void ChangeMaterials();
 
 private:
 
@@ -133,6 +134,8 @@ private:
 	G4OpticalSurface *TiO2_unified;
 
 	G4OpticalSurface *Glass_surface;
+
+	G4MaterialPropertiesTable* luyag_pr;
 
 
 	void defineMaterials();
