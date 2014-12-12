@@ -24,6 +24,7 @@ public:
 	ofstream file_xy;
 	ofstream file_energy;
 	ofstream file_run_lc;
+	ofstream file_boundary_process;
 	
 	//LYSO:Ce
 	string string_lyso_ce_energies;
@@ -73,8 +74,14 @@ public:
 	
 	//
 	double summ_number_of_photons;
+	
 	vector<double> LightCollection;
+		
 	int abs_index;
+	
 	double SigmaAlpha_index;
+
+	int NumberOfReflections;
+	int NumberOfBornPhotons;
 
 };

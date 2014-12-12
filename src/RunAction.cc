@@ -28,6 +28,8 @@ void RunAction::BeginOfRunAction(const G4Run* aRun)
 	timer->Start();
 
 	(g()->LightCollection).clear();
+	g()->NumberOfReflections = 0;
+	g()->NumberOfBornPhotons = 0;
 }
 
 void RunAction::EndOfRunAction(const G4Run* aRun)
@@ -41,8 +43,10 @@ void RunAction::EndOfRunAction(const G4Run* aRun)
 		sum_lc += g()->LightCollection[i];
 	}
 
+	
 	cout << sum_lc / (g()->LightCollection).size() << endl;
-	g()->file_run_lc << g()->abs_index << "\t" << g()->SigmaAlpha_index << "\t" << sum_lc / (g()->LightCollection).size() << endl;
+	g()->file_run_lc << /*g()->abs_index << "\t" << */ g()->SigmaAlpha_index << "\t" << sum_lc / (g()->LightCollection).size() << endl;
+	g()->file_boundary_process << g()->SigmaAlpha_index << "\t" << ((double) g()->NumberOfReflections) / g()->NumberOfBornPhotons << endl;
 	
 	cout << " " << *timer << endl;
 }

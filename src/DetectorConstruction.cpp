@@ -68,11 +68,11 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 
 	//--------------------------------------------------------------------------------
 	//выставление размеров объектов
-	G4double HalfWorldLength = 10*cm;
+	G4double HalfWorldLength = 3*cm;
 
-	double scintillator_length_x = 5.0*mm; // full length
-	double scintillator_length_y = 5.0*mm; // full length
-	double scintillator_height = 3.0*mm; // full length
+	double scintillator_length_x = 3.0*mm; // full length
+	double scintillator_length_y = 3.0*mm; // full length
+	double scintillator_height = 10.0*mm; // full length
 	//double scintillator_height = 2*mm + 0.5*mm; // for YAP:Ce 2x10 only
 
 	double grease_diameter = 1.5*max(scintillator_length_x, scintillator_length_y);
@@ -93,6 +93,21 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	G4ThreeVector &grease_position = G4ThreeVector(0, 0, scintillator_height + grease_height/2.0);
 	G4ThreeVector &glass_position = G4ThreeVector(0, 0, scintillator_height + grease_height + glass_height/2.0);
 	G4ThreeVector &cathode_position = G4ThreeVector(0, 0, scintillator_height + grease_height + glass_height + cathode_height/2.0);
+
+	G4ThreeVector &chamfer_top_left_longitudinal_1 = G4ThreeVector(-scintillator_length_x/2.0, 0, -scintillator_height/2.0);
+	G4ThreeVector &chamfer_top_right_longitudinal_1 = G4ThreeVector(scintillator_length_x/2.0, 0, -scintillator_height/2.0);
+	G4ThreeVector &chamfer_bottom_left_longitudinal_1 = G4ThreeVector(-scintillator_length_x/2.0, 0, scintillator_height/2.0);
+	G4ThreeVector &chamfer_bottom_right_longitudinal_1 = G4ThreeVector(scintillator_length_x/2.0, 0, scintillator_height/2.0);
+
+	G4ThreeVector &chamfer_top_left_longitudinal_2 = G4ThreeVector(0, -scintillator_length_y/2.0, -scintillator_height/2.0);
+	G4ThreeVector &chamfer_top_right_longitudinal_2 = G4ThreeVector(0, scintillator_length_y/2.0, -scintillator_height/2.0);
+	G4ThreeVector &chamfer_bottom_left_longitudinal_2 = G4ThreeVector(0, -scintillator_length_y/2.0, scintillator_height/2.0);
+	G4ThreeVector &chamfer_bottom_right_longitudinal_2 = G4ThreeVector(0, scintillator_length_y/2.0, scintillator_height/2.0);
+
+	G4ThreeVector &chamfer_a_vertical = G4ThreeVector(scintillator_length_x/2.0, scintillator_length_y/2.0, 0);
+	G4ThreeVector &chamfer_b_vertical = G4ThreeVector(scintillator_length_x/2.0, -scintillator_length_y/2.0, 0);
+	G4ThreeVector &chamfer_c_vertical = G4ThreeVector(-scintillator_length_x/2.0, scintillator_length_y/2.0, 0);
+	G4ThreeVector &chamfer_d_vertical = G4ThreeVector(-scintillator_length_x/2.0, -scintillator_length_y/2.0, 0);
 	//--------------------------------------------------------------------------------
 
 
@@ -124,11 +139,51 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	//--------------------------------------------------------------------------------
 	// создание кристалла
 
+
+
 	////// for any crystall
 	solid_scintillator = new G4Box("sscintillator", scintillator_length_x/2.0, scintillator_length_y/2.0, scintillator_height/2.0); 
+
+	//++++++++++++++++++++++++++++++++++++++++++++++
+	//create chamfer
+	G4double chamfer_parameter =  1*mm; // full length of 
 	
-	logicScint = new G4LogicalVolume(solid_scintillator, G4Material::GetMaterial("LuYAG_Pr"), "lScintillator",0,0,0);
-	
+	G4Box*  box_longitudinal_1 = new G4Box("Box", chamfer_parameter/2.0, scintillator_length_y/2.0 + 1*mm, chamfer_parameter/2.0);
+	G4Box*  box_longitudinal_2 = new G4Box("Box", scintillator_length_x/2.0, chamfer_parameter/2.0, chamfer_parameter/2.0);
+	G4Box*  box_vertical = new G4Box("Box", chamfer_parameter/2.0, chamfer_parameter/2.0, scintillator_height/2.0);
+
+	G4RotationMatrix* yRot = new G4RotationMatrix;
+	yRot->rotateY(3.1416/4.*rad);
+
+	G4RotationMatrix* xRot = new G4RotationMatrix();
+	xRot->rotateX(3.1416/4.*rad);
+
+	G4RotationMatrix* zRot = new G4RotationMatrix();
+	zRot->rotateZ(3.1416/4.*rad);
+
+	G4SubtractionSolid* subtraction_top_left_longitudinal_1 = new G4SubtractionSolid("Box-Cylinder", solid_scintillator, box_longitudinal_1, yRot, chamfer_top_left_longitudinal_1);
+	G4SubtractionSolid* subtraction_top_right_longitudinal_1 = new G4SubtractionSolid("Box-Cylinder", subtraction_top_left_longitudinal_1, box_longitudinal_1, yRot, chamfer_top_right_longitudinal_1);
+	G4SubtractionSolid* subtraction_bottom_left_longitudinal_1 = new G4SubtractionSolid("Box-Cylinder", subtraction_top_right_longitudinal_1, box_longitudinal_1, yRot, chamfer_bottom_left_longitudinal_1);
+	G4SubtractionSolid* subtraction_bottom_right_longitudinal_1 = new G4SubtractionSolid("Box-Cylinder", subtraction_bottom_left_longitudinal_1, box_longitudinal_1, yRot, chamfer_bottom_right_longitudinal_1);
+
+	/*G4SubtractionSolid* subtraction_top_left_longitudinal_2 = new G4SubtractionSolid("Box-Cylinder", subtraction_bottom_right_longitudinal_1, box_longitudinal_2, xRot, chamfer_top_left_longitudinal_2);
+	G4SubtractionSolid* subtraction_top_right_longitudinal_2 = new G4SubtractionSolid("Box-Cylinder", subtraction_top_left_longitudinal_2, box_longitudinal_2, xRot, chamfer_top_right_longitudinal_2);
+	G4SubtractionSolid* subtraction_bottom_left_longitudinal_2 = new G4SubtractionSolid("Box-Cylinder", subtraction_top_right_longitudinal_2, box_longitudinal_2, xRot, chamfer_bottom_left_longitudinal_2);
+	G4SubtractionSolid* subtraction_bottom_right_longitudinal_2 = new G4SubtractionSolid("Box-Cylinder", subtraction_bottom_left_longitudinal_2, box_longitudinal_2, xRot, chamfer_bottom_right_longitudinal_2);*/
+
+	/*G4SubtractionSolid* subtraction_a_vertical = new G4SubtractionSolid("Box-Cylinder", subtraction_bottom_right_longitudinal_2, box_vertical, zRot, chamfer_a_vertical);
+	G4SubtractionSolid* subtraction_b_vertical = new G4SubtractionSolid("Box-Cylinder", subtraction_a_vertical, box_vertical, zRot, chamfer_b_vertical);
+	G4SubtractionSolid* subtraction_c_vertical = new G4SubtractionSolid("Box-Cylinder", subtraction_b_vertical, box_vertical, zRot, chamfer_c_vertical);
+	G4SubtractionSolid* subtraction_d_vertical = new G4SubtractionSolid("Box-Cylinder", subtraction_c_vertical, box_vertical, zRot, chamfer_d_vertical);*/
+
+	G4SubtractionSolid* subtraction_a_vertical = new G4SubtractionSolid("Box-Cylinder", subtraction_bottom_right_longitudinal_1, box_vertical, zRot, chamfer_a_vertical);
+	G4SubtractionSolid* subtraction_b_vertical = new G4SubtractionSolid("Box-Cylinder", subtraction_a_vertical, box_vertical, zRot, chamfer_b_vertical);
+	G4SubtractionSolid* subtraction_c_vertical = new G4SubtractionSolid("Box-Cylinder", subtraction_b_vertical, box_vertical, zRot, chamfer_c_vertical);
+	G4SubtractionSolid* subtraction_d_vertical = new G4SubtractionSolid("Box-Cylinder", subtraction_c_vertical, box_vertical, zRot, chamfer_d_vertical);
+	//++++++++++++++++++++++++++++++++++++++++++++++
+
+	logicScint = new G4LogicalVolume(subtraction_d_vertical, G4Material::GetMaterial("LYSO_Ce"), "lScintillator",0,0,0);
+
 	physiScint = new G4PVPlacement(0,               // no rotation
 		scintillator_position,  // at (x,y,z)
 		logicScint,     // its logical volume
@@ -140,24 +195,24 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	//_______________________________________________________________________________
 	////for YAP:Ce only
 	/*solidTrapScint = new G4Trap("sTrapscintillator", 2*mm, 10*mm, 3*mm, 2*mm);
-	
+
 	logicScint = new G4LogicalVolume(solidTrapScint, G4Material::GetMaterial("YAP_Ce"), "lScintillator",0,0,0);
-	
+
 	G4RotationMatrix* yRot90deg= new G4RotationMatrix;*/
-	
+
 	////2x3x10
 	////no rotation
 
 	////2x3
 	/*yRot90deg->rotateX(90*degree);*/
-	
+
 	////2x2
 	/*yRot90deg->rotateX(270*degree);*/
 
 	////2x10
 	/*yRot90deg->rotateX(270*degree);
 	yRot90deg->rotateZ(90*degree);*/
-	
+
 
 	//physiScint = new G4PVPlacement(/*0*/ yRot90deg,
 	//	scintillator_position,  // at (x,y,z)
@@ -261,6 +316,6 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 void DetectorConstruction::ChangeDetectorConstruction(double parametr)
 {
 	ChangeSurface(parametr);
-	ChangeMaterials();	
+	//ChangeMaterials();	
 }
 

@@ -21,7 +21,7 @@
 #include <iostream>
 #include "Singleton.h"
 
-
+//#include <time.h>
 
 using namespace std;
 Singleton* Singleton::single = NULL;
@@ -33,6 +33,7 @@ int  nUsefulEvents = 0;
 
 int main(int argc,char** argv)
 {
+	long t1 = clock();
 
 	// Choose the Random engine
 	CLHEP::HepRandom::setTheEngine(new CLHEP::RanecuEngine);
@@ -73,10 +74,13 @@ int main(int argc,char** argv)
 	// get the pointer to the User Interface manager 
 	G4UImanager* UI = G4UImanager::GetUIpointer();  
 
-	for(g()->abs_index = 200; g()->abs_index > 1; g()->abs_index -= 5)
+	
+   
+	//for(g()->abs_index = 200; g()->abs_index > 1; g()->abs_index -= 5)
 	{
-		for (g()->SigmaAlpha_index = 0; g()->SigmaAlpha_index < 50; g()->SigmaAlpha_index += 1)
+		for (g()->SigmaAlpha_index = 0; g()->SigmaAlpha_index < 0.2; g()->SigmaAlpha_index += 1)
 		{
+					
 			detector->ChangeDetectorConstruction(g()->SigmaAlpha_index);
 
 			if(argc==1)
@@ -93,6 +97,7 @@ int main(int argc,char** argv)
 		}
 	}
 
+	
 
 #ifdef G4VIS_USE
 	delete visManager;
@@ -100,6 +105,14 @@ int main(int argc,char** argv)
 
 	// job termination
 	delete runManager;
+
+	cout << "\a \a \a \a" ;
+
+	long t2 = clock();
+
+	cout << endl;
+	cout << "Lead time is " << (t2 - t1)/1000.0 << " seconds " << " (or " << (t2 - t1)/60000.0 << " minutes)" << endl;
+	cout << endl;
 
 	system("pause");
 

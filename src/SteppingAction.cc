@@ -14,6 +14,7 @@
 #include "DetectorConstruction.hh"
 #include "EventAction.hh"
 #include "CathodeSD.hh"
+#include "Singleton.h"
 
 
 SteppingAction::SteppingAction(DetectorConstruction* myDC, EventAction* myEA)
@@ -63,6 +64,13 @@ void SteppingAction::UserSteppingAction(const G4Step* theStep)
 		if(boundary)
 		{
 			G4OpBoundaryProcessStatus boundaryStatus = boundary->GetStatus();
+
+			if(boundaryStatus == FresnelReflection)
+				g()->NumberOfReflections++;
+			
+			//if(boundaryStatus != 12)
+			//g()->file_boundary_process << boundaryStatus << endl;
+
 			switch(boundaryStatus)
 			{
 				case Detection://Note, this assumes that the volume causing detection

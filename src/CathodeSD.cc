@@ -61,19 +61,29 @@ void CathodeSD::EndOfEvent(G4HCofThisEvent*)
 {
 	//.. print info about collection of hits
 	
+//#define DEBAG_MODE
 	
-	//g()->file_num_of_photons << g()->summ_number_of_photons << G4endl;
+#ifdef DEBAG_MODE
+	g()->file_num_of_photons << g()->summ_number_of_photons << G4endl;
 	//cout << "num_of_photons =\t" << g()->summ_number_of_photons <<  endl;
 
-	//g()->file_num_of_reg_photons << _nHits << G4endl;
+	g()->file_num_of_reg_photons << _nHits << G4endl;
 	//cout << "num_of_reg_photons =\t" << _nHits << endl;
+#endif
 
 	if (_nHits!=0)
 	{
-		//g()->file_ph_coll << _nHits/g()->summ_number_of_photons << G4endl;
+
+		#ifdef DEBAG_MODE
+		g()->file_ph_coll << _nHits/g()->summ_number_of_photons << G4endl;
 		//cout << "ph_coll =\t" << _nHits/g()->summ_number_of_photons << endl;
+		#endif
+		
 		(g()->LightCollection).push_back(_nHits/g()->summ_number_of_photons);
 	}
+
+	g()->NumberOfBornPhotons += g()->summ_number_of_photons;
+	g()->summ_number_of_photons=0;
 
 }
 
