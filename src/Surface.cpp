@@ -148,15 +148,23 @@ void DetectorConstruction::defineSurfaces()
 	silicaCathodeMaterial->SetFinish(polished);
 	silicaCathodeMaterial->SetSigmaAlpha(0.);
 
+	
+
 	G4MaterialPropertiesTable *silicaCathodeMaterialProperty = new G4MaterialPropertiesTable();
-	G4double cathoderefl[2] = {0., 0.};
-	//G4double cathodeeff[2] = {1, 1};
+	G4double cathoderefl[2] = {0.0, 0.0};
+	G4double cathodeeff[2] = {1, 1};
 
 	ReadConstants *silicaCathodeMaterial_EFFICIENCY = new ReadConstants(g()->string_silicaCathodeMaterial_EFFICIENCY, 1*eV, 1);
+	ReadConstants *Cathode_REFLECTIVITY = new ReadConstants(g()->string_Cathode_REFLECTIVITY, 1*eV, 1);
+
+	
+	//silicaCathodeMaterialProperty->AddProperty("REFLECTIVITY", Cathode_REFLECTIVITY->get_x_array(), Cathode_REFLECTIVITY->get_y_array(), Cathode_REFLECTIVITY->get_array_size());
+	//silicaCathodeMaterialProperty->AddProperty("EFFICIENCY", silicaCathodeMaterial_EFFICIENCY->get_x_array(), silicaCathodeMaterial_EFFICIENCY->get_y_array(), silicaCathodeMaterial_EFFICIENCY->get_array_size());
+	
 
 	silicaCathodeMaterialProperty->AddProperty("REFLECTIVITY", ener, cathoderefl, 2);
-	silicaCathodeMaterialProperty->AddProperty("EFFICIENCY", silicaCathodeMaterial_EFFICIENCY->get_x_array(), silicaCathodeMaterial_EFFICIENCY->get_y_array(), silicaCathodeMaterial_EFFICIENCY->get_array_size());
-	//silicaCathodeMaterialProperty->AddProperty("EFFICIENCY", ener, cathodeeff, 2);
+	silicaCathodeMaterialProperty->AddProperty("EFFICIENCY", ener, cathodeeff, 2);
+
 	silicaCathodeMaterial->SetMaterialPropertiesTable(silicaCathodeMaterialProperty);
 	//--------------------------------------------------------------------------------
 

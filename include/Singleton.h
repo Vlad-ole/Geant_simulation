@@ -71,6 +71,8 @@ public:
 	string string_TiO2_REFLECTIVITY;
 	string string_TiO2_RINDEX;
 
+	//Cathode
+	string string_Cathode_REFLECTIVITY;
 	
 	//
 	double summ_number_of_photons;

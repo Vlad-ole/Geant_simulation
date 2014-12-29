@@ -67,7 +67,7 @@ void DetectorConstruction::defineMaterials()
 	lyso_ce->AddProperty("FASTCOMPONENT", lyso_ce_FASTCOMPONENT->get_x_array(), lyso_ce_FASTCOMPONENT->get_y_array(), lyso_ce_FASTCOMPONENT->get_array_size());
 	lyso_ce->AddProperty("RINDEX",        lyso_ce_RINDEX->get_x_array(), lyso_ce_RINDEX->get_y_array(), lyso_ce_RINDEX->get_array_size());
 	lyso_ce->AddProperty("ABSLENGTH",     lyso_ce_ABSLENGTH->get_x_array(), lyso_ce_ABSLENGTH->get_y_array(),  lyso_ce_ABSLENGTH->get_array_size());
-	lyso_ce->AddConstProperty("SCINTILLATIONYIELD", 1.0/keV);
+	lyso_ce->AddConstProperty("SCINTILLATIONYIELD", 32.0/keV);
 	lyso_ce->AddConstProperty("RESOLUTIONSCALE",1.0);
 	lyso_ce->AddConstProperty("FASTTIMECONSTANT",41.0*ns);
 	lyso_ce->AddConstProperty("YIELDRATIO",1.0);

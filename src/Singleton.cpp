@@ -60,7 +60,7 @@ Singleton::Singleton()
 	string_TiO2_RINDEX = path_read + "refractive_index\\TiO2_RINDEX_eV_1.dat";
 
 	//
-	
+	string_Cathode_REFLECTIVITY = path_read + "reflectivity\\Cathode_REFLECTIVITY_eV_1.dat";
 
 }
 

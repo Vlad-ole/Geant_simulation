@@ -13,15 +13,19 @@ using namespace std;
 #include <G4SystemOfUnits.hh> // this has appeared in GEANT4_10
 
 
+
 void PrimaryGeneratorAction::CommonPart()
 {
+	#define DIRECT_INCIDENCE
+	#define CENTRAL_INCIDENCE
+	
 	G4int n_particle = 1;
 	particleGun  = new G4ParticleGun(n_particle);
-
+	
 	// default particle kinematic
 	G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
 	G4String particleName;
-	G4ParticleDefinition* particle = particleTable->FindParticle(particleName="gamma");
+	G4ParticleDefinition* particle = particleTable->FindParticle(particleName= /*"gamma"*/ "opticalphoton");
 
 	particleGun->SetParticleDefinition(particle);
 	
@@ -86,23 +90,44 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 
 	particleGun->SetParticleEnergy(energy);
 
+
+
 	//-------------------------------------
 	//set particle direction
+
+
 	const double pi = 3.1416;
+
+#ifdef DIRECT_INCIDENCE
+	double phi = 0;
+	double theta = 0;
+	//cout << "inside DIRECT_INCIDENCE" << endl;
+	//system("pause");
+#else 
 	double phi = 2*pi*G4UniformRand();
 	double theta = pi/2*G4UniformRand();
+#endif //DIRECT_INCIDENCE		
+
 	particleGun->SetParticleMomentumDirection(G4ThreeVector(sin(theta)*cos(phi), sin(theta)*sin(phi), cos(theta)));
 	//------------------------------------
 	
 	
 	//-------------------------------------
 	//set particle position
+
 	double x, y;
+#ifdef CENTRAL_INCIDENCE
+	x = 0;
+	y = 0;
+	//cout << "inside CENTRAL_INCIDENCE" << endl;
+	//system("pause");
+#else
 	do
 	{
 		x = 4.0*(G4UniformRand() - 0.5)*mm; 
 		y = 4.0*(G4UniformRand() - 0.5)*mm; 
 	} while (x*x + y*y > 16*mm2);
+#endif
 	particleGun->SetParticlePosition(G4ThreeVector(x, y, -1*mm));
 	//------------------------------------
 	
