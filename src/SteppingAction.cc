@@ -32,6 +32,12 @@ void SteppingAction::UserSteppingAction(const G4Step* theStep)
   G4StepPoint* thePostPoint = theStep->GetPostStepPoint();
   G4VPhysicalVolume* thePostPV = thePostPoint->GetPhysicalVolume();
 
+  //---------------------
+
+
+  //---------------------
+
+
   //find the boundary process only once
   static G4OpBoundaryProcess* boundary=NULL;
   if(!boundary)
@@ -68,8 +74,18 @@ void SteppingAction::UserSteppingAction(const G4Step* theStep)
 			if(boundaryStatus == FresnelReflection)
 				g()->NumberOfReflections++;
 			
-			//if(boundaryStatus != 12)
-			//g()->file_boundary_process << boundaryStatus << endl;
+			
+			
+			G4ThreeVector v_temp_poz = theTrack->GetPosition();
+			G4ThreeVector v_temp_mom = theTrack->GetMomentumDirection();
+			
+			if( boundaryStatus != 12  && (v_temp_poz.getZ() > 0) && (v_temp_mom.getZ() > 0) )
+			{
+				
+				g()->file_boundary_process << boundaryStatus /*<< "\t" << v_temp_poz.getZ() << "\t" << v_temp_mom.getZ()*/  << endl;
+			}
+
+			
 
 			switch(boundaryStatus)
 			{

@@ -57,8 +57,8 @@ public:
 	string string_polydimethylsiloxane_absorption_length;
 
 	//glass
-	string string_fusedsilica_RINDEX;
-	string string_fusedsilica_ABSLENGTH;
+	string string_BorosilicateGlass_RINDEX;
+	string string_BorosilicateGlass_ABSLENGTH;
 
 	//cathode
 	string string_silicaCathodeMaterial_EFFICIENCY;
@@ -85,5 +85,5 @@ public:
 
 	int NumberOfReflections;
 	int NumberOfBornPhotons;
-
+	int NumberOfRegPhotons;
 };

@@ -48,8 +48,8 @@ Singleton::Singleton()
 	string_polydimethylsiloxane_RINDEX =  path_read + "refractive_index\\polydimethylsiloxane_RINDEX_eV_1.dat";
 	string_polydimethylsiloxane_absorption_length = path_read + "absorption_length\\polydimethylsiloxane_absorption_length_eV_mm.dat";
 
-	string_fusedsilica_RINDEX = path_read + "refractive_index\\fusedsilica_RINDEX_eV_1.dat";
-	string_fusedsilica_ABSLENGTH = path_read + "absorption_length\\fusedsilica_absorption_length_eV_mm.dat";
+	string_BorosilicateGlass_RINDEX = path_read + "refractive_index\\Borosilicate_N-BK7_RINDEX_eV_1.dat";
+	string_BorosilicateGlass_ABSLENGTH = path_read + "absorption_length\\BorosilicateGlass_AbsorptionLength_eV_mm.dat";
 
 	string_silicaCathodeMaterial_EFFICIENCY = path_read + "detector_efficiency\\pmt_r10233(big).dat";
 
@@ -60,7 +60,7 @@ Singleton::Singleton()
 	string_TiO2_RINDEX = path_read + "refractive_index\\TiO2_RINDEX_eV_1.dat";
 
 	//
-	string_Cathode_REFLECTIVITY = path_read + "reflectivity\\Cathode_REFLECTIVITY_eV_1.dat";
+	string_Cathode_REFLECTIVITY = path_read + "reflectivity\\Cathode_Motta_REFLECTIVITY_eV_1.dat";
 
 }
 

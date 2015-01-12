@@ -12,12 +12,12 @@ using namespace std;
 
 #include <G4SystemOfUnits.hh> // this has appeared in GEANT4_10
 
-
+#define DIRECT_INCIDENCE
+#define CENTRAL_INCIDENCE
 
 void PrimaryGeneratorAction::CommonPart()
 {
-	#define DIRECT_INCIDENCE
-	#define CENTRAL_INCIDENCE
+	
 	
 	G4int n_particle = 1;
 	particleGun  = new G4ParticleGun(n_particle);
@@ -86,7 +86,8 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction()
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
 	
-	double energy = 59.5*keV;
+	//double energy = 59.5*keV;
+	double energy = 2.8*eV;
 
 	particleGun->SetParticleEnergy(energy);
 
@@ -100,7 +101,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 
 #ifdef DIRECT_INCIDENCE
 	double phi = 0;
-	double theta = 0;
+	double theta = 7*degree;
 	//cout << "inside DIRECT_INCIDENCE" << endl;
 	//system("pause");
 #else 

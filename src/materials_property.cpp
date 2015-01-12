@@ -215,13 +215,13 @@ void DetectorConstruction::defineMaterials()
 	FusedSilica->AddElement(Si, 1);
 	FusedSilica->AddElement(O, 2);
 
-	ReadConstants *fusedsilica_RINDEX = new ReadConstants(g()->string_fusedsilica_RINDEX, 1*eV, 1);
-	ReadConstants *fusedsilica_ABSLENGTH = new ReadConstants(g()->string_fusedsilica_ABSLENGTH, 1*eV, 1*mm);
+	ReadConstants *BorosilicateGlass_RINDEX = new ReadConstants(g()->string_BorosilicateGlass_RINDEX, 1*eV, 1);
+	ReadConstants *BorosilicateGlass_ABSLENGTH = new ReadConstants(g()->string_BorosilicateGlass_ABSLENGTH, 1*eV, 1*mm);
 	
-	G4MaterialPropertiesTable* fusedsilicaprop = new G4MaterialPropertiesTable();
-	fusedsilicaprop->AddProperty("RINDEX", fusedsilica_RINDEX->get_x_array(), fusedsilica_RINDEX->get_y_array(), fusedsilica_RINDEX->get_array_size());
-	fusedsilicaprop->AddProperty("ABSLENGTH", fusedsilica_ABSLENGTH->get_x_array(), fusedsilica_ABSLENGTH->get_y_array(), fusedsilica_ABSLENGTH->get_array_size());
-	FusedSilica->SetMaterialPropertiesTable(fusedsilicaprop);
+	G4MaterialPropertiesTable* BorosilicateGlassprop = new G4MaterialPropertiesTable();
+	//BorosilicateGlassprop->AddProperty("RINDEX", BorosilicateGlass_RINDEX->get_x_array(), BorosilicateGlass_RINDEX->get_y_array(), BorosilicateGlass_RINDEX->get_array_size());
+	BorosilicateGlassprop->AddProperty("ABSLENGTH", BorosilicateGlass_ABSLENGTH->get_x_array(), BorosilicateGlass_ABSLENGTH->get_y_array(), BorosilicateGlass_ABSLENGTH->get_array_size());
+	FusedSilica->SetMaterialPropertiesTable(BorosilicateGlassprop);
 	//--------------------------------------------------------------------------------------
 
 

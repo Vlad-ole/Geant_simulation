@@ -47,6 +47,8 @@ using namespace std;
 
 //#define CHAMFER //It is not so important
 
+
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 DetectorConstruction::DetectorConstruction()
@@ -81,7 +83,7 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	double grease_height = /*0.1*mm*/ 0.0*mm;
 
 	double glass_diameter = 5*cm;
-	double glass_height = 0*mm;
+	double glass_height = 2*mm;
 
 	double cathode_diameter = glass_diameter;
 	double cathode_height = 1*um;
@@ -254,18 +256,18 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	////---------------------------------------------------------------------------
 
 
-	////---------------------------------------------------------------------------
-	////создание стекла
-	//solid_glass = new G4Tubs("swindow", 0.*cm, glass_diameter/2.0, glass_height/2.0, 0.*deg, 360.*deg);
-	//logic_glass = new G4LogicalVolume(solid_glass, G4Material::GetMaterial("FusedSilica"), "lEnvelope", 0,0,0);
-	//physi_glass = new G4PVPlacement(0,               // no rotation
-	//	glass_position,  // at (x,y,z)
-	//	logic_glass,     // its logical volume
-	//	"pEnvelope",       // its name
-	//	logicWorld,        // its mother  volume
-	//	false,             // no boolean operations
-	//	0);                // copy number
-	////---------------------------------------------------------------------------
+	//---------------------------------------------------------------------------
+	//создание стекла
+	solid_glass = new G4Tubs("swindow", 0.*cm, glass_diameter/2.0, glass_height/2.0, 0.*deg, 360.*deg);
+	logic_glass = new G4LogicalVolume(solid_glass, G4Material::GetMaterial("FusedSilica"), "lEnvelope", 0,0,0);
+	physi_glass = new G4PVPlacement(0,               // no rotation
+		glass_position,  // at (x,y,z)
+		logic_glass,     // its logical volume
+		"pEnvelope",       // its name
+		logicWorld,        // its mother  volume
+		false,             // no boolean operations
+		0);                // copy number
+	//---------------------------------------------------------------------------
 
 
 
@@ -302,10 +304,11 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	//G4LogicalBorderSurface* grease_glass_logical = new G4LogicalBorderSurface("grease_glass_logical", physi_grease, physi_glass, Glass_surface);
 	//G4LogicalBorderSurface* glass_grease_logical = new G4LogicalBorderSurface("glass_grease_logical", physi_glass, physi_grease, Glass_surface);
 
-	//G4LogicalBorderSurface* envelope2CathodeSurface = new G4LogicalBorderSurface("envelope2CathodeSurface", physi_glass, physiCathode, silicaCathodeMaterial);
+	G4LogicalBorderSurface* envelope2CathodeSurface = new G4LogicalBorderSurface("envelope2CathodeSurface", physi_glass, physiCathode, silicaCathodeMaterial);
 
 
-	G4LogicalBorderSurface* envelope2CathodeSurface = new G4LogicalBorderSurface("envelope2CathodeSurface", physiWorld, physiCathode, silicaCathodeMaterial);
+
+	
 	//---------------------------------------------------------------------------
 
 
