@@ -26,6 +26,9 @@ public:
 	ofstream file_run_lc;
 	ofstream file_boundary_process;
 	
+	string solution_path;
+	string path_read;
+
 	//LYSO:Ce
 	string string_lyso_ce_energies;
 	string string_lyso_ce_rindex;

@@ -57,7 +57,10 @@ int main(int argc,char** argv)
 
 	// set user action classes
 	runManager->SetUserAction(new RunAction);
-	runManager->SetUserAction(new PrimaryGeneratorAction());
+
+	string temp_string = g()->path_read + "x_ray\\test.dat";
+	runManager->SetUserAction( new PrimaryGeneratorAction(temp_string.c_str()) );
+	
 	EventAction* eventAction = new EventAction;
 	runManager->SetUserAction(eventAction);
 	runManager->SetUserAction(new SteppingAction(detector,eventAction));
@@ -79,7 +82,7 @@ int main(int argc,char** argv)
    
 	//for(g()->abs_index = 200; g()->abs_index > 1; g()->abs_index -= 5)
 	{
-		for (g()->SigmaAlpha_index = 1; g()->SigmaAlpha_index < 1.1; g()->SigmaAlpha_index += 1)
+		for (g()->SigmaAlpha_index = 2; g()->SigmaAlpha_index < 2.1; g()->SigmaAlpha_index += 1)
 		{
 					
 			detector->ChangeDetectorConstruction(g()->SigmaAlpha_index);

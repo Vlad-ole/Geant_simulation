@@ -20,7 +20,7 @@ class PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 {
   public:
     PrimaryGeneratorAction();              //mono
-	PrimaryGeneratorAction(char* fname);   //specter
+	PrimaryGeneratorAction(const char* fname);   //specter
    ~PrimaryGeneratorAction();
 
   public:

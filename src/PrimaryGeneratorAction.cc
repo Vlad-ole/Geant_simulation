@@ -25,7 +25,7 @@ void PrimaryGeneratorAction::CommonPart()
 	// default particle kinematic
 	G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
 	G4String particleName;
-	G4ParticleDefinition* particle = particleTable->FindParticle(particleName= /*"gamma"*/ "opticalphoton");
+	G4ParticleDefinition* particle = particleTable->FindParticle(particleName= "gamma" /*"opticalphoton"*/);
 
 	particleGun->SetParticleDefinition(particle);
 	
@@ -37,7 +37,7 @@ PrimaryGeneratorAction::PrimaryGeneratorAction()
 	xrType = MONO;
 }
 
-PrimaryGeneratorAction::PrimaryGeneratorAction(char* fname)
+PrimaryGeneratorAction::PrimaryGeneratorAction(const char* fname)
 {
 	CommonPart();
 	xrType = SPECTER;
@@ -85,23 +85,40 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction()
 
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
-	
-	//double energy = 59.5*keV;
-	double energy = 2.8*eV;
+	//--------------------------------------
+	//SetParticleEnergy
 
-	particleGun->SetParticleEnergy(energy);
+	double energy;
+	double weight;
+		
+	switch(xrType)
+	{
+	case MONO:
+		energy=59.5; //original value
+		break;
 
+	case SPECTER:
+		do
+		{
+			energy = nMaxDataLines*G4UniformRand();
+			weight = dMaxWeight*G4UniformRand();
+		}while(weight > dWeight[(int)energy]);
+
+		break;
+	}
+
+	particleGun->SetParticleEnergy(energy*keV);
 
 
 	//-------------------------------------
-	//set particle direction
+	//Set particle direction
 
 
 	const double pi = 3.1416;
 
 #ifdef DIRECT_INCIDENCE
 	double phi = 0;
-	double theta = 7*degree;
+	double theta = 0;
 	//cout << "inside DIRECT_INCIDENCE" << endl;
 	//system("pause");
 #else 

@@ -61,10 +61,11 @@ void CathodeSD::EndOfEvent(G4HCofThisEvent*)
 {
 	//.. print info about collection of hits
 	
-//#define DEBAG_MODE
+#define DEBAG_MODE
 	
 #ifdef DEBAG_MODE
-	g()->file_num_of_photons << g()->summ_number_of_photons << G4endl;
+	if (g()->summ_number_of_photons)
+		g()->file_num_of_photons << g()->summ_number_of_photons << G4endl;
 	//cout << "num_of_photons =\t" << g()->summ_number_of_photons <<  endl;
 
 	g()->file_num_of_reg_photons << _nHits << G4endl;

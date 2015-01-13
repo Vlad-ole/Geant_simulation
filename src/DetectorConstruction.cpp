@@ -76,11 +76,11 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 
 	double scintillator_length_x = 3.0*mm; // full length
 	double scintillator_length_y = 3.0*mm; // full length
-	double scintillator_height = 0.0*mm; // full length
+	double scintillator_height = 10.0*mm; // full length
 	//double scintillator_height = 2*mm + 0.5*mm; // for YAP:Ce 2x10 only
 
 	double grease_diameter = 1.5*max(scintillator_length_x, scintillator_length_y);
-	double grease_height = /*0.1*mm*/ 0.0*mm;
+	double grease_height = 0.1*mm  /*0.0*mm*/;
 
 	double glass_diameter = 5*cm;
 	double glass_height = 2*mm;
@@ -150,7 +150,7 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 
 
 	////// for any crystall
-	/*solid_scintillator = new G4Box("sscintillator", scintillator_length_x/2.0, scintillator_length_y/2.0, scintillator_height/2.0); */
+	solid_scintillator = new G4Box("sscintillator", scintillator_length_x/2.0, scintillator_length_y/2.0, scintillator_height/2.0); 
 
 	//++++++++++++++++++++++++++++++++++++++++++++++
 	//create chamfer
@@ -196,15 +196,15 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 #endif // CHAMFER
 	//++++++++++++++++++++++++++++++++++++++++++++++
 
-	//logicScint = new G4LogicalVolume(solid_scintillator, G4Material::GetMaterial("LYSO_Ce"), "lScintillator",0,0,0);
+	logicScint = new G4LogicalVolume(solid_scintillator, G4Material::GetMaterial("YAP_Ce"), "lScintillator",0,0,0);
 
-	//physiScint = new G4PVPlacement(0,               // no rotation
-	//	scintillator_position,  // at (x,y,z)
-	//	logicScint,     // its logical volume
-	//	"pScintillator",        // its name
-	//	logicWorld,      // its mother  volume
-	//	false,           // no boolean operations
-	//	0); 
+	physiScint = new G4PVPlacement(0,               // no rotation
+		scintillator_position,  // at (x,y,z)
+		logicScint,     // its logical volume
+		"pScintillator",        // its name
+		logicWorld,      // its mother  volume
+		false,           // no boolean operations
+		0); 
 
 	//_______________________________________________________________________________
 	////for YAP:Ce only
@@ -242,18 +242,18 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 
 
 
-	////------------------------------------------------------------------------------
-	//// создание оптической смазки
-	//solid_grease = new G4Tubs("sgrease", 0.*cm, grease_diameter/2.0, grease_height/2.0, 0.*deg, 360.*deg);
-	//logic_grease = new G4LogicalVolume(solid_grease, G4Material::GetMaterial("Polydimethylsiloxane"), "lGrease", 0,0,0);
-	//physi_grease = new G4PVPlacement(0,               // no rotation
-	//	grease_position,  // at (x,y,z)
-	//	logic_grease,     // its logical volume
-	//	"pGrease",        // its name
-	//	logicWorld,      // its mother  volume
-	//	false,           // no boolean operations
-	//	0);              // copy number
-	////---------------------------------------------------------------------------
+	//------------------------------------------------------------------------------
+	// создание оптической смазки
+	solid_grease = new G4Tubs("sgrease", 0.*cm, grease_diameter/2.0, grease_height/2.0, 0.*deg, 360.*deg);
+	logic_grease = new G4LogicalVolume(solid_grease, G4Material::GetMaterial("Polydimethylsiloxane"), "lGrease", 0,0,0);
+	physi_grease = new G4PVPlacement(0,               // no rotation
+		grease_position,  // at (x,y,z)
+		logic_grease,     // its logical volume
+		"pGrease",        // its name
+		logicWorld,      // its mother  volume
+		false,           // no boolean operations
+		0);              // copy number
+	//---------------------------------------------------------------------------
 
 
 	//---------------------------------------------------------------------------
@@ -295,14 +295,14 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 
 	//---------------------------------------------------------------------------
 	//установка поверхностей
-	//G4LogicalBorderSurface* scintillator_world_logical = new G4LogicalBorderSurface("world_scintillator", physiScint, physiWorld, polishedAir); // from physiScint to physiWorld
-	//G4LogicalBorderSurface* world_scintillator_logical = new G4LogicalBorderSurface("scintillator_world", physiWorld, physiScint, polishedAir); // from physiWorld to physiScint
+	G4LogicalBorderSurface* scintillator_world_logical = new G4LogicalBorderSurface("world_scintillator", physiScint, physiWorld, polishedAir); // from physiScint to physiWorld
+	G4LogicalBorderSurface* world_scintillator_logical = new G4LogicalBorderSurface("scintillator_world", physiWorld, physiScint, polishedAir); // from physiWorld to physiScint
 
-	//G4LogicalBorderSurface* scintillator_grease_logical = new G4LogicalBorderSurface("scintillator_world", physiScint, physi_grease, polishedAir);
-	//G4LogicalBorderSurface* grease_scintillator_logical = new G4LogicalBorderSurface("scintillator_world", physi_grease, physiScint, polishedAir);
+	G4LogicalBorderSurface* scintillator_grease_logical = new G4LogicalBorderSurface("scintillator_world", physiScint, physi_grease, polishedAir);
+	G4LogicalBorderSurface* grease_scintillator_logical = new G4LogicalBorderSurface("scintillator_world", physi_grease, physiScint, polishedAir);
 
-	//G4LogicalBorderSurface* grease_glass_logical = new G4LogicalBorderSurface("grease_glass_logical", physi_grease, physi_glass, Glass_surface);
-	//G4LogicalBorderSurface* glass_grease_logical = new G4LogicalBorderSurface("glass_grease_logical", physi_glass, physi_grease, Glass_surface);
+	G4LogicalBorderSurface* grease_glass_logical = new G4LogicalBorderSurface("grease_glass_logical", physi_grease, physi_glass, Glass_surface);
+	G4LogicalBorderSurface* glass_grease_logical = new G4LogicalBorderSurface("glass_grease_logical", physi_glass, physi_grease, Glass_surface);
 
 	G4LogicalBorderSurface* envelope2CathodeSurface = new G4LogicalBorderSurface("envelope2CathodeSurface", physi_glass, physiCathode, silicaCathodeMaterial);
 
@@ -322,8 +322,8 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	G4VisAttributes* GreaseVisAtt = new G4VisAttributes(G4Colour(1.0,1.0,0.0,0.8));
 
 	logicWorld->SetVisAttributes(G4VisAttributes::Invisible);
-	/*logicScint->SetVisAttributes(ScintVisAtt);
-	logic_grease->SetVisAttributes(GreaseVisAtt);*/
+	logicScint->SetVisAttributes(ScintVisAtt);
+	logic_grease->SetVisAttributes(GreaseVisAtt);
 	logicCathode->SetVisAttributes(CathodeVisAtt);
 	//-----------------------------------------------------------------------------
 

@@ -163,6 +163,7 @@ void PhysicsList::ConstructOptical()
  // //G4EmSaturation* emSaturation = G4LossTableManager::Instance()->EmSaturation();
  // //theScintProcess->AddSaturation(emSaturation);
 
+ 
   G4Cerenkov* theCerenkovProcess = new G4Cerenkov("Cerenkov");
   theCerenkovProcess->SetMaxNumPhotonsPerStep(300);
   theCerenkovProcess->SetMaxBetaChangePerStep(10.0);

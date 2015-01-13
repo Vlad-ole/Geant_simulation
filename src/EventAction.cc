@@ -41,7 +41,7 @@ void EventAction::BeginOfEventAction(const G4Event* event)
 	}
 	else
 	{
-		if(eventNb % 1000 == 0)
+		if(eventNb % 10 == 0)
 			G4cout << "\n---> Begin of event: " << eventNb << G4endl;
 	}
 }
