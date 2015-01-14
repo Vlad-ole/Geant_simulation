@@ -1,6 +1,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "exampleB1", "exampleB1.vcxproj", "{0A65243C-F60A-44AF-9ECE-560F893CE348}"
+# Visual Studio Express 2012 for Windows Desktop
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DetectorResponse", "exampleB1.vcxproj", "{0A65243C-F60A-44AF-9ECE-560F893CE348}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Analytical_model", "Analytical_model\Analytical_model.vcxproj", "{A5AE6D40-8108-4270-B20A-CA754534D952}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +20,14 @@ Global
 		{0A65243C-F60A-44AF-9ECE-560F893CE348}.Release|Win32.Build.0 = Release|Win32
 		{0A65243C-F60A-44AF-9ECE-560F893CE348}.RelWithDebInfo|Win32.ActiveCfg = RelWithDebInfo|Win32
 		{0A65243C-F60A-44AF-9ECE-560F893CE348}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
+		{A5AE6D40-8108-4270-B20A-CA754534D952}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A5AE6D40-8108-4270-B20A-CA754534D952}.Debug|Win32.Build.0 = Debug|Win32
+		{A5AE6D40-8108-4270-B20A-CA754534D952}.MinSizeRel|Win32.ActiveCfg = Release|Win32
+		{A5AE6D40-8108-4270-B20A-CA754534D952}.MinSizeRel|Win32.Build.0 = Release|Win32
+		{A5AE6D40-8108-4270-B20A-CA754534D952}.Release|Win32.ActiveCfg = Release|Win32
+		{A5AE6D40-8108-4270-B20A-CA754534D952}.Release|Win32.Build.0 = Release|Win32
+		{A5AE6D40-8108-4270-B20A-CA754534D952}.RelWithDebInfo|Win32.ActiveCfg = Release|Win32
+		{A5AE6D40-8108-4270-B20A-CA754534D952}.RelWithDebInfo|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

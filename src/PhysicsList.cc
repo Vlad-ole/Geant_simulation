@@ -159,10 +159,11 @@ void PhysicsList::ConstructOptical()
   //theScintProcess->SetScintillationExcitationRatio(0.0);
   theScintProcess->SetTrackSecondariesFirst(true);
 
- // // Use Birks Correction in the Scintillation process
+   // // Use Birks Correction in the Scintillation process
  // //G4EmSaturation* emSaturation = G4LossTableManager::Instance()->EmSaturation();
  // //theScintProcess->AddSaturation(emSaturation);
 
+  
  
   G4Cerenkov* theCerenkovProcess = new G4Cerenkov("Cerenkov");
   theCerenkovProcess->SetMaxNumPhotonsPerStep(300);

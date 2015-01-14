@@ -22,7 +22,7 @@
     <ProjectGUID>{0A65243C-F60A-44AF-9ECE-560F893CE348}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
-    <ProjectName>exampleB1</ProjectName>
+    <ProjectName>DetectorResponse</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
