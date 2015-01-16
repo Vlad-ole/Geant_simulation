@@ -58,7 +58,7 @@ int main(int argc,char** argv)
 	// set user action classes
 	runManager->SetUserAction(new RunAction);
 
-	string temp_string = g()->path_read + "x_ray\\test.dat";
+	string temp_string = g()->path_read + "x_ray\\Analytical_model_out.dat";
 	runManager->SetUserAction( new PrimaryGeneratorAction(temp_string.c_str()) );
 	
 	EventAction* eventAction = new EventAction;

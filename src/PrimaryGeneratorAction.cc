@@ -43,20 +43,21 @@ PrimaryGeneratorAction::PrimaryGeneratorAction(const char* fname)
 	xrType = SPECTER;
 
 	char   buffer[256];
-	char   seps[]=" \t;";	  //separatoren
+	char   seps[] = " \t;";	  //separatoren
 
-	nMaxDataLines=0;
-	dMaxWeight  = 1;
+	nMaxDataLines = 0;
+	dMaxWeight  = 0; //!!! // dMaxWeight  = 1;
 
 
 	cout << "Read Specter: " << fname << endl;
 	FILE* in =  fopen(fname,"r");
-	if(in==NULL)
+	if(in == NULL)
 	{
 		cout << "Specter of X-Tube not loaded!!! " << fname << endl;
 		return;
 	}
-	while (!feof(in) && nMaxDataLines<MAX_SPECTER_DATALINES)
+
+	while (!feof(in) && (nMaxDataLines < MAX_SPECTER_DATALINES))
 	{
 		fgets(buffer,sizeof(buffer)-1,in);
 		cout << "Read of " << nMaxDataLines << " line: " << buffer <<endl;
@@ -67,7 +68,10 @@ PrimaryGeneratorAction::PrimaryGeneratorAction(const char* fname)
 			{
 				dEnergy[nMaxDataLines] = atoi (strtok(buffer,seps));
 				dWeight[nMaxDataLines] = atof (strtok(NULL,  seps));
-				if(dWeight[nMaxDataLines]>dMaxWeight)dMaxWeight = dWeight[nMaxDataLines];
+				
+				if( dWeight[nMaxDataLines] > dMaxWeight )
+					dMaxWeight = dWeight[nMaxDataLines];
+				
 				nMaxDataLines++;
 			}
 		}

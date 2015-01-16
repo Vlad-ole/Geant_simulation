@@ -53,30 +53,37 @@ double get_dose(interpolate& spec_i)
 	return dose*E_step;
 }
 
+const double pho_Al=2.765;
+const double pho_Cu=8.92;
+const double pho_PMMA=1.18;
+const double pho_Sm = 7.520;
 
-double pho_PMMA=1.18;
-double pho_Cu=8.92;
-double pho_Al=2.765;
 
 int main()
 {
 	ofstream out_file("F:\\Geant_simulation\\data\\x_ray\\Analytical_model_out.dat");
 
 		
-	interpolate* x_ray_1 = new interpolate(*g()->x_120);
-	interpolate* x_ray_2 = new interpolate(*x_ray_1, *g()->mu_Al, pho_Al*0.25);
-	
+	//interpolate* x_ray_1 = new interpolate(*g()->x_120);
+	//interpolate* x_ray_2 = new interpolate(*x_ray_1, 60000); // 1mA, 1m, 10ms, 1kW (max current - 8mA, max power - 18kW for tube with rotating anode)
+	interpolate* x_ray_3 = new interpolate(*g()->x_120, *g()->mu_Sm, pho_Sm*0.1);
+	//interpolate* x_ray_4 = new interpolate(*x_ray_3, 1);
 
-	//for(int i = ((int)(x_ray_1->GetXVectorMin()) + 1) ; i <= x_ray_1->GetXVectorMax(); i += 1)
-	//{
-	//	out_file << i << "\t" << (*x_ray_1).Eval_Data(i) << endl;
-	//}
+	//((int)(x_ray_3->GetXVectorMin()) + 1)
 
-	cout << "dose = " <<  get_dose(*x_ray_2) << endl;
+	for(int i = 0 ; i <= 150; i += 1)
+	{
+		if ( ((int)(x_ray_3->GetXVectorMin()) + 1) > i || (x_ray_3->GetXVectorMax() < i) )
+			out_file << i << "\t" << 0 << endl;
+		else
+			out_file << i << "\t" << (*x_ray_3).Eval_Data(i) << endl;
+	}
+
+	/*cout << "dose = " <<  get_dose(*x_ray_2) << endl;
 
 	cout << endl;
 
-	cout << "N particles \t" << (11.0/36 * 1E-4)/get_dose(*x_ray_2) << endl;
+	cout << "N particles \t" << (11.0/36 * 1E-4)/get_dose(*x_ray_2) << endl;*/
 
 	system("PAUSE");
 	return 0;
