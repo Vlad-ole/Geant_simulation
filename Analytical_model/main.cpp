@@ -32,13 +32,25 @@ double get_area(interpolate& spec_i)
 double get_dose(interpolate& spec_i)
 {
 	double dose=0;
-	for(int i=10; i<150; i++)
+
+	double E_min = spec_i.GetXVectorMin();
+	double E_max = spec_i.GetXVectorMax();
+	int N = 1000;
+	double E_step = (E_max - E_min)/N;
+
+	/*cout << "E_min = \t" << spec_i.GetXVectorMin() << endl;
+	cout << "E_max = \t" << spec_i.GetXVectorMax() << endl;
+	cout << "E_step = \t" << E_step << endl;*/
+
+
+	for (int i=0; i<N; i++)
 	{
-		dose+=spec_i.Eval_Data(i) * i * (*g()->mu_a).Eval_Data(i) / (dose_const_new)  ;	
-		//cout << i << "\t" << i * (*g()->mu_a).Eval_Data(i) / (dose_const_new) << endl;
+		double E = E_min + E_step*i + E_step/2.0;
+		dose += spec_i.Eval_Data(E) * E * (*g()->mu_a).Eval_Data(E) / (dose_const_new);	
 	}
 
-	return dose;
+
+	return dose*E_step;
 }
 
 
@@ -50,24 +62,21 @@ int main()
 {
 	ofstream out_file("F:\\Geant_simulation\\data\\x_ray\\Analytical_model_out.dat");
 
-	cout << g()->x << endl;
-	cout << g()->solution_path << endl;
-	//interpolate* x_ray_1 = new interpolate(*g()->x_60, *g()->mu_Al, pho_Al*0.15);
-	//interpolate* x_ray_2 = new interpolate(*x_ray_1);
-	//	
-	//for(double i=10; i<150; i+=1)
-	//{
-	//	out_file << i << "\t" << (*x_ray_2).Eval_Data(i) << endl;
-	//}
+		
+	interpolate* x_ray_1 = new interpolate(*g()->x_120);
+	interpolate* x_ray_2 = new interpolate(*x_ray_1, *g()->mu_Al, pho_Al*0.25);
 	
-	//interpolate* x_60 = new interpolate("F:\\Geant_simulation\\data\\x_ray\\test2.dat", "default");	
 
-	int xvv[] = { 10, 20, 30, 40, 50 };
-	int yvv[] = { 1, 2, 3, 4, 5 };
-	std::vector<double> xv(begin(xvv), end(xvv));
-	std::vector<double> yv(begin(yvv), end(yvv));
+	//for(int i = ((int)(x_ray_1->GetXVectorMin()) + 1) ; i <= x_ray_1->GetXVectorMax(); i += 1)
+	//{
+	//	out_file << i << "\t" << (*x_ray_1).Eval_Data(i) << endl;
+	//}
 
-	ROOT::Math::Interpolator* interpolator = new ROOT::Math::Interpolator(xv, yv);
+	cout << "dose = " <<  get_dose(*x_ray_2) << endl;
+
+	cout << endl;
+
+	cout << "N particles \t" << (11.0/36 * 1E-4)/get_dose(*x_ray_2) << endl;
 
 	system("PAUSE");
 	return 0;

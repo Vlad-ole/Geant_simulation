@@ -85,7 +85,7 @@ interpolate::interpolate(vector<double> const& temp_x, vector<double> const& tem
 
 
 	}
-	
+
 	if (!strcmp(linear_or_spline,"linear")) 
 		interpolator = new ROOT::Math::Interpolator(1, ROOT::Math::Interpolation::kLINEAR);
 	if (!strcmp(linear_or_spline,"spline")) 
@@ -95,25 +95,31 @@ interpolate::interpolate(vector<double> const& temp_x, vector<double> const& tem
 }
 
 
-interpolate::interpolate(interpolate& spec_i, interpolate& mu_filter, double rho_l) // конструктор-фильтр
+interpolate::interpolate(interpolate& spec_i, interpolate& mu_filter, const double rho_l) // конструктор-фильтр
 {
-	vector<double> xv;
-	vector<double> yv;
+	//vector<double> xv;
+	//vector<double> yv;
 
-	double E_min=10;
-	double E_max=150;
+	double E_min = max(spec_i.GetXVectorMin(), mu_filter.GetXVectorMin());
+	double E_max = min(spec_i.GetXVectorMax(), mu_filter.GetXVectorMax());
+
+	//cout << E_min << "\t" << E_max << endl;
+
+	
 	int N=100;
-	double E_step=(E_max - E_min)/N;
+	double E_step = (E_max - E_min)/N;
 	double E;
 
+	//cout << "E_step" << E_step << endl;
 
-	for (int i=0; i<=N; i++)
+	for (int i=0; i<N; i++)
 	{
 
-		E=E_min+E_step*i;
+		E = E_min + E_step*i + E_step/2.0;
 		xv.push_back(E);
 		yv.push_back(spec_i.Eval_Data(E)*exp(-mu_filter.Eval_Data(E)*rho_l));
-		//cout << "x=\t" << E << "\t y=\t" << spec_i.Eval_Data(E)*exp(-mu_filter.Eval_Data(E)*rho*l) << endl;
+
+		//cout << "E = \t" << E << "\t I = \t" << spec_i.Eval_Data(E)*exp(-mu_filter.Eval_Data(E)*rho_l) << endl;
 	}
 
 	interpolator = new ROOT::Math::Interpolator(1, ROOT::Math::Interpolation::kLINEAR);
@@ -121,13 +127,13 @@ interpolate::interpolate(interpolate& spec_i, interpolate& mu_filter, double rho
 	interpolator->SetData(xv, yv);
 }
 
-interpolate::interpolate(interpolate& spec_i, double norm_const) //конструктор-нормировщик
+interpolate::interpolate(interpolate& spec_i, const double norm_const) //конструктор-нормировщик
 {
-	vector<double> xv;
-	vector<double> yv;
+	//vector<double> xv;
+	//vector<double> yv;
 
-	double E_min=10;
-	double E_max=150;
+	double E_min = spec_i.GetXVectorMin();
+	double E_max = spec_i.GetXVectorMax();
 	int N=1000;
 	double E_step=(E_max - E_min)/N;
 
@@ -143,11 +149,12 @@ interpolate::interpolate(interpolate& spec_i, double norm_const) //конструктор-н
 
 interpolate::interpolate(interpolate& spec_i) //конструктор-самонормировщик
 {
-	vector<double> xv;
-	vector<double> yv;
+	//vector<double> xv;
+	//vector<double> yv;
 
-	double E_min=10;
-	double E_max=150;
+	double E_min = spec_i.GetXVectorMin();
+	double E_max = spec_i.GetXVectorMax();
+
 	int N=1000;
 	double E_step=(E_max - E_min)/N;
 
@@ -187,4 +194,34 @@ double interpolate::Eval_Data(double value, char type[]) //функци€ интерпол€ции
 	{
 		return exp(interpolator->Eval(log(value)));
 	}
+}
+
+
+
+double interpolate::GetXVectorMin()
+{
+	double temp = 1E100;
+
+	for (int i = 0; i < xv.size(); i++)
+	{
+		//cout << xv[i] << "\t" << temp << endl;
+		if( xv[i] < temp)
+			temp = xv[i];
+	}
+
+	return temp;
+}
+
+double interpolate::GetXVectorMax()
+{
+	double temp = -1E100;
+
+	for (int i = 0; i < xv.size(); i++)
+	{
+		//cout << xv[i] << "\t" << temp << endl;
+		if( xv[i] > temp)
+			temp = xv[i];
+	}
+
+	return temp;
 }
