@@ -225,3 +225,40 @@ double interpolate::GetXVectorMax()
 
 	return temp;
 }
+
+double interpolate::summ_particles(const double E_min, const double E_max)
+{
+	double temp = 0;
+	double E;
+
+	int N = 1000;
+	double E_step = (E_max - E_min)/N;
+
+	for (int i = 0; i < N; i++)
+	{
+		E = E_min + E_step*i + E_step/2.0;
+		temp += this->Eval_Data(E);
+		//cout << E << "\t" <<  this->Eval_Data(E) << "\t" << temp << endl;
+	}
+
+	return temp*E_step;
+}
+
+
+double interpolate::average(const double E_min, const double E_max)
+{
+	double temp = 0;
+	double E;
+
+	int N = 1000;
+	double E_step = (E_max - E_min)/N;
+
+	for (int i = 0; i < N; i++)
+	{
+		E = E_min + E_step*i + E_step/2.0;
+		temp += (this->Eval_Data(E))*E;
+		//cout << E << "\t" <<  this->Eval_Data(E) << "\t" << temp << endl;
+	}
+
+	return (temp*E_step) / ( summ_particles(E_min, E_max) );
+}

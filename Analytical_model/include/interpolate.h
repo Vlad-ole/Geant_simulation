@@ -25,6 +25,9 @@ public:
 	double GetXVectorMin();
 	double GetXVectorMax();
 
+	double summ_particles(const double E_min, const double E_max);
+	double average(const double E_min, const double E_max);
+
 private:
 
 	//ROOT::Math::Interpolator interpolator(100, ROOT::Math::Interpolation::kPOLYNOMIAL);
