@@ -69,29 +69,7 @@ int main()
 	interpolate* x_ray_1 = new interpolate(*g()->x_120);
 	//interpolate* x_ray_2 = new interpolate(*x_ray_1, 60000); // 1mA, 1m, 10ms, 1kW (max current - 8mA, max power - 18kW for tube with rotating anode)
 	interpolate* x_ray_2 = new interpolate(*x_ray_1, 60000 * 8 * 2 * 5);
-	interpolate* x_ray_3 = new interpolate(*x_ray_2, *g()->mu_Sm, pho_Sm*0.02);
-
-
-	for(int i = 0 ; i <= 150; i += 1)
-	{
-		if ( ((int)(x_ray_3->GetXVectorMin()) + 1) > i || (x_ray_3->GetXVectorMax() < i) )
-			out_file_filter << i << "\t" << 0 << endl;
-		else
-			out_file_filter << i << "\t" << (*x_ray_3).Eval_Data(i) << endl;
-	}
-
-	cout << "after filter ---- start ------------------------------------------" << endl;
-	cout << "dose = " << scientific <<  get_dose(*x_ray_3) << endl;
-
-	cout << "N_low = \t" << x_ray_3->summ_particles(11, 50) << "\t E_low =\t" << x_ray_3->average(11, 50) << endl;
-	cout << "N_high = \t" << x_ray_3->summ_particles(60, 119) << "\t E_high =\t" << x_ray_3->average(60, 119) << endl;
-
-	cout << "after filter ---- end ------------------------------------------" << endl;
-
-
-	cout << endl << endl << endl;
-
-
+	interpolate* x_ray_3 = new interpolate(*x_ray_2, *g()->mu_Sm, pho_Sm*0.05);
 
 	interpolate* x_ray_4 = new interpolate(*x_ray_3, *g()->mu_b, 1);
 	interpolate* x_ray_5 = new interpolate(*x_ray_4, *g()->mu_s, 20);
@@ -104,21 +82,20 @@ int main()
 			out_file_object << i << "\t" << (*x_ray_5).Eval_Data(i) << endl;
 	}
 
-	cout << "after object ---- start ------------------------------------------" << endl;
-	cout << "dose = " << scientific <<  get_dose(*x_ray_5) << endl;
-
-	cout << "N_low = \t" << x_ray_5->summ_particles(12, 50) << "\t E_low =\t" << x_ray_5->average(12, 50) << endl;
-	cout << "N_high = \t" << x_ray_5->summ_particles(60, 118) << "\t E_high =\t" << x_ray_5->average(60, 118) << endl;
-
-	cout << "after object ---- end ------------------------------------------" << endl;
-
-	cout << endl << endl << endl;
 
 	cout << "BetaRelativeError = \t " << 
 		Errors::BetaRelativeError(x_ray_5->average(12, 50), x_ray_5->average(60, 118),
 		x_ray_3->summ_particles(11, 50), x_ray_3->summ_particles(60, 119), 
 		x_ray_5->summ_particles(12, 50), x_ray_5->summ_particles(60, 118), *g()->mu_s) << endl;
 
+	for (int i = 0; i < 70; i++)
+	{
+		double tau[3] = {11, 30 + i, 118};
+		int tau_size = sizeof(tau) / sizeof(tau[0]);
+
+		cout << "MLE_Error = \t" << sqrt(Errors::Var_t(x_ray_3, g()->mu_b, g()->mu_s, 1, 20, tau, tau_size)) << endl;
+	}
+	
 	
 	//cout << "N particles \t" << (11.0/36 * 1E-4)/get_dose(*x_ray_2) << endl;
 
