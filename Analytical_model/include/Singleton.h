@@ -43,6 +43,8 @@ private:
 		x_70 = new interpolate((solution_path + "data\\x_ray\\70.dat").c_str(), "default","linear");
 		x_60 = new interpolate("F:\\Geant_simulation\\data\\x_ray\\60.dat", "default","linear");		
 		
+
+		intrinsic_resolution_YAP_Ce = new interpolate((solution_path + "data\\intrinsic_resolution\\yap_ce_keV_1.dat").c_str());
 		
 		//eta=pow(10.0,-2);
 		////eta=0;
@@ -95,6 +97,9 @@ public:
 	interpolate* x_80;
 
 	interpolate* counting_curve;
+
+	interpolate* intrinsic_resolution_YAP_Ce;
+	interpolate* convolution;
 
 	double eta;
 	double dose_0;

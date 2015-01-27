@@ -5,7 +5,7 @@
 #include "Singleton.h"
 #include "Errors.h"
 
-#include "Math\Interpolator.h"
+#include "Math/Interpolator.h"
 #include "Math/GSLMinimizer.h"
 #include "Math/Functor.h"
 
@@ -71,11 +71,11 @@ double get_dose(interpolate& spec_i)
 
 double MLE_Error_wrapper(const double *xx)
 {
-	tau[0] = 12;
+	tau[0] = 23;
 	tau[1] = xx[0]; 
 	tau[2] = 118;
 
-	cout << "tau[0] = " << tau[0] << " tau[1] = " << tau[1] << " tau[2] = " << tau[2] << "\t" << sqrt(Errors::Var_t(x_ray_3, g()->mu_b, g()->mu_s, 1, 20, tau, tau_size)) << endl; 
+	//cout << "tau[0] = " << tau[0] << " tau[1] = " << tau[1] << " tau[2] = " << tau[2] << "\t" << sqrt(Errors::Var_t(x_ray_3, g()->mu_b, g()->mu_s, 1, 20, tau, tau_size)) << endl; 
 
 
 	return sqrt(Errors::Var_t(x_ray_3, g()->mu_b, g()->mu_s, 1, 20, tau, tau_size));
@@ -85,6 +85,25 @@ double MLE_Error_wrapper(const double *xx)
 
 }
 
+double MLE_Cov_wrapper(const double *xx)
+{
+	tau[0] = 23;
+	tau[1] = xx[0]; 
+	tau[2] = 118;
+	
+	return sqrt( Errors::Cov_t1_t2(x_ray_3, g()->mu_b, g()->mu_s, 1, 20, tau, tau_size, g()->convolution) );
+}
+
+
+double RosenBrock(const double *xx )
+{
+	const Double_t x = xx[0];
+	const Double_t y = xx[1];
+	const Double_t tmp1 = y-x*x;
+	const Double_t tmp2 = 1-x;
+	return 100*tmp1*tmp1+tmp2*tmp2;
+}
+
 
 int main()
 {
@@ -92,81 +111,141 @@ int main()
 	ofstream out_file_object("F:\\Geant_simulation\\data\\x_ray\\Analytical_model_object.dat");
 	ofstream out_file_debug_inf("F:\\Geant_simulation\\debug_inf.dat");
 
-
-	interpolate* x_ray_1 = new interpolate(*g()->x_120);
-	//interpolate* x_ray_2 = new interpolate(*x_ray_1, 60000); // 1mA, 1m, 10ms, 1kW (max current - 8mA, max power - 18kW for tube with rotating anode)
-	interpolate* x_ray_2 = new interpolate(*x_ray_1, 60000 * 8 * 2 * 5);
-	x_ray_3 = new interpolate(*x_ray_2, *g()->mu_Sm, pho_Sm*0.02);
-
-	interpolate* x_ray_4 = new interpolate(*x_ray_3, *g()->mu_b, 1);
-	interpolate* x_ray_5 = new interpolate(*x_ray_4, *g()->mu_s, 20);
-
-	for(int i = 0 ; i <= 150; i += 1)
+	//for (double filter_length = 0; filter_length < 0.01; filter_length += 0.01)
 	{
-		if ( ((int)(x_ray_5->GetXVectorMin()) + 1) > i || (x_ray_5->GetXVectorMax() < i) )
-			out_file_object << i << "\t" << 0 << endl;
-		else
-			out_file_object << i << "\t" << (*x_ray_5).Eval_Data(i) << endl;
-	}
+		const double filter_length = 0.1; // [cm]
+		const double bone_pho_L = 1; // [g/cm^2]
+		const double soft_pho_L = 20; // [g/cm^2]
+
+		
+		interpolate* x_ray_1 = new interpolate(*g()->x_120);
+		//interpolate* x_ray_2 = new interpolate(*x_ray_1, 60000); // 1mA, 1m, 10ms, 1kW (max current - 8mA, max power - 18kW for tube with rotating anode)
+		interpolate* x_ray_2 = new interpolate(*x_ray_1, 60000 * 8 * 2 * 5);
+		x_ray_3 = new interpolate(*x_ray_2, *g()->mu_Sm, pho_Sm*filter_length);
+
+		interpolate* x_ray_4 = new interpolate(*x_ray_3, *g()->mu_b, bone_pho_L);
+		interpolate* x_ray_5 = new interpolate(*x_ray_4, *g()->mu_s, soft_pho_L);
+
+		for(int i = 0 ; i <= 150; i += 1)
+		{
+			if ( ((int)(x_ray_5->GetXVectorMin()) + 1) > i || (x_ray_5->GetXVectorMax() < i) )
+				out_file_object << i << "\t" << 0 << endl;
+			else
+				out_file_object << i << "\t" << (*x_ray_5).Eval_Data(i) << endl;
+		}
+
+		g()->convolution = new interpolate(*x_ray_5, Errors::func);
 
 
-	cout << "BetaRelativeError = \t " << 
-		Errors::BetaRelativeError(x_ray_5->average(12, 50), x_ray_5->average(60, 118),
-		x_ray_3->summ_particles(11, 50), x_ray_3->summ_particles(60, 119), 
-		x_ray_5->summ_particles(12, 50), x_ray_5->summ_particles(60, 118), *g()->mu_s) << endl;
+		//cout << "BetaRelativeError = \t " << 
+		//	Errors::BetaRelativeError(x_ray_5->average(12, 50), x_ray_5->average(60, 118),
+		//	x_ray_3->summ_particles(11, 50), x_ray_3->summ_particles(60, 119), 
+		//	x_ray_5->summ_particles(12, 50), x_ray_5->summ_particles(60, 118), *g()->mu_s) << endl;
 
-	for (int i = 0; i < 70; i++)
-	{
-		tau[0] = 11;
-		tau[1] = 30 + i;
-		tau[2] = 118;
-
-
-		out_file_debug_inf << tau[1] << "\t" << sqrt(Errors::Var_t(x_ray_3, g()->mu_b, g()->mu_s, 1, 20, tau, tau_size)) << endl;
-	}
+		//for (int i = 0; i < 70; i++)
+		//{
+		//	tau[0] = 11;
+		//	tau[1] = 30 + i;
+		//	tau[2] = 118;
 
 
-	//-------------------------------------------------------------------------------
-	//https://root.cern.ch/root/html534/tutorials/fit/NumericalMinimization.C.html
-	// minimization
-
-	//ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Migrad");
-	ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Simplex"); //ok
-	//   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Combined");
-	//   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Scan");
-	//   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Fumili");
-	
-	//   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiMin", "ConjugateFR");
-	//   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiMin", "ConjugatePR");
-	//   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiMin", "BFGS");
-	//   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiMin", "BFGS2");
-	//   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiMin", "SteepestDescent");
-	//   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiFit", "");
-	 //  ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLSimAn", "");
-
-	min->SetMaxFunctionCalls(1E5); // for Minuit/Minuit2 
-	min->SetMaxIterations(10000);  // for GSL 
-	min->SetTolerance(0.001);
-	min->SetPrintLevel(1);
-
-	ROOT::Math::Functor f(&MLE_Error_wrapper, 1); 
-
-	min->SetFunction(f);
-
-	//Estimated Distance to Minimum = edm
-
-	// Set the free variables to be minimized!
-	//min->SetVariable(0,"x", 90, 0.5);
-	min->SetLimitedVariable(0, "x", 30, 1, 12, 118);
+		//	out_file_debug_inf << tau[1] << "\t" << sqrt(Errors::Var_t(x_ray_3, g()->mu_b, g()->mu_s, 1, 20, tau, tau_size)) << endl;
+		//}
 
 
-	// do the minimization
-	min->Minimize(); 
+		////-------------------------------------------------------------------------------
+		////https://root.cern.ch/root/html534/tutorials/fit/NumericalMinimization.C.html
+		//// minimization
 
-	const double *xs = min->X();
-	std::cout << "Minimum: f(" << xs[0] << "): " << min->MinValue() << std::endl;
+		////ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Migrad");
+		//ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Simplex"); //ok if step > 0.4
+		////   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Combined");
+		////   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Scan");
+		////   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Fumili");
+
+		////   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiMin", "ConjugateFR");
+		////   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiMin", "ConjugatePR");
+		////   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiMin", "BFGS");
+		////   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiMin", "BFGS2");
+		////   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiMin", "SteepestDescent");
+		////   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiFit", "");
+		////  ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLSimAn", "");
+
+		//min->SetMaxFunctionCalls(1E5); // for Minuit/Minuit2 
+		//min->SetMaxIterations(10000);  // for GSL 
+		//min->SetTolerance(0.001);
+		//min->SetPrintLevel(0);
+
+		////ROOT::Math::Functor f(&MLE_Error_wrapper, 1); 
+		//ROOT::Math::Functor f(&MLE_Cov_wrapper, 1); 
+
+		//min->SetFunction(f);
+
+		////Estimated Distance to Minimum = edm
+
+		//// Set the free variables to be minimized!
+		////min->SetVariable(0,"x", 90, 0.5);
+		//min->SetLimitedVariable(0, "x", 50, 0.5, 30, 110);
+
+
+		//// do the minimization
+		//min->Minimize(); 
+
+		//const double *xs = min->X();
+		//std::cout << filter_length << "\t" << "Minimum: f(" << xs[0] << "): " << min->MinValue() << std::endl;
+		////out_file_debug_inf << filter_length << "\t" << min->MinValue() << endl;
+
+
+
+					
+		delete x_ray_1;
+		delete x_ray_2;
+		delete x_ray_3;
+		delete x_ray_4;
+		delete x_ray_5;
 
 	//------------------------------------------------------------------------
+	}
+
+	//-------------------------------------------------------------
+	////RosenBrock test
+
+	//ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Simplex");
+
+	//min->SetMaxFunctionCalls(1000000); // for Minuit/Minuit2 
+	//min->SetMaxIterations(10000);  // for GSL 
+	//min->SetTolerance(0.001);
+	//min->SetPrintLevel(2);
+
+	//ROOT::Math::Functor f(&RosenBrock,2);
+	//double step[2] = {0.01 , 0.01};
+	//// starting point
+
+	//double variable[2] = { -1.,1.2};
+
+	//min->SetFunction(f);
+
+	//// Set the free variables to be minimized!
+	//min->SetVariable(0,"x",variable[0], step[0]);
+	//min->SetVariable(1,"y",variable[1], step[1]);
+
+	//// do the minimization
+	//min->Minimize(); 
+
+	//const double *xs = min->X();
+	//std::cout << "Minimum: f(" << xs[0] << "," << xs[1] << "): " << min->MinValue()  << std::endl;
+
+
+	//// expected minimum is 0
+	//if ( min->MinValue()  < 1.E-4  && f(xs) < 1.E-4) 
+	//	std::cout << "Minimizer " << "   converged to the right minimum" << std::endl;
+	//else {
+	//	std::cout << "Minimizer " << "   failed to converge !!!" << std::endl;
+	//	Error("NumericalMinimization","fail to converge");
+	//}
+
+	////----------------------------------------------------------
+
 
 	//cout << "N particles \t" << (11.0/36 * 1E-4)/get_dose(*x_ray_2) << endl;
 

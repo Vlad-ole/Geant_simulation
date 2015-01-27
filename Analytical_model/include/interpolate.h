@@ -16,7 +16,9 @@ public:
 	interpolate(interpolate& spec_i);
 	interpolate(interpolate& spec_i, interpolate& mu_filter,const double rho_l);
 	
-	interpolate::interpolate(vector<double> const& temp_x, vector<double> const& temp_y, char type[], char linear_or_spline[]);
+	interpolate(vector<double> const& temp_x, vector<double> const& temp_y, char type[], char linear_or_spline[]);
+
+	interpolate(interpolate& spec_i, double (*func)(const double value, const double energy)); // convolution constructor
 
 	double Eval_Data(double value, char type[]="default");
 	//double Eval_Data(double value, int flag);

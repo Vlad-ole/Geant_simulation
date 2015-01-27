@@ -2,6 +2,7 @@
 #include "Singleton.h"
 #include <iostream>
 #include <fstream>
+#include "Errors.h"
 using namespace std;
 
 interpolate::interpolate() //пустой конструктор
@@ -261,4 +262,21 @@ double interpolate::average(const double E_min, const double E_max)
 	}
 
 	return (temp*E_step) / ( summ_particles(E_min, E_max) );
+}
+
+interpolate::interpolate(interpolate& spec_i, double (*func)(const double value, const double energy))
+{
+	//int index = 0;
+	
+	for (int i = 23; i < 148; i++)
+	{
+		//cout << i << "\t" << Errors::GetConvolution(spec_i, Errors::func, i) << endl;
+
+		xv.push_back(i);
+		yv.push_back(Errors::GetConvolution(spec_i, Errors::func, i));
+		//index++;
+	}
+
+	interpolator = new ROOT::Math::Interpolator(1, ROOT::Math::Interpolation::kLINEAR);
+	interpolator->SetData(xv, yv);
 }
