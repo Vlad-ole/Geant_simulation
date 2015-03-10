@@ -197,6 +197,22 @@ int main()
 
 
 
+		for (int i = 40; i < 41; i++)
+		{
+			tau[0] = 23;
+			tau[1] = i; 
+			tau[2] = 118;
+			
+			out_file_debug_inf << i << "\t" << Errors::Cov_t1_t2(x_ray_3, g()->mu_b, g()->mu_s, 1, 20, tau, tau_size, g()->convolution) << endl;
+			//out_file_debug_inf << i << "\t" << Errors::Var_t(x_ray_3, g()->mu_b, g()->mu_s, 1, 20, tau, tau_size) << endl;
+			
+			//out_file_debug_inf << i << "\t" << (g()->convolution)->Eval_Data(i) << endl;
+
+		}
+		
+
+		
+
 					
 		delete x_ray_1;
 		delete x_ray_2;

@@ -155,6 +155,8 @@ double Errors::Cov_t1_t2(interpolate* spec_after_filter, interpolate* mu_1, inte
 
 	//-------------------------------------------------------
 
+
+
 	//------------------------------------------------------
 	double summ = 0;
 	double d_t1_d_dk = 0;
@@ -191,6 +193,7 @@ double Errors::Cov_t1_t2(interpolate* spec_after_filter, interpolate* mu_1, inte
 			{
 				temp = spec_after_filter->Eval_Data(j) * exp(- ( t1 * mu_1->Eval_Data(j) + t2 * mu_2->Eval_Data(j) ));
 
+
 				gamma_l += temp;
 				gamma_1_l += temp * mu_1->Eval_Data(j);
 				gamma_2_l += temp * mu_2->Eval_Data(j);
@@ -199,7 +202,17 @@ double Errors::Cov_t1_t2(interpolate* spec_after_filter, interpolate* mu_1, inte
 			d_t1_d_dk = ( (gamma_1_k/gamma_k ) * c - (gamma_2_k/gamma_k) * b ) / (a*c - b*b) ;
 			d_t2_d_dl = ( (gamma_2_l/gamma_l ) * a - (gamma_1_l/gamma_l) * b ) / (a*c - b*b) ;
 
-			Cov_dk_dl = (( convolution->summ_particles(tau[k-1] + 1, tau[k]) ) - gamma_k) * (( convolution->summ_particles(tau[l-1] + 1, tau[l]) ) - gamma_l);
+			if(k == l)
+				Cov_dk_dl = (( convolution->summ_particles(tau[k-1] + 1, tau[k]) ) - gamma_k) * (( convolution->summ_particles(tau[l-1] + 1, tau[l]) ) - gamma_l);
+			else
+				Cov_dk_dl = 0;
+
+			cout << "Cov_d( k = " << k << ", l = " << l << " )" << Cov_dk_dl << endl;
+			cout << "gamma_k = " << gamma_k << endl;
+			cout << "gamma_l = " << gamma_l << endl;
+			cout << "d_t1_d_dk * d_t2_d_dl = " << d_t1_d_dk * d_t2_d_dl << endl;
+			cout << endl;
+
 
 			summ += d_t1_d_dk * d_t2_d_dl * Cov_dk_dl;
 		}
@@ -232,13 +245,13 @@ double Errors::GetConvolution(interpolate& spec_i, double (*func)(const double v
 
 double Errors::func(const double value, const double energy)
 {
-	//const double sigma = 5; // [keV]
+	const double sigma = 1; // [keV]
 
 	const double eff = 0.45;
 	const double yield = 32; // [ph/keV]
 	const double light_coll = 0.5;
 	
-	const double sigma = sqrt( pow( (*g()->intrinsic_resolution_YAP_Ce).Eval_Data(energy)/2.355, 2.0) + (1 - eff)/(eff * light_coll * energy * yield) ) * energy;
+	//const double sigma = sqrt( pow( (*g()->intrinsic_resolution_YAP_Ce).Eval_Data(energy)/2.355, 2.0) + (1 - eff)/(eff * light_coll * energy * yield) ) * energy;
 
 	return 1/(sigma * sqrt(2*3.1416)) * exp(-pow(value , 2.0) / (2 * sigma * sigma) );
 }
