@@ -14,7 +14,7 @@ private:
 
 	Singleton()
 	{
-		solution_path = "F:\\Geant_simulation\\";
+		solution_path = "D:\\git_repositories\\Geant_simulation\\";
 
 				
 		mu_a = new interpolate((solution_path + "data\\mu\\air_paper_and_nist.dat").c_str());

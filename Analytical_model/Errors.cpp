@@ -229,14 +229,14 @@ double Errors::Cov_t1_t2(interpolate* spec_after_filter, interpolate* mu_1, inte
 //}
 
 
-double Errors::GetConvolution(interpolate& spec_i, double (*func)(const double value, const double energy), const double x)
+double Errors::GetConvolution(interpolate* spec_i, double (*func)(const double value, const double energy), const double x)
 {
 	double summ = 0;
 
 	for (int y = 23; y < 118; y++)
 	{
 		//cout << y << "\t" << spec_i.Eval_Data(y) * func(x - y) << endl;
-		summ += spec_i.Eval_Data(y) * func(x - y, y);
+		summ += spec_i->Eval_Data(y) * func(x - y, y);
 	}
 	
 	return summ;
@@ -245,13 +245,13 @@ double Errors::GetConvolution(interpolate& spec_i, double (*func)(const double v
 
 double Errors::func(const double value, const double energy)
 {
-	const double sigma = 1; // [keV]
+	//const double sigma = 10; // [keV]
 
 	const double eff = 0.45;
 	const double yield = 32; // [ph/keV]
 	const double light_coll = 0.5;
 	
-	//const double sigma = sqrt( pow( (*g()->intrinsic_resolution_YAP_Ce).Eval_Data(energy)/2.355, 2.0) + (1 - eff)/(eff * light_coll * energy * yield) ) * energy;
+	const double sigma = sqrt( pow( (*g()->intrinsic_resolution_YAP_Ce).Eval_Data(energy)/2.355, 2.0) + (1 - eff)/(eff * light_coll * energy * yield) ) * energy;
 
 	return 1/(sigma * sqrt(2*3.1416)) * exp(-pow(value , 2.0) / (2 * sigma * sigma) );
 }

@@ -2,6 +2,7 @@
 #include "Singleton.h"
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 #include "Errors.h"
 using namespace std;
 
@@ -96,13 +97,13 @@ interpolate::interpolate(vector<double> const& temp_x, vector<double> const& tem
 }
 
 
-interpolate::interpolate(interpolate& spec_i, interpolate& mu_filter, const double rho_l) // конструктор-фильтр
+interpolate::interpolate(interpolate* spec_i, interpolate* mu_filter, const double rho_l) // конструктор-фильтр
 {
 	//vector<double> xv;
 	//vector<double> yv;
 
-	double E_min = max(spec_i.GetXVectorMin(), mu_filter.GetXVectorMin());
-	double E_max = min(spec_i.GetXVectorMax(), mu_filter.GetXVectorMax());
+	double E_min = max(spec_i->GetXVectorMin(), mu_filter->GetXVectorMin());
+	double E_max = min(spec_i->GetXVectorMax(), mu_filter->GetXVectorMax());
 
 	//cout << E_min << "\t" << E_max << endl;
 
@@ -118,7 +119,7 @@ interpolate::interpolate(interpolate& spec_i, interpolate& mu_filter, const doub
 
 		E = E_min + E_step*i + E_step/2.0;
 		xv.push_back(E);
-		yv.push_back(spec_i.Eval_Data(E)*exp(-mu_filter.Eval_Data(E)*rho_l));
+		yv.push_back(spec_i->Eval_Data(E)*exp(-mu_filter->Eval_Data(E)*rho_l));
 
 		//cout << "E = \t" << E << "\t I = \t" << spec_i.Eval_Data(E)*exp(-mu_filter.Eval_Data(E)*rho_l) << endl;
 	}
@@ -128,33 +129,33 @@ interpolate::interpolate(interpolate& spec_i, interpolate& mu_filter, const doub
 	interpolator->SetData(xv, yv);
 }
 
-interpolate::interpolate(interpolate& spec_i, const double norm_const) //конструктор-нормировщик
+interpolate::interpolate(interpolate* spec_i, const double norm_const) //конструктор-нормировщик
 {
 	//vector<double> xv;
 	//vector<double> yv;
 
-	double E_min = spec_i.GetXVectorMin();
-	double E_max = spec_i.GetXVectorMax();
+	double E_min = spec_i->GetXVectorMin();
+	double E_max = spec_i->GetXVectorMax();
 	int N=1000;
 	double E_step=(E_max - E_min)/N;
 
 	for (int i=0; i<=N; i++)
 	{
 		xv.push_back(E_min+E_step*i);
-		yv.push_back(spec_i.Eval_Data(E_min+E_step*i)*norm_const);
+		yv.push_back(spec_i->Eval_Data(E_min + E_step*i)*norm_const);
 	}
 	interpolator = new ROOT::Math::Interpolator(1);
 	interpolator->SetData(xv, yv);
 }
 
 
-interpolate::interpolate(interpolate& spec_i) //конструктор-самонормировщик
+interpolate::interpolate(interpolate* spec_i) //конструктор-самонормировщик
 {
 	//vector<double> xv;
 	//vector<double> yv;
 
-	double E_min = spec_i.GetXVectorMin();
-	double E_max = spec_i.GetXVectorMax();
+	double E_min = spec_i->GetXVectorMin();
+	double E_max = spec_i->GetXVectorMax();
 
 	int N=1000;
 	double E_step=(E_max - E_min)/N;
@@ -163,7 +164,7 @@ interpolate::interpolate(interpolate& spec_i) //конструктор-самонормировщик
 	for (int i=0; i<N; i++)
 	{
 		double E = E_min+E_step*i + E_step/2.0;
-		norm_const+=spec_i.Eval_Data(E);
+		norm_const += spec_i->Eval_Data(E);
 	}
 
 	norm_const = 1/(norm_const*E_step);
@@ -171,7 +172,7 @@ interpolate::interpolate(interpolate& spec_i) //конструктор-самонормировщик
 	for (int i=0; i<=N; i++)
 	{
 		xv.push_back(E_min+E_step*i);
-		yv.push_back(spec_i.Eval_Data(E_min+E_step*i)*norm_const);
+		yv.push_back(spec_i->Eval_Data(E_min + E_step*i)*norm_const);
 	}
 	interpolator = new ROOT::Math::Interpolator(1);
 	interpolator->SetData(xv, yv);
@@ -264,7 +265,7 @@ double interpolate::average(const double E_min, const double E_max)
 	return (temp*E_step) / ( summ_particles(E_min, E_max) );
 }
 
-interpolate::interpolate(interpolate& spec_i, double (*func)(const double value, const double energy))
+interpolate::interpolate(interpolate* spec_i, double (*func)(const double value, const double energy))
 {
 	//int index = 0;
 	
@@ -279,4 +280,20 @@ interpolate::interpolate(interpolate& spec_i, double (*func)(const double value,
 
 	interpolator = new ROOT::Math::Interpolator(1, ROOT::Math::Interpolation::kLINEAR);
 	interpolator->SetData(xv, yv);
+}
+
+
+void interpolate::print(string file_output_name)
+{
+	
+	ofstream output_file(file_output_name);
+	
+	for (int i = 0; i <= 150; i += 1)
+	{
+		if (((int)(this->GetXVectorMin()) + 1) > i || (this->GetXVectorMax() < i))
+			output_file << i << "\t" << 0 << endl;
+		else
+			output_file << i << "\t" << this->Eval_Data(i) << endl;
+	}
+
 }

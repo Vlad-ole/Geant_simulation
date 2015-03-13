@@ -107,9 +107,9 @@ double RosenBrock(const double *xx )
 
 int main()
 {
-	ofstream out_file_filter("F:\\Geant_simulation\\data\\x_ray\\Analytical_model_filter.dat");
-	ofstream out_file_object("F:\\Geant_simulation\\data\\x_ray\\Analytical_model_object.dat");
-	ofstream out_file_debug_inf("F:\\Geant_simulation\\debug_inf.dat");
+	ofstream out_file_filter("D:\\git_repositories\\Geant_simulation\\data\\x_ray\\Analytical_model_filter.dat");
+	//ofstream out_file_object("D:\\git_repositories\\Geant_simulation\\data\\x_ray\\Analytical_model_object.dat");
+	ofstream out_file_debug_inf("D:\\git_repositories\\Geant_simulation\\debug_inf.dat");
 
 	//for (double filter_length = 0; filter_length < 0.01; filter_length += 0.01)
 	{
@@ -118,24 +118,20 @@ int main()
 		const double soft_pho_L = 20; // [g/cm^2]
 
 		
-		interpolate* x_ray_1 = new interpolate(*g()->x_120);
+		interpolate* x_ray_1 = new interpolate(g()->x_120); // initial normalized spectrum
 		//interpolate* x_ray_2 = new interpolate(*x_ray_1, 60000); // 1mA, 1m, 10ms, 1kW (max current - 8mA, max power - 18kW for tube with rotating anode)
-		interpolate* x_ray_2 = new interpolate(*x_ray_1, 60000 * 8 * 2 * 5);
-		x_ray_3 = new interpolate(*x_ray_2, *g()->mu_Sm, pho_Sm*filter_length);
+		interpolate* x_ray_2 = new interpolate(x_ray_1, 60000 * 8 * 2 * 5); // initial real spectrum (8 mA, 1m, 20ms, 5kW)
+		x_ray_3 = new interpolate(x_ray_2, g()->mu_Sm, pho_Sm*filter_length); // initial real spectrum after filter
 
-		interpolate* x_ray_4 = new interpolate(*x_ray_3, *g()->mu_b, bone_pho_L);
-		interpolate* x_ray_5 = new interpolate(*x_ray_4, *g()->mu_s, soft_pho_L);
+		interpolate* x_ray_4 = new interpolate(x_ray_3, g()->mu_b, bone_pho_L); // initial real spectrum after filter & bone
+		interpolate* x_ray_5 = new interpolate(x_ray_4, g()->mu_s, soft_pho_L); // initial real spectrum after filter & bone & soft
 
-		for(int i = 0 ; i <= 150; i += 1)
-		{
-			if ( ((int)(x_ray_5->GetXVectorMin()) + 1) > i || (x_ray_5->GetXVectorMax() < i) )
-				out_file_object << i << "\t" << 0 << endl;
-			else
-				out_file_object << i << "\t" << (*x_ray_5).Eval_Data(i) << endl;
-		}
 
-		g()->convolution = new interpolate(*x_ray_5, Errors::func);
+		x_ray_5->print("D:\\git_repositories\\Geant_simulation\\data\\x_ray\\Analytical_model_object.dat");
 
+		g()->convolution = new interpolate(x_ray_5, Errors::func);
+
+		(g()->convolution)->print("D:\\git_repositories\\Geant_simulation\\data\\x_ray\\Analytical_model_convolution.dat");
 
 		//cout << "BetaRelativeError = \t " << 
 		//	Errors::BetaRelativeError(x_ray_5->average(12, 50), x_ray_5->average(60, 118),
