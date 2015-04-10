@@ -91,7 +91,7 @@ double MLE_Cov_wrapper(const double *xx)
 	tau[1] = xx[0]; 
 	tau[2] = 118;
 	
-	return sqrt( Errors::Cov_t1_t2(x_ray_3, g()->mu_b, g()->mu_s, 1, 20, tau, tau_size, g()->convolution) );
+	return sqrt( Errors::Var_t_correlate(x_ray_3, g()->mu_b, g()->mu_s, 1, 20, tau, tau_size, g()->convolution) );
 }
 
 
@@ -108,8 +108,7 @@ double RosenBrock(const double *xx )
 int main()
 {
 	ofstream out_file_filter("D:\\git_repositories\\Geant_simulation\\data\\x_ray\\Analytical_model_filter.dat");
-	//ofstream out_file_object("D:\\git_repositories\\Geant_simulation\\data\\x_ray\\Analytical_model_object.dat");
-	ofstream out_file_debug_inf("D:\\git_repositories\\Geant_simulation\\debug_inf.dat");
+	ofstream out_file_debug_inf("D:\\git_repositories\\Geant_simulation\\data\\x_ray\\debug_inf.dat");
 
 	//for (double filter_length = 0; filter_length < 0.01; filter_length += 0.01)
 	{
@@ -120,7 +119,7 @@ int main()
 		
 		interpolate* x_ray_1 = new interpolate(g()->x_120); // initial normalized spectrum
 		//interpolate* x_ray_2 = new interpolate(*x_ray_1, 60000); // 1mA, 1m, 10ms, 1kW (max current - 8mA, max power - 18kW for tube with rotating anode)
-		interpolate* x_ray_2 = new interpolate(x_ray_1, 60000 * 8 * 2 * 5); // initial real spectrum (8 mA, 1m, 20ms, 5kW)
+		interpolate* x_ray_2 = new interpolate(x_ray_1, 60000 * 8 * 2 * 5); // initial real spectrum
 		x_ray_3 = new interpolate(x_ray_2, g()->mu_Sm, pho_Sm*filter_length); // initial real spectrum after filter
 
 		interpolate* x_ray_4 = new interpolate(x_ray_3, g()->mu_b, bone_pho_L); // initial real spectrum after filter & bone
@@ -129,137 +128,114 @@ int main()
 
 		x_ray_5->print("D:\\git_repositories\\Geant_simulation\\data\\x_ray\\Analytical_model_object.dat");
 
-		g()->convolution = new interpolate(x_ray_5, Errors::func);
+		g()->convolution = new interpolate(x_ray_5, Errors::func); // convolution of (initial real spectrum after filter & bone & soft) with gauss
 
 		(g()->convolution)->print("D:\\git_repositories\\Geant_simulation\\data\\x_ray\\Analytical_model_convolution.dat");
 
-		//cout << "BetaRelativeError = \t " << 
-		//	Errors::BetaRelativeError(x_ray_5->average(12, 50), x_ray_5->average(60, 118),
-		//	x_ray_3->summ_particles(11, 50), x_ray_3->summ_particles(60, 119), 
-		//	x_ray_5->summ_particles(12, 50), x_ray_5->summ_particles(60, 118), *g()->mu_s) << endl;
+		cout << "filter_length =\t" << filter_length << endl;
 
-		//for (int i = 0; i < 70; i++)
-		//{
-		//	tau[0] = 11;
-		//	tau[1] = 30 + i;
-		//	tau[2] = 118;
-
-
-		//	out_file_debug_inf << tau[1] << "\t" << sqrt(Errors::Var_t(x_ray_3, g()->mu_b, g()->mu_s, 1, 20, tau, tau_size)) << endl;
-		//}
+		//----------------
+		//simple monoenergies case
+		cout << "simple monoenergies case = \t " << 
+			Errors::BetaRelativeError(x_ray_5->average(12, 50), x_ray_5->average(60, 118),
+			x_ray_3->summ_particles(11, 50), x_ray_3->summ_particles(60, 119), 
+			x_ray_5->summ_particles(12, 50), x_ray_5->summ_particles(60, 118), *g()->mu_s) << endl;
+		//------------------
 
 
-		////-------------------------------------------------------------------------------
-		////https://root.cern.ch/root/html534/tutorials/fit/NumericalMinimization.C.html
-		//// minimization
+		for (int i = 0; i < 70; i++)
+		{
+			tau[0] = 11;
+			tau[1] = 30 + i;
+			tau[2] = 118;
 
-		////ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Migrad");
-		//ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Simplex"); //ok if step > 0.4
-		////   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Combined");
-		////   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Scan");
-		////   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Fumili");
 
-		////   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiMin", "ConjugateFR");
-		////   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiMin", "ConjugatePR");
-		////   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiMin", "BFGS");
-		////   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiMin", "BFGS2");
-		////   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiMin", "SteepestDescent");
-		////   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiFit", "");
-		////  ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLSimAn", "");
+			out_file_debug_inf << tau[1] << "\t" << sqrt(Errors::Var_t(x_ray_3, g()->mu_b, g()->mu_s, 1, 20, tau, tau_size)) << endl;
+		}
 
-		//min->SetMaxFunctionCalls(1E5); // for Minuit/Minuit2 
-		//min->SetMaxIterations(10000);  // for GSL 
-		//min->SetTolerance(0.001);
-		//min->SetPrintLevel(0);
 
-		////ROOT::Math::Functor f(&MLE_Error_wrapper, 1); 
+		//-------------------------------------------------------------------------------
+		//Spectrum model with ideal detector
+
+		//https://root.cern.ch/root/html534/tutorials/fit/NumericalMinimization.C.html
+		// minimization
+
+		//ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Migrad");
+		ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Simplex"); //ok if step > 0.4
+		//   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Combined");
+		//   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Scan");
+		//   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Fumili");
+
+		//   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiMin", "ConjugateFR");
+		//   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiMin", "ConjugatePR");
+		//   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiMin", "BFGS");
+		//   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiMin", "BFGS2");
+		//   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiMin", "SteepestDescent");
+		//   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLMultiFit", "");
+		//  ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("GSLSimAn", "");
+
+		min->SetMaxFunctionCalls(1E5); // for Minuit/Minuit2 
+		min->SetMaxIterations(10000);  // for GSL 
+		min->SetTolerance(0.001);
+		min->SetPrintLevel(0);
+
+		ROOT::Math::Functor f(&MLE_Error_wrapper, 1); 
 		//ROOT::Math::Functor f(&MLE_Cov_wrapper, 1); 
 
-		//min->SetFunction(f);
+		min->SetFunction(f);
 
-		////Estimated Distance to Minimum = edm
+		//Estimated Distance to Minimum = edm
 
-		//// Set the free variables to be minimized!
-		////min->SetVariable(0,"x", 90, 0.5);
-		//min->SetLimitedVariable(0, "x", 50, 0.5, 30, 110);
-
-
-		//// do the minimization
-		//min->Minimize(); 
-
-		//const double *xs = min->X();
-		//std::cout << filter_length << "\t" << "Minimum: f(" << xs[0] << "): " << min->MinValue() << std::endl;
-		////out_file_debug_inf << filter_length << "\t" << min->MinValue() << endl;
+		// Set the free variables to be minimized!
+		//min->SetVariable(0,"x", 90, 0.5);
+		min->SetLimitedVariable(0, "x", 50, 0.5, 30, 110);
 
 
+		// do the minimization
+		min->Minimize(); 
 
-		for (int i = 40; i < 41; i++)
-		{
-			tau[0] = 23;
-			tau[1] = i; 
-			tau[2] = 118;
-			
-			out_file_debug_inf << i << "\t" << Errors::Cov_t1_t2(x_ray_3, g()->mu_b, g()->mu_s, 1, 20, tau, tau_size, g()->convolution) << endl;
-			//out_file_debug_inf << i << "\t" << Errors::Var_t(x_ray_3, g()->mu_b, g()->mu_s, 1, 20, tau, tau_size) << endl;
-			
-			//out_file_debug_inf << i << "\t" << (g()->convolution)->Eval_Data(i) << endl;
+		const double *xs = min->X();
+		cout << "Spectrum model with ideal detector : Minimum: f(" << xs[0] << "): " << min->MinValue() << std::endl;
+		//out_file_debug_inf << filter_length << "\t" << min->MinValue() << endl;
 
-		}
+		//------------------------------------------------------------------------
+
+
+
+
+
+		//------------------------------------------------------------------------
+		//Spectrum model with real detector (convolution case)
+
+		ROOT::Math::Minimizer* min_2 = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Simplex");
 		
-
+		min_2->SetMaxFunctionCalls(1E5); // for Minuit/Minuit2 
+		min_2->SetMaxIterations(10000);  // for GSL 
+		min_2->SetTolerance(0.001);
+		min_2->SetPrintLevel(0);
 		
+		ROOT::Math::Functor f_2(&MLE_Cov_wrapper, 1);
+		min_2->SetFunction(f_2);
+		min_2->SetLimitedVariable(0, "x", 50, 0.5, 30, 110);
 
-					
+		min_2->Minimize();
+
+		const double *xs_2 = min_2->X();
+		cout << "Spectrum model with real detector (convolution case) : Minimum: f(" << xs_2[0] << "): " << min_2->MinValue() << endl;
+		//------------------------------------------------------------------------
+
+
+
+
 		delete x_ray_1;
 		delete x_ray_2;
 		delete x_ray_3;
 		delete x_ray_4;
 		delete x_ray_5;
 
-	//------------------------------------------------------------------------
 	}
 
-	//-------------------------------------------------------------
-	////RosenBrock test
 
-	//ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Simplex");
-
-	//min->SetMaxFunctionCalls(1000000); // for Minuit/Minuit2 
-	//min->SetMaxIterations(10000);  // for GSL 
-	//min->SetTolerance(0.001);
-	//min->SetPrintLevel(2);
-
-	//ROOT::Math::Functor f(&RosenBrock,2);
-	//double step[2] = {0.01 , 0.01};
-	//// starting point
-
-	//double variable[2] = { -1.,1.2};
-
-	//min->SetFunction(f);
-
-	//// Set the free variables to be minimized!
-	//min->SetVariable(0,"x",variable[0], step[0]);
-	//min->SetVariable(1,"y",variable[1], step[1]);
-
-	//// do the minimization
-	//min->Minimize(); 
-
-	//const double *xs = min->X();
-	//std::cout << "Minimum: f(" << xs[0] << "," << xs[1] << "): " << min->MinValue()  << std::endl;
-
-
-	//// expected minimum is 0
-	//if ( min->MinValue()  < 1.E-4  && f(xs) < 1.E-4) 
-	//	std::cout << "Minimizer " << "   converged to the right minimum" << std::endl;
-	//else {
-	//	std::cout << "Minimizer " << "   failed to converge !!!" << std::endl;
-	//	Error("NumericalMinimization","fail to converge");
-	//}
-
-	////----------------------------------------------------------
-
-
-	//cout << "N particles \t" << (11.0/36 * 1E-4)/get_dose(*x_ray_2) << endl;
 
 	system("PAUSE");
 	return 0;

@@ -84,8 +84,8 @@
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(G4_INCLUDE);$(ProjectDir)/include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(G4_LIB);$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Geant4_10.1\include\Geant4;$(ProjectDir)/include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Geant4_10.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

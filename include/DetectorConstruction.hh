@@ -92,6 +92,11 @@ private:
 	G4VPhysicalVolume* physiCase;     // pointer to the physical Case
 
 
+	
+	G4LogicalVolume*   logicAbs;     // pointer to the logical Case
+	G4VPhysicalVolume* physiAbs;     // pointer to the physical Case
+
+
 	Messenger* messenger;  // pointer to the Messenger
 
 	G4String sScintillationMaterial;
@@ -128,6 +133,7 @@ private:
 	G4OpticalSurface *Ground_Air_TiO2;
 	G4OpticalSurface *airGroundAluminum; // ground aluminm surface
 	G4OpticalSurface *silicaCathodeMaterial; // surface between window and cathode
+	G4OpticalSurface *AbsorberMaterial;
 
 	G4OpticalSurface *teflon_unified;
 	G4OpticalSurface *MgO_unified;

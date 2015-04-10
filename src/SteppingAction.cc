@@ -75,16 +75,16 @@ void SteppingAction::UserSteppingAction(const G4Step* theStep)
 				g()->NumberOfReflections++;
 			
 			
-			
-			G4ThreeVector v_temp_poz = theTrack->GetPosition();
-			G4ThreeVector v_temp_mom = theTrack->GetMomentumDirection();
-			
-			if( boundaryStatus != 12  && (v_temp_poz.getZ() > 0) && (v_temp_mom.getZ() > 0) )
-			{
-				
-				g()->file_boundary_process << boundaryStatus /*<< "\t" << v_temp_poz.getZ() << "\t" << v_temp_mom.getZ()*/  << endl;
-			}
-
+			//--------------------------------------------------------------------
+			//G4ThreeVector v_temp_poz = theTrack->GetPosition();
+			//G4ThreeVector v_temp_mom = theTrack->GetMomentumDirection();
+			//
+			//if( boundaryStatus != 12  && (v_temp_poz.getZ() > 0) && (v_temp_mom.getZ() > 0) )
+			//{
+			//	
+			//	g()->file_boundary_process << boundaryStatus /*<< "\t" << v_temp_poz.getZ() << "\t" << v_temp_mom.getZ()*/  << endl;
+			//}
+			//--------------------------------------------------------------------
 			
 
 			switch(boundaryStatus)

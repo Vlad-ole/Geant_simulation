@@ -40,12 +40,13 @@ void DetectorConstruction::defineMaterials()
 	const G4int numentries = 2;
 	G4double energies[numentries] = { 0.1*eV, 10.0*eV };
 	G4double vacrindices[numentries] = { 1., 1. };
-	G4double airabsorpti[numentries] = { 0.1*mm, 0.1*mm }; // avoid infinite light-paths
+	G4double airabsorpti[numentries] = { 10*m, 10*m }; // avoid infinite light-paths
 	G4MaterialPropertiesTable* airprop = new G4MaterialPropertiesTable();
 	airprop->AddProperty("ABSLENGTH", energies, airabsorpti, numentries);
 	airprop->AddProperty("RINDEX", energies, vacrindices, numentries);
 	Air->SetMaterialPropertiesTable(airprop);
 	//------------------------------
+
 
 
 
@@ -183,7 +184,10 @@ void DetectorConstruction::defineMaterials()
 	G4MaterialPropertiesTable* YAP_Ce_prop = new G4MaterialPropertiesTable();
 	YAP_Ce_prop->AddProperty("FASTCOMPONENT", YAP_Ce_FASTCOMPONENT->get_x_array(), YAP_Ce_FASTCOMPONENT->get_y_array(), YAP_Ce_FASTCOMPONENT->get_array_size());
 	YAP_Ce_prop->AddProperty("RINDEX",        YAP_Ce_RINDEX->get_x_array(), YAP_Ce_RINDEX->get_y_array(), YAP_Ce_RINDEX->get_array_size());
-	YAP_Ce_prop->AddProperty("ABSLENGTH",     energies, dummy_ABSLENGTH, 2);
+	
+	//YAP_Ce_prop->AddProperty("ABSLENGTH",     energies, dummy_ABSLENGTH, 2);
+	YAP_Ce_prop->AddProperty("ABSLENGTH", YAP_Ce_ABSLENGTH->get_x_array(), YAP_Ce_ABSLENGTH->get_y_array(), YAP_Ce_ABSLENGTH->get_array_size());
+
 	YAP_Ce_prop->AddConstProperty("SCINTILLATIONYIELD", 32.0/keV);
 	YAP_Ce_prop->AddConstProperty("RESOLUTIONSCALE", 4.55);
 	YAP_Ce_prop->AddConstProperty("FASTTIMECONSTANT",41.0*ns);
@@ -221,7 +225,7 @@ void DetectorConstruction::defineMaterials()
 	ReadConstants *BorosilicateGlass_ABSLENGTH = new ReadConstants(g()->string_BorosilicateGlass_ABSLENGTH, 1*eV, 1*mm);
 	
 	G4MaterialPropertiesTable* BorosilicateGlassprop = new G4MaterialPropertiesTable();
-	//BorosilicateGlassprop->AddProperty("RINDEX", BorosilicateGlass_RINDEX->get_x_array(), BorosilicateGlass_RINDEX->get_y_array(), BorosilicateGlass_RINDEX->get_array_size());
+	BorosilicateGlassprop->AddProperty("RINDEX", BorosilicateGlass_RINDEX->get_x_array(), BorosilicateGlass_RINDEX->get_y_array(), BorosilicateGlass_RINDEX->get_array_size());
 	BorosilicateGlassprop->AddProperty("ABSLENGTH", BorosilicateGlass_ABSLENGTH->get_x_array(), BorosilicateGlass_ABSLENGTH->get_y_array(), BorosilicateGlass_ABSLENGTH->get_array_size());
 	FusedSilica->SetMaterialPropertiesTable(BorosilicateGlassprop);
 	//--------------------------------------------------------------------------------------

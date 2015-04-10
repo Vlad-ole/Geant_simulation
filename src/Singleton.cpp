@@ -10,7 +10,7 @@ Singleton::Singleton()
 	summ_number_of_photons = 0;
 
 	//string solution_path = "C:\\diplom\\Geant_simulation\\";
-	solution_path = "F:\\Geant_simulation\\";
+	solution_path = "D:\\git_repositories\\Geant_simulation\\";
 
 	//определение пути файлов
 	string path_out = solution_path + "experiment\\";

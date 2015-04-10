@@ -32,7 +32,7 @@ int  nUsefulEvents = 0;
 
 
 
-int main(int argc,char** argv)
+int main(int argc, char** argv)
 {
 	long t1 = clock();
 
@@ -59,7 +59,7 @@ int main(int argc,char** argv)
 	runManager->SetUserAction(new RunAction);
 
 	string temp_string = g()->path_read + "x_ray\\Analytical_model_out.dat";
-	runManager->SetUserAction( new PrimaryGeneratorAction(temp_string.c_str()) );
+	runManager->SetUserAction( new PrimaryGeneratorAction( /*temp_string.c_str() */) );
 	
 	EventAction* eventAction = new EventAction;
 	runManager->SetUserAction(eventAction);
@@ -82,7 +82,7 @@ int main(int argc,char** argv)
    
 	//for(g()->abs_index = 200; g()->abs_index > 1; g()->abs_index -= 5)
 	{
-		for (g()->SigmaAlpha_index = 2; g()->SigmaAlpha_index < 2.1; g()->SigmaAlpha_index += 1)
+		for (g()->SigmaAlpha_index = 0; g()->SigmaAlpha_index < 20; g()->SigmaAlpha_index += 1)
 		{
 					
 			detector->ChangeDetectorConstruction(g()->SigmaAlpha_index);

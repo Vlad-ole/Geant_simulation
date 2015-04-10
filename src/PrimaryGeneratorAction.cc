@@ -12,8 +12,8 @@ using namespace std;
 
 #include <G4SystemOfUnits.hh> // this has appeared in GEANT4_10
 
-#define DIRECT_INCIDENCE
-#define CENTRAL_INCIDENCE
+//#define DIRECT_INCIDENCE
+//#define CENTRAL_INCIDENCE
 
 void PrimaryGeneratorAction::CommonPart()
 {
@@ -98,7 +98,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 	switch(xrType)
 	{
 	case MONO:
-		energy=59.5; //original value
+		energy = 59.5; //original value
 		break;
 
 	case SPECTER:
@@ -159,7 +159,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 	G4int  n_event = anEvent->GetEventID();
 	if((n_event%1000)==0)
 	{
-		cout << "New event started! " << anEvent->GetEventID() << " Particle energy: "  << energy/keV << " keV. "<< endl; 
+		cout << "New event started! " << anEvent->GetEventID() << " Particle energy: "  << energy << " keV. "<< endl; 
 	} 
 
 }

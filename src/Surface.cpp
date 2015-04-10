@@ -44,7 +44,7 @@ void DetectorConstruction::defineSurfaces()
 	polishedAir->SetModel(unified);
 	polishedAir->SetType(dielectric_dielectric);	
 	polishedAir->SetFinish(ground); // ground necessary even for polished surfaces to enable UNIFIED code
-	polishedAir->SetSigmaAlpha(0.0 * degree); // Janecek2010
+	polishedAir->SetSigmaAlpha(g()->SigmaAlpha_index * degree); // Janecek2010
 
 	G4MaterialPropertiesTable* polishedAir_property = new G4MaterialPropertiesTable();
 	//polishedAir_property->AddProperty("RINDEX", ener, teflon_rindex, 2);
@@ -167,6 +167,29 @@ void DetectorConstruction::defineSurfaces()
 
 	silicaCathodeMaterial->SetMaterialPropertiesTable(silicaCathodeMaterialProperty);
 	//--------------------------------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------
+	// описание поверхности поглотителя
+	AbsorberMaterial = new G4OpticalSurface("Absorber", unified);
+	AbsorberMaterial->SetType(dielectric_metal);
+	AbsorberMaterial->SetModel(unified);
+	AbsorberMaterial->SetFinish(polished);
+	AbsorberMaterial->SetSigmaAlpha(0.);
+
+
+
+	G4MaterialPropertiesTable *AbsorberMaterialProperty = new G4MaterialPropertiesTable();
+	G4double AbsorberMaterialrefl[2] = { 0.0, 0.0 };
+	G4double AbsorberMaterialeff[2] = { 0, 0 };
+		
+	AbsorberMaterialProperty->AddProperty("REFLECTIVITY", ener, AbsorberMaterialrefl, 2);
+	AbsorberMaterialProperty->AddProperty("EFFICIENCY", ener, AbsorberMaterialeff, 2);
+
+	AbsorberMaterial->SetMaterialPropertiesTable(AbsorberMaterialProperty);
+	//--------------------------------------------------------------------------------
+
+
 
 	//*********************************************************************************
 }

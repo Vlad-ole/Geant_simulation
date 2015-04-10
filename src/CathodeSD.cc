@@ -16,7 +16,7 @@
 #include <iostream>
 #include <fstream>
 
-
+//#define DEBAG_MODE
 
 CathodeSD::CathodeSD(G4String name, G4VPhysicalVolume *cathode) : G4VSensitiveDetector(name), _cathode(cathode)
 {
@@ -61,7 +61,7 @@ void CathodeSD::EndOfEvent(G4HCofThisEvent*)
 {
 	//.. print info about collection of hits
 	
-#define DEBAG_MODE
+
 	
 #ifdef DEBAG_MODE
 	if (g()->summ_number_of_photons)

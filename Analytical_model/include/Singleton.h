@@ -27,7 +27,7 @@ private:
 
 		mu_C = new interpolate((solution_path + "data\\mu\\C_xop.dat").c_str(), "default","linear");
 		mu_Cu = new interpolate((solution_path + "data\\mu\\Cu_xop.dat").c_str(), "default","linear");
-		mu_Al = new interpolate("F:\\Geant_simulation\\data\\mu\\Al_xop.dat", "default","linear");
+		mu_Al = new interpolate((solution_path + "data\\mu\\Al_xop.dat").c_str(), "default", "linear");
 		mu_O = new interpolate((solution_path + "data\\mu\\O_xop.dat").c_str(), "default","linear");
 		mu_Gd = new interpolate((solution_path + "data\\mu\\Gd_xop.dat").c_str(), "default","linear");
 		mu_Lu = new interpolate((solution_path + "data\\mu\\Lu_xop.dat").c_str(), "default","linear");
@@ -41,7 +41,7 @@ private:
 		x_90 = new interpolate((solution_path + "data\\x_ray\\90.dat").c_str(), "default","linear");
 		x_80 = new interpolate((solution_path + "data\\x_ray\\80.dat").c_str(), "default","linear");
 		x_70 = new interpolate((solution_path + "data\\x_ray\\70.dat").c_str(), "default","linear");
-		x_60 = new interpolate("F:\\Geant_simulation\\data\\x_ray\\60.dat", "default","linear");		
+		x_60 = new interpolate((solution_path + "data\\x_ray\\60.dat").c_str(), "default", "linear");
 		
 
 		intrinsic_resolution_YAP_Ce = new interpolate((solution_path + "data\\intrinsic_resolution\\yap_ce_keV_1.dat").c_str());

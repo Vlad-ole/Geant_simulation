@@ -1,3 +1,5 @@
+
+
 /vis/verbose 0
 
 
@@ -9,7 +11,7 @@
 #
 /vis/sceneHandler/create VRML2FILE
 
-/vis/viewer/set/viewpointThetaPhi 70 20
+/vis/viewer/set/viewpointThetaPhi 0 45
 /vis/viewer/zoom 1.5
 
 #
