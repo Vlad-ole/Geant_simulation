@@ -51,12 +51,11 @@ private:
 	G4LogicalVolume*   logicScint;   // pointer to the logical Scintillator
 	G4VPhysicalVolume* physiScint;   // pointer to the physical Scintillator
 
-	G4Box*            solid_scintillator;   // pointer to the conic solid Scintillator
 	G4LogicalVolume*   logicBox;   // pointer to the logical Scintillator
 	G4VPhysicalVolume* physiBox;   // pointer to the physical Scintillator
 
 	G4Trd* solidTrdScint;
-	G4Trap* solidTrapScint;
+	G4Box*            solid_scintillator;   // pointer to the conic solid Scintillator
 
 
 	G4Cons*             solidConicalShellShaft;  // pointer to the conic solid Shell
