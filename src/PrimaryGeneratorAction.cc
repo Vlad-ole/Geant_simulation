@@ -12,8 +12,8 @@ using namespace std;
 
 #include <G4SystemOfUnits.hh> // this has appeared in GEANT4_10
 
-//#define DIRECT_INCIDENCE
-//#define CENTRAL_INCIDENCE
+#define DIRECT_INCIDENCE
+#define CENTRAL_INCIDENCE
 
 void PrimaryGeneratorAction::CommonPart()
 {

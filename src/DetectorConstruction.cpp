@@ -38,6 +38,7 @@
 #include <G4GeneralParticleSource.hh>
 #include <G4RegionStore.hh>
 #include <G4Trd.hh>
+#include <G4Para.hh>
 
 #include <G4SystemOfUnits.hh> // this has appeared in GEANT4_10
 #include <string>
@@ -74,16 +75,19 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	//выставление размеров объектов
 	G4double HalfWorldLength = 3*cm;
 
-	const G4double alpha = 1 * degree;
-	const double scintillator_length_x = 3.5*mm; // full length (or the narrower side)	
-	const double scintillator_height = 8.95*mm; // full length
+	const G4double alpha = 44 * degree;
+	//const double scintillator_length_y = scintillator_height*tan(alpha) + 3.5; // full length (or the wider side)
 
-	const double scintillator_length_y = scintillator_height*tan(alpha) + 3.5; // full length (or the wider side)
+	const double scintillator_length_x = 3.5*mm; // full length (or the narrower side)	
+	const double scintillator_length_y = 3.5*mm;
+	const double scintillator_height = 8.95*mm; // full length
+	
+	
 	//double scintillator_height = 2*mm + 0.5*mm; // for YAP:Ce 2x10 only
 
-	cout << "scintillator_length_y = scintillator_height*tan(alpha) + 3.5 = " << scintillator_length_y << endl;
+	//cout << "scintillator_length_y = scintillator_height*tan(alpha) + 3.5 = " << scintillator_length_y << endl;
 	
-	const double grease_diameter = 1.5*max(scintillator_length_x, scintillator_length_y);
+	const double grease_diameter = ( 1.5 + 2*sin(alpha) )*max(scintillator_length_x, scintillator_length_y);
 	const double grease_height = 0.1*mm  /*0.0*mm*/;
 
 	const double absorber_diameter = grease_diameter;
@@ -159,9 +163,11 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 
 	////// for any crystall
 	//solid_scintillator = new G4Box("sscintillator", scintillator_length_x/2.0, scintillator_length_y/2.0, scintillator_height/2.0);
-	G4Trap* solid_scintillator = new G4Trap("sTrapscintillator", scintillator_length_x, scintillator_height, scintillator_length_y, scintillator_length_x);
+	G4Para* solid_para = new G4Para("solid_para", scintillator_length_x / 2.0, scintillator_length_y / 2.0, scintillator_height / 2.0, alpha, 0 * degree, 0 * degree);
+	
+	//G4Trap* solid_scintillator = new G4Trap("sTrapscintillator", scintillator_length_x, scintillator_height, scintillator_length_y, scintillator_length_x);
 	G4RotationMatrix* yRot90deg = new G4RotationMatrix;
-	yRot90deg->rotateX(90 * degree);
+	//yRot90deg->rotateX(90 * degree);
 
 	//++++++++++++++++++++++++++++++++++++++++++++++
 	//create chamfer
@@ -207,7 +213,7 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 #endif // CHAMFER
 	//++++++++++++++++++++++++++++++++++++++++++++++
 
-	logicScint = new G4LogicalVolume(solid_scintillator, G4Material::GetMaterial("LFS-3"), "lScintillator",0,0,0);
+	logicScint = new G4LogicalVolume(solid_para, G4Material::GetMaterial("LFS-3"), "lScintillator", 0, 0, 0);
 
 	physiScint = new G4PVPlacement(yRot90deg,               
 		scintillator_position,  // at (x,y,z)
@@ -301,21 +307,21 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 
 	////-----------------------------------------------------------------------------
 	////создание поглотителя
-	G4Box* temp_box = new G4Box("temp_box", scintillator_length_y / 2.0, scintillator_length_x / 2.0, 0.1*mm);
+	//G4Box* temp_box = new G4Box("temp_box", scintillator_length_y / 2.0, scintillator_length_x / 2.0, 0.1*mm);
 
-	G4Tubs *solidAbs_tube = new G4Tubs("abs", 0, cathode_diameter / 2.0, cathode_height / 2.0, 0.*deg, 360.*deg);
-	G4SubtractionSolid* solidAbs = new G4SubtractionSolid("Absorber_solid", solidAbs_tube, temp_box);
-	
-	const G4ThreeVector &absorber_position = G4ThreeVector(0 + (scintillator_length_y - scintillator_length_x)/4.0, 0, scintillator_height * 0.99);
-	
-	logicAbs = new G4LogicalVolume(solidAbs, G4Material::GetMaterial("BialkaliCathode"), "Absorber_", 0, 0, 0);
-	physiAbs = new G4PVPlacement(0,               // no rotation
-		absorber_position,  // at (x,y,z)
-		logicAbs,     // its logical volume 
-		"pCath",          // its name
-		logicWorld,       // its mother  volume
-		false,            // no boolean operations
-		0);               // copy number
+	//G4Tubs *solidAbs_tube = new G4Tubs("abs", 0, cathode_diameter / 2.0, cathode_height / 2.0, 0.*deg, 360.*deg);
+	//G4SubtractionSolid* solidAbs = new G4SubtractionSolid("Absorber_solid", solidAbs_tube, solid_para);
+	//
+	//const G4ThreeVector &absorber_position = G4ThreeVector(0 , 0, scintillator_height * 0.99);
+	//
+	//logicAbs = new G4LogicalVolume(solidAbs, G4Material::GetMaterial("BialkaliCathode"), "Absorber_", 0, 0, 0);
+	//physiAbs = new G4PVPlacement(0,               // no rotation
+	//	absorber_position,  // at (x,y,z)
+	//	logicAbs,     // its logical volume 
+	//	"pCath",          // its name
+	//	logicWorld,       // its mother  volume
+	//	false,            // no boolean operations
+	//	0);               // copy number
 
 
 	////--------------------------------------------------------------------------
