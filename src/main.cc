@@ -26,7 +26,7 @@
 using namespace std;
 Singleton* Singleton::single = NULL;
 
-int  nEvents       = 0; 
+int  nEvents = 0;
 int  nUsefulEvents = 0;
 
 
@@ -34,8 +34,7 @@ int  nUsefulEvents = 0;
 
 int main(int argc, char** argv)
 {
-	long t1 = clock();
-
+	
 	// Choose the Random engine
 	CLHEP::HepRandom::setTheEngine(new CLHEP::RanecuEngine);
 
@@ -58,12 +57,12 @@ int main(int argc, char** argv)
 	// set user action classes
 	runManager->SetUserAction(new RunAction);
 
-	string temp_string = g()->path_read + "x_ray\\Analytical_model_out.dat";
-	runManager->SetUserAction( new PrimaryGeneratorAction( /*temp_string.c_str() */) );
 	
+	runManager->SetUserAction(new PrimaryGeneratorAction());
+
 	EventAction* eventAction = new EventAction;
 	runManager->SetUserAction(eventAction);
-	runManager->SetUserAction(new SteppingAction(detector,eventAction));
+	runManager->SetUserAction(new SteppingAction(detector, eventAction));
 	//
 	//Initialize G4 kernel
 	runManager->Initialize();
@@ -71,37 +70,30 @@ int main(int argc, char** argv)
 	// visualization manager
 #ifdef G4VIS_USE
 	G4VisManager* visManager = new G4VisExecutive;
-	visManager -> Initialize ();
+	visManager->Initialize();
 #endif
 
 
 	// get the pointer to the User Interface manager 
-	G4UImanager* UI = G4UImanager::GetUIpointer();  
+	G4UImanager* UI = G4UImanager::GetUIpointer();
 
-	
-   
-	//for(g()->abs_index = 200; g()->abs_index > 1; g()->abs_index -= 5)
+
+
+	if (argc == 1)
 	{
-		for (g()->SigmaAlpha_index = 0; g()->SigmaAlpha_index < 0.10; g()->SigmaAlpha_index += 1)
-		{
-					
-			detector->ChangeDetectorConstruction(g()->SigmaAlpha_index);
-
-			if(argc==1)
-			{
-				UI->ApplyCommand("/control/execute slava.mac");  
-			}
-			else
-			{ 
-				// Batch mode
-				G4String command = "/control/execute ";
-				G4String fileName = argv[1];
-				UI->ApplyCommand(command+fileName);
-			}
-		}
+		UI->ApplyCommand("/control/execute slava.mac");
+	}
+	else
+	{
+		// Batch mode
+		G4String command = "/control/execute ";
+		G4String fileName = argv[1];
+		UI->ApplyCommand(command + fileName);
 	}
 
-	
+
+
+
 
 #ifdef G4VIS_USE
 	delete visManager;
@@ -110,13 +102,7 @@ int main(int argc, char** argv)
 	// job termination
 	delete runManager;
 
-	cout << "\a \a \a \a" ;
-
-	long t2 = clock();
-
-	cout << endl;
-	cout << "Lead time is " << (t2 - t1)/1000.0 << " seconds " << " (or " << (t2 - t1)/60000.0 << " minutes)" << endl;
-	cout << endl;
+	
 
 	system("pause");
 
