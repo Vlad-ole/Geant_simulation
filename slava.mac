@@ -5,7 +5,7 @@
 #/control/execute vis.mac
 
 #Run simulation
-/run/beamOn 500
+/run/beamOn 200
 
 #Redrawing of the scene can be done as follows: 
 #vis/viewer/update

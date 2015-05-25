@@ -74,7 +74,7 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	//выставление размеров объектов
 	G4double HalfWorldLength = 3*cm;
 
-	const G4double alpha = 1 * degree;
+	const G4double alpha = 20 * degree;
 	const double scintillator_length_x = 3.5*mm; // full length (or the narrower side)	
 	const double scintillator_height = 8.95*mm; // full length
 
