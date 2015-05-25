@@ -74,7 +74,7 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	//выставление размеров объектов
 	G4double HalfWorldLength = 3*cm;
 
-	const G4double alpha = 20 * degree;
+	const G4double alpha = 0.1 * degree;
 	const double scintillator_length_x = 3.5*mm; // full length (or the narrower side)	
 	const double scintillator_height = 8.95*mm; // full length
 
@@ -162,6 +162,7 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	G4Trap* solid_scintillator = new G4Trap("sTrapscintillator", scintillator_length_x, scintillator_height, scintillator_length_y, scintillator_length_x);
 	G4RotationMatrix* yRot90deg = new G4RotationMatrix;
 	yRot90deg->rotateX(90 * degree);
+	//yRot90deg->rotateY(180 * degree);
 
 	//++++++++++++++++++++++++++++++++++++++++++++++
 	//create chamfer
@@ -301,12 +302,14 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 
 	////-----------------------------------------------------------------------------
 	////создание поглотителя
-	G4Box* temp_box = new G4Box("temp_box", scintillator_length_y / 2.0, scintillator_length_x / 2.0, 0.1*mm);
+
+	G4ThreeVector* tmp_vec = new G4ThreeVector(0, 0, scintillator_height);
 
 	G4Tubs *solidAbs_tube = new G4Tubs("abs", 0, cathode_diameter / 2.0, cathode_height / 2.0, 0.*deg, 360.*deg);
-	G4SubtractionSolid* solidAbs = new G4SubtractionSolid("Absorber_solid", solidAbs_tube, temp_box);
+	G4SubtractionSolid* solidAbs = new G4SubtractionSolid("Absorber_solid", solidAbs_tube, solid_scintillator, yRot90deg, *tmp_vec);
 	
-	const G4ThreeVector &absorber_position = G4ThreeVector(0 + (scintillator_length_y - scintillator_length_x)/4.0, 0, scintillator_height * 0.99);
+	
+	const G4ThreeVector &absorber_position = G4ThreeVector(-0.0*mm , 0, scintillator_height * 0.99);
 	
 	logicAbs = new G4LogicalVolume(solidAbs, G4Material::GetMaterial("BialkaliCathode"), "Absorber_", 0, 0, 0);
 	physiAbs = new G4PVPlacement(0,               // no rotation
