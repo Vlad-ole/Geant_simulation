@@ -74,11 +74,11 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	//выставление размеров объектов
 	G4double HalfWorldLength = 3*cm;
 
-	const G4double alpha = 0.1 * degree;
+	const G4double alpha = 20 * degree;
 	const double scintillator_length_x = 3.5*mm; // full length (or the narrower side)	
 	const double scintillator_height = 8.95*mm; // full length
 
-	const double scintillator_length_y = scintillator_height*tan(alpha) + 3.5; // full length (or the wider side)
+	const double scintillator_length_y = 3.5; // full length (or the wider side)
 	//double scintillator_height = 2*mm + 0.5*mm; // for YAP:Ce 2x10 only
 
 	cout << "scintillator_length_y = scintillator_height*tan(alpha) + 3.5 = " << scintillator_length_y << endl;
@@ -96,15 +96,15 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	const double cathode_height = 1 * um;
 	//--------------------------------------------------------------------------------
 
-
+	const G4double shift = scintillator_height / 2.0 + scintillator_length_x / 4.0 * tan(alpha);
 
 	//--------------------------------------------------------------------------------
 	//определение взаимного расположения объектов
-	const G4ThreeVector &scintillator_position = G4ThreeVector(0, 0, scintillator_height/2.0);
+	const G4ThreeVector &scintillator_position = G4ThreeVector(0, 0, shift);
 	//const G4ThreeVector &absorber_position = G4ThreeVector(0, 0, scintillator_height * 0.99);
-	const G4ThreeVector &grease_position = G4ThreeVector(0, 0, scintillator_height + grease_height / 2.0);
-	const G4ThreeVector &glass_position = G4ThreeVector(0, 0, scintillator_height + grease_height + glass_height / 2.0);
-	const G4ThreeVector &cathode_position = G4ThreeVector(0, 0, scintillator_height + grease_height + glass_height + cathode_height / 2.0);
+	const G4ThreeVector &grease_position = G4ThreeVector(0, 0, 2*shift + grease_height / 2.0);
+	const G4ThreeVector &glass_position = G4ThreeVector(0, 0, 2*shift + grease_height + glass_height / 2.0);
+	const G4ThreeVector &cathode_position = G4ThreeVector(0, 0, 2*shift + grease_height + glass_height + cathode_height / 2.0);
 
 
 #ifdef CHAMFER
@@ -159,9 +159,9 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 
 	////// for any crystall
 	//solid_scintillator = new G4Box("sscintillator", scintillator_length_x/2.0, scintillator_length_y/2.0, scintillator_height/2.0);
-	G4Trap* solid_scintillator = new G4Trap("sTrapscintillator", scintillator_length_x, scintillator_height, scintillator_length_y, scintillator_length_x);
+	G4Trap* solid_scintillator = new G4Trap("sTrapscintillator", scintillator_length_x, scintillator_length_x, scintillator_length_x*tan(alpha) + scintillator_height, scintillator_height);
 	G4RotationMatrix* yRot90deg = new G4RotationMatrix;
-	yRot90deg->rotateX(90 * degree);
+	yRot90deg->rotateY(-90 * degree);
 	//yRot90deg->rotateY(180 * degree);
 
 	//++++++++++++++++++++++++++++++++++++++++++++++
@@ -303,13 +303,13 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
 	////-----------------------------------------------------------------------------
 	////создание поглотителя
 
-	G4ThreeVector* tmp_vec = new G4ThreeVector(0, 0, scintillator_height);
+	G4ThreeVector* tmp_vec = new G4ThreeVector(0, 0, 2*shift);
 
 	G4Tubs *solidAbs_tube = new G4Tubs("abs", 0, cathode_diameter / 2.0, cathode_height / 2.0, 0.*deg, 360.*deg);
 	G4SubtractionSolid* solidAbs = new G4SubtractionSolid("Absorber_solid", solidAbs_tube, solid_scintillator, yRot90deg, *tmp_vec);
 	
 	
-	const G4ThreeVector &absorber_position = G4ThreeVector(-0.0*mm , 0, scintillator_height * 0.99);
+	const G4ThreeVector &absorber_position = G4ThreeVector(-0.0*mm, 0, 2 * shift * 0.99);
 	
 	logicAbs = new G4LogicalVolume(solidAbs, G4Material::GetMaterial("BialkaliCathode"), "Absorber_", 0, 0, 0);
 	physiAbs = new G4PVPlacement(0,               // no rotation
