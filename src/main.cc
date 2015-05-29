@@ -89,6 +89,26 @@ int main(int argc, char** argv)
 		G4String command = "/control/execute ";
 		G4String fileName = argv[1];
 		UI->ApplyCommand(command + fileName);
+
+		for (g()->CathRefl_index = 0.4; g()->CathRefl_index < 1; g()->CathRefl_index += 1)
+		{
+			g()->SigmaAlpha_index = 0.0741;
+			detector->ChangeDetectorConstruction(g()->SigmaAlpha_index);
+			detector->ChangeCathRefl();
+
+			if(argc==1)
+			{
+				UI->ApplyCommand("/control/execute slava.mac");  
+			}
+			else
+			{ 
+				// Batch mode
+				G4String command = "/control/execute ";
+				G4String fileName = argv[1];
+				UI->ApplyCommand(command+fileName);
+			}
+		}
+
 	}
 
 
