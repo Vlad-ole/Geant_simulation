@@ -40,6 +40,8 @@ public:
 	void ChangeSurface(double parametr);
 	void ChangeMaterials();
 
+	void ChangeCathRefl();
+
 private:
 
 	G4Box*             solidWorld;    // pointer to the solid envelope 
@@ -145,6 +147,8 @@ private:
 
 	void defineMaterials();
 	void defineSurfaces();
+
+	G4MaterialPropertiesTable *silicaCathodeMaterialProperty;
 
 };
 

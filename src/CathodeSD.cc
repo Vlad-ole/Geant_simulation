@@ -16,7 +16,7 @@
 #include <iostream>
 #include <fstream>
 
-//#define DEBAG_MODE
+#define DEBAG_MODE
 
 CathodeSD::CathodeSD(G4String name, G4VPhysicalVolume *cathode) : G4VSensitiveDetector(name), _cathode(cathode)
 {

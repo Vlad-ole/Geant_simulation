@@ -82,10 +82,11 @@ int main(int argc, char** argv)
    
 	//for(g()->abs_index = 200; g()->abs_index > 1; g()->abs_index -= 5)
 	{
-		//for (g()->SigmaAlpha_index = 0; g()->SigmaAlpha_index < 10; g()->SigmaAlpha_index += 1)
+		for (g()->CathRefl_index = 0.4; g()->CathRefl_index < 1; g()->CathRefl_index += 1)
 		{
 			g()->SigmaAlpha_index = 0.0741;
 			detector->ChangeDetectorConstruction(g()->SigmaAlpha_index);
+			detector->ChangeCathRefl();
 
 			if(argc==1)
 			{

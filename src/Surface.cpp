@@ -150,7 +150,7 @@ void DetectorConstruction::defineSurfaces()
 
 	
 
-	G4MaterialPropertiesTable *silicaCathodeMaterialProperty = new G4MaterialPropertiesTable();
+	silicaCathodeMaterialProperty = new G4MaterialPropertiesTable();
 	//G4double cathoderefl[2] = {0.25, 0.25};
 	G4double cathodeeff[2] = {1, 1};
 
@@ -158,7 +158,7 @@ void DetectorConstruction::defineSurfaces()
 	ReadConstants *Cathode_REFLECTIVITY = new ReadConstants(g()->string_Cathode_REFLECTIVITY, 1*eV, 1);
 
 	
-	silicaCathodeMaterialProperty->AddProperty("REFLECTIVITY", Cathode_REFLECTIVITY->get_x_array(), Cathode_REFLECTIVITY->get_y_array(), Cathode_REFLECTIVITY->get_array_size());
+	//silicaCathodeMaterialProperty->AddProperty("REFLECTIVITY", Cathode_REFLECTIVITY->get_x_array(), Cathode_REFLECTIVITY->get_y_array(), Cathode_REFLECTIVITY->get_array_size());
 	//silicaCathodeMaterialProperty->AddProperty("EFFICIENCY", silicaCathodeMaterial_EFFICIENCY->get_x_array(), silicaCathodeMaterial_EFFICIENCY->get_y_array(), silicaCathodeMaterial_EFFICIENCY->get_array_size());
 	
 
@@ -197,4 +197,12 @@ void DetectorConstruction::defineSurfaces()
 void DetectorConstruction::ChangeSurface(double parametr)
 {
 	polishedAir->SetSigmaAlpha(parametr * degree);
+}
+
+void DetectorConstruction::ChangeCathRefl()
+{
+	G4double ener[2] = { .1*eV, 10.*eV };
+	G4double cathoderefl[2] = { g()->CathRefl_index, g()->CathRefl_index };
+	
+	silicaCathodeMaterialProperty->AddProperty("REFLECTIVITY", ener, cathoderefl, 2);
 }

@@ -85,6 +85,7 @@ public:
 	int abs_index;
 	
 	double SigmaAlpha_index;
+	double CathRefl_index;
 
 	int NumberOfReflections;
 	int NumberOfBornPhotons;
