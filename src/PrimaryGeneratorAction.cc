@@ -12,7 +12,7 @@ using namespace std;
 
 #include <G4SystemOfUnits.hh> // this has appeared in GEANT4_10
 
-#define DIRECT_INCIDENCE
+//#define DIRECT_INCIDENCE
 //#define CENTRAL_INCIDENCE
 
 void PrimaryGeneratorAction::CommonPart()
@@ -25,7 +25,7 @@ void PrimaryGeneratorAction::CommonPart()
 	// default particle kinematic
 	G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
 	G4String particleName;
-	G4ParticleDefinition* particle = particleTable->FindParticle(particleName= /*"gamma"*/ "opticalphoton");
+	G4ParticleDefinition* particle = particleTable->FindParticle(particleName= "gamma" /*"opticalphoton"*/);
 
 	particleGun->SetParticleDefinition(particle);
 	
@@ -98,8 +98,8 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 	switch(xrType)
 	{
 	case MONO:
-		//energy = 59.5; //original value
-		energy = 2.8E-3;
+		energy = 59.5; //original value
+		//energy = 2.8E-3;
 
 		break;
 

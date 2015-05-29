@@ -68,7 +68,7 @@ void DetectorConstruction::defineSurfaces()
 	teflon_unified->SetType(dielectric_dielectric);
 	teflon_unified->SetModel(unified);
 	teflon_unified->SetFinish(groundbackpainted);
-	teflon_unified->SetSigmaAlpha(1.3 * degree); // Janecek2010
+	teflon_unified->SetSigmaAlpha(0.0741 * degree); // Janecek2010
 
 	G4MaterialPropertiesTable* teflon_unified_property = new G4MaterialPropertiesTable();
 	teflon_unified_property->AddProperty("RINDEX", ener, teflon_rindex, 2);
@@ -152,7 +152,7 @@ void DetectorConstruction::defineSurfaces()
 
 	silicaCathodeMaterialProperty = new G4MaterialPropertiesTable();
 	//G4double cathoderefl[2] = {0.25, 0.25};
-	G4double cathodeeff[2] = {1, 1};
+	//G4double cathodeeff[2] = {1, 1};
 
 	ReadConstants *silicaCathodeMaterial_EFFICIENCY = new ReadConstants(g()->string_silicaCathodeMaterial_EFFICIENCY, 1*eV, 1);
 	ReadConstants *Cathode_REFLECTIVITY = new ReadConstants(g()->string_Cathode_REFLECTIVITY, 1*eV, 1);
@@ -163,7 +163,7 @@ void DetectorConstruction::defineSurfaces()
 	
 
 	//silicaCathodeMaterialProperty->AddProperty("REFLECTIVITY", ener, cathoderefl, 2);
-	silicaCathodeMaterialProperty->AddProperty("EFFICIENCY", ener, cathodeeff, 2);
+	//silicaCathodeMaterialProperty->AddProperty("EFFICIENCY", ener, cathodeeff, 2);
 
 	silicaCathodeMaterial->SetMaterialPropertiesTable(silicaCathodeMaterialProperty);
 	//--------------------------------------------------------------------------------
@@ -203,6 +203,10 @@ void DetectorConstruction::ChangeCathRefl()
 {
 	G4double ener[2] = { .1*eV, 10.*eV };
 	G4double cathoderefl[2] = { g()->CathRefl_index, g()->CathRefl_index };
+
+	G4double factory_eff = 0.25;
+	G4double cathodeeff[2] = { factory_eff / (1 - g()->CathRefl_index), factory_eff / (1 - g()->CathRefl_index) };
 	
 	silicaCathodeMaterialProperty->AddProperty("REFLECTIVITY", ener, cathoderefl, 2);
+	silicaCathodeMaterialProperty->AddProperty("EFFICIENCY", ener, cathodeeff, 2);
 }
